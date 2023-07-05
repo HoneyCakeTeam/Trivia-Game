@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--region Font-->
+    <style name="TextStyle">
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <!--region Heading-Font-->
+    <style name="TextStyle.HeadingH1">
+        <item name="android:textSize">@dimen/text_large</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="TextStyle.HeadingH2">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="TextStyle.HeadingH3">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+    <!--endregion-->
+
+    <!--region Body-Font-->
+    <style name="TextStyle.BodyP1">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="TextStyle.BodyP2">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="TextStyle.BodyP3">
+        <item name="android:textSize">@dimen/text_semi_small</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+    <!--endregion-->
+
+    <!--region label-Font-->
+    <style name="TextStyle.LabelP1">
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextStyle.LabelP2">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextStyle.LabelP3">
+        <item name="android:textSize">@dimen/text_semi_small</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+    <!--    endregion-->
+    <!--    endregion-->
+</resources>

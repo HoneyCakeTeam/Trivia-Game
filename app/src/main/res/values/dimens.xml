@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--text dimens-->
+    <dimen name="text_semi_small">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">18sp</dimen>
+
+    <!-- Spacing dimens-->
+    <dimen name="spacing_tiny_4dp">4dp</dimen>
+    <dimen name="spacing_small_8dp">8dp</dimen>
+    <dimen name="spacing_custom_12dp">12dp</dimen>
+    <dimen name="spacing_medium_16dp">16dp</dimen>
+    <dimen name="spacing_large_24dp">24dp</dimen>
+    <dimen name="spacing_giant_32dp">32dp</dimen>
+    <dimen name="spacing_extra_giant_48dp">48dp</dimen>
+</resources>
