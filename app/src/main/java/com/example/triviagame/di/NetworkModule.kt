@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
-    private const val BASE_URL = " "
+    private const val BASE_URL = "https://the-trivia-api.com/v2/"
 
     @Singleton
     @Provides
@@ -46,7 +46,6 @@ internal object NetworkModule {
                 gson()
             }
         }
-
 
     }
 
