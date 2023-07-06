@@ -1,5 +1,6 @@
 package com.example.triviagame.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,6 +39,8 @@ fun GameScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(color = Primary)
+            .paint(painter = painterResource(id = R.drawable.background),
+            contentScale = ContentScale.Crop)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -95,13 +101,13 @@ fun GameScreen() {
         Spacer(modifier = Modifier.weight(1f))
         Row {
             Box(modifier = Modifier.weight(1f)) {
-                CustomButton(text = "Play again", onClick = {
+                CustomButton(text = stringResource(R.string.play_again), onClick = {
                     //TODO PLAY AGAIN
                 })
             }
             SpacerHorizontal12()
             Box(modifier = Modifier.weight(1f)) {
-                CustomButton(text = "Home", onClick = {
+                CustomButton(text = stringResource(R.string.home), onClick = {
                     //TODO PLAY AGAIN
                 })
 
