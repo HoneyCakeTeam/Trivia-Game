@@ -2,11 +2,16 @@ package com.example.triviagame.ui.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -23,34 +28,36 @@ fun CategoryCard(
     CategoryImage: Int = R.drawable.history,
     text: String = "History"
 ) {
-    Box(modifier = Modifier.background(Color.Transparent).fillMaxSize().padding(16.dp)){
-    Card(
+    Box(
         modifier = Modifier
-            .size(156.dp, 120.dp),
-        colors = CardDefaults.cardColors(com.example.triviagame.ui.theme.Card)
-    )
-    {
-        Box(
+            .fillMaxSize(),
+         contentAlignment = Alignment.Center
+    ) {
+
+        Card(
             modifier = Modifier
-                .padding(start = 39.dp)
-                .size(156.dp, 120.dp)
-                .background(com.example.triviagame.ui.theme.Card)
+                .size(156.dp, 120.dp),
+            colors = CardDefaults.cardColors(com.example.triviagame.ui.theme.Card)
+        ) {}
+        Card(
+            modifier = Modifier
+                .size(80.dp)
+                .offset(0.dp, (-32).dp).background(Color.Transparent),
+            colors = CardDefaults.cardColors(Color.Transparent)
+
         ) {
-
-            Image(
-                painter = painterResource(id = CategoryImage),
-                contentDescription = "category", modifier = Modifier
-                    .size(80.dp).offset(y = (-40).dp)
-
-            )
-            Text(
-                text = text,
-                fontFamily = FontFamily(Font(R.font.montserrat_semibold)),
-                fontSize = 16.sp,
-                color = Color.White,
-                modifier = Modifier
-                    .padding(top = 80.dp, start = 8.dp)
-            )
+            Image(painter = painterResource(id = CategoryImage),
+                contentDescription ="category",modifier = Modifier
+                    .fillMaxSize(),)
         }
+        Text(
+            text = text,
+            fontFamily = FontFamily(Font(R.font.montserrat_semibold)),
+            fontSize = 16.sp,
+            color = Color.White,
+            modifier = Modifier
+                .padding(top = 80.dp, start = 8.dp)
+        )
     }
-}}
+
+}

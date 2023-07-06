@@ -4,11 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.triviagame.R
+import com.example.triviagame.ui.composable.CategoryCard
+import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
@@ -35,27 +40,43 @@ fun CategoriesScreen() {
                 painter = painterResource(id = R.drawable.background),
                 contentScale = ContentScale.Crop
             )
-            .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxSize()
+            .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Header()
-        Text(
-            text = "Choose your game type",
-            fontSize = 18.sp,
-            color = Color.White,
-            fontFamily = FontFamily(Font(R.font.montserrat_semibold))
-        )
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(32.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            items(list.size) {
-                CategoryCard(CategoryImage = list[it])
-            }
-            }
+        ChooseText()
+        SpacerVertical12()
+        lazyGrid()
+
     }
+}
+
+@Composable
+private fun lazyGrid() {
+
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(top = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+
+
+        ) {
+        items(list.size) {
+
+            CategoryCard(CategoryImage = list[it])
+        }
+    }
+}
+
+@Composable
+private fun ChooseText() {
+    Text(
+        text = "Choose your game type",
+        fontSize = 18.sp,
+        color = Color.White,
+        fontFamily = FontFamily(Font(R.font.montserrat_semibold))
+    )
 }
 
 @Composable
@@ -89,8 +110,9 @@ private fun Header() {
             )
         }
 
-        }
+    }
 }
+
 val list = listOf(
     R.drawable.food,
     R.drawable.geo,
@@ -102,8 +124,7 @@ val list = listOf(
     R.drawable.society,
     R.drawable.sport,
 
-)
-
+    )
 
 
 //fun CustomVerticalArrangement(): VerticalArrangement {

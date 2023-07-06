@@ -1,16 +1,13 @@
 package com.example.triviagame.ui.composable
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.triviagame.ui.theme.Montserrat
@@ -43,7 +40,7 @@ fun PrimaryChip(
             borderWidth = 1.5.dp,
             borderColor = if (selected) Color.Transparent else Secondary
         ),
-        modifier = Modifier.padding(horizontal = 24.dp, vertical = 10.dp),
+
         colors = SuggestionChipDefaults.suggestionChipColors(
             containerColor = if (selected) Primary else Color.Transparent
         ),
