@@ -45,6 +45,16 @@ fun CategoriesScreen() {
             color = Color.White,
             fontFamily = FontFamily(Font(R.font.montserrat_semibold))
         )
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(32.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        ) {
+            items(list.size) {
+                CategoryCard(CategoryImage = list[it])
+            }
+            }
     }
 }
 
@@ -68,16 +78,44 @@ private fun Header() {
                 fontSize = 16.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
-               fontFamily = FontFamily(Font(R.font.montserrat_semibold)
-            ))
+                fontFamily = FontFamily(
+                    Font(R.font.montserrat_semibold)
+                )
+            )
             Icon(
                 painter = painterResource(id = R.drawable.arrow_left),
                 contentDescription = "arrow left",
                 modifier = Modifier.padding(start = 48.dp)
             )
-
         }
 
-    }
+        }
 }
+val list = listOf(
+    R.drawable.food,
+    R.drawable.geo,
+    R.drawable.tv,
+    R.drawable.history,
+    R.drawable.knowledge,
+    R.drawable.literature,
+    R.drawable.science,
+    R.drawable.society,
+    R.drawable.sport,
 
+)
+
+
+
+//fun CustomVerticalArrangement(): VerticalArrangement {
+//    return VerticalArrangement { measurableList, constraints ->
+//        val itemHeight = constraints.maxHeight / 3 // Adjust the fraction as needed
+//        var yPos = 0
+//        layout(constraints.maxWidth, constraints.maxHeight) {
+//            measurableList.forEachIndexed { index, measurable ->
+//                val placeable = measurable.measure(constraints)
+//                placeable.placeRelative(0, yPos)
+//                yPos += if (index % 2 == 0) itemHeight * 2 else itemHeight
+//            }
+//        }
+//    }
+//}
