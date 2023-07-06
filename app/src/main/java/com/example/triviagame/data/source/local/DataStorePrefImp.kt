@@ -9,7 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class PointsDataStorePrefImp @Inject constructor(context: Context) : PointsDataStorePref {
+class DataStorePrefImp @Inject constructor(context: Context) : DataStorePref {
 
     companion object {
         private const val PREFERENCES_POINTS = "Points"

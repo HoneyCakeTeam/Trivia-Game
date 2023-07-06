@@ -1,8 +1,8 @@
 package com.example.triviagame.di
 
 import android.content.Context
-import com.example.triviagame.data.source.local.PointsDataStorePref
-import com.example.triviagame.data.source.local.PointsDataStorePrefImp
+import com.example.triviagame.data.source.local.DataStorePref
+import com.example.triviagame.data.source.local.DataStorePrefImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +16,7 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Singleton
     @Provides
-    fun provideAuthDataStorePref(@ApplicationContext context: Context): PointsDataStorePref {
-        return PointsDataStorePrefImp(context)
+    fun provideAuthDataStorePref(@ApplicationContext context: Context): DataStorePref {
+        return DataStorePrefImp(context)
     }
 }
