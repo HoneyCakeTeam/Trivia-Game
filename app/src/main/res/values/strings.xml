@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Trivia Game</string>
+    <string name="incorrect">INCORRECT</string>
+    <string name="skipped">SKIPPED</string>
+    <string name="completion">COMPLETION</string>
+    <string name="correct">CORRECT</string>
 </resources>
