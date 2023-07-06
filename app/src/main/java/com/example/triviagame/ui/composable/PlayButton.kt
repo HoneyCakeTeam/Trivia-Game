@@ -11,11 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.triviagame.ui.theme.Card
 
 @Composable
 fun PlayButton(
     text: String,
-    buttonColor: Color = Color(0xFF6F2F7B),
+    buttonColor: Color = Card,
     onClick: () -> Unit,
 ) {
     Button(
