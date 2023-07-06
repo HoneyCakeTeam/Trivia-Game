@@ -51,3 +51,8 @@ fun PrimaryChip(
     )
 
 }
+@Preview(showBackground = true)
+@Composable
+fun PreviewPrimaryChip(){
+    PrimaryChip(text ="dddddd" , selected = true , onChipState = {})
+}

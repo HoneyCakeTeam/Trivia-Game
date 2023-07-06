@@ -21,19 +21,20 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
+import com.example.triviagame.ui.theme.Montserrat
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
-fun CardResult(text: String, image: Int) {
+fun AnswerCard(text: String, image: Int) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,7 +51,7 @@ fun CardResult(text: String, image: Int) {
         {
             ImageResult(painter = painterResource(image))
             SpacerVertical16()
-            TextResult(text = text)
+            TextResult(text = text, size = 14, modifier = Modifier)
             SpacerVertical16()
             ButtonCheckAnswer(text = "Check Your Answer", {})
             SpacerVertical16()
@@ -61,11 +62,30 @@ fun CardResult(text: String, image: Int) {
 }
 
 @Composable
-fun TextResult(text: String) {
+fun AlignText(
+    text: String,
+    textAlign: TextAlign,
+    modifier: Modifier = Modifier,
+) {
     Text(
         text = text,
+        modifier = modifier
+            .fillMaxWidth(),
+        textAlign = textAlign,
         fontSize = 14.sp,
-        fontFamily = FontFamily.Monospace,
+        fontFamily = Montserrat,
+        fontWeight = FontWeight.Medium,
+        color = White_FF
+    )
+
+}
+
+@Composable
+fun TextResult(text: String, size: Int, modifier: Modifier) {
+    Text(
+        text = text,
+        fontSize = size.sp,
+        fontFamily = Montserrat,
         fontWeight = FontWeight.Medium,
         color = White_FF
     )
@@ -114,6 +134,6 @@ fun ImageResult(
 @Preview
 @Composable
 fun PreviewCardWinScreen() {
-    CardResult(text = "You get +80 Quiz Points", image = R.drawable.winning_cup)
+    AnswerCard(text = "You get +80 Quiz Points", image = R.drawable.winning_cup)
 
 }
