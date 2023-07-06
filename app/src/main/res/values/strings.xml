@@ -4,4 +4,6 @@
     <string name="skipped">SKIPPED</string>
     <string name="completion">COMPLETION</string>
     <string name="correct">CORRECT</string>
+    <string name="play_again">Play again</string>
+    <string name="home">Home</string>
 </resources>
