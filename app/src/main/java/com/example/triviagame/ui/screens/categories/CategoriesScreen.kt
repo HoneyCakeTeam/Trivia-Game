@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
+import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical48
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
 import com.example.triviagame.ui.screens.categories.composable.Header
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
@@ -64,11 +64,16 @@ private fun LazyGrid(
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(32.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        items(category.categories) {
-            CategoryCard(category = it, onClickCategory = { })
+        items(count = category.categories.size) { index ->
+            if (index % 2 == 0) { // Even index, place in the first column
+                CategoryCard(category = category.categories[index], onClickCategory = { })
+            } else { // Odd index, place in the second column
+                Column(modifier = Modifier.padding(top = 32.dp)) {
+                    CategoryCard(category = category.categories[index], onClickCategory = { })
+                }
+            }
         }
     }
 }
