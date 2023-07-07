@@ -34,6 +34,7 @@ fun CategoriesScreen(viewModel: TriviaGameViewModel = hiltViewModel()) {
     CategoriesContent(state = state)
 }
 
+
 @Composable
 fun CategoriesContent(
     state: CategoriesUiState,
