@@ -29,7 +29,12 @@ import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVerti
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical24
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
+import com.example.triviagame.ui.theme.Black_60
+import com.example.triviagame.ui.theme.Card
 import com.example.triviagame.ui.theme.Primary
+import com.example.triviagame.ui.theme.Secondary
+import com.example.triviagame.ui.theme.Typography
+import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
@@ -38,16 +43,19 @@ fun GameScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(color = Primary)
-            .paint(painter = painterResource(id = R.drawable.background),
-            contentScale = ContentScale.Crop)
+            .paint(
+                painter = painterResource(id = R.drawable.background),
+                contentScale = ContentScale.Crop
+            )
             .padding(horizontal = 16.dp, vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         SpacerVertical16()
         TextResult(
-            text = "Greet Job !!", size = 16,
-            modifier = Modifier.align(Alignment.Start)
+            text = "Greet Job !!",
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            style = Typography.titleLarge
         )
         SpacerVertical32()
         AnswerCard("You get +80 Quiz Points", R.drawable.winning_cup)
@@ -100,15 +108,15 @@ fun GameScreen() {
         Spacer(modifier = Modifier.weight(1f))
         Row {
             Box(modifier = Modifier.weight(1f)) {
-                CustomButton(text = stringResource(R.string.play_again), onClick = {
-                    //TODO PLAY AGAIN
-                })
+                CustomButton(text = "Home", onClick = {
+                    //TODO Home
+                }, buttonColor = Card, textColor = White_FF)
             }
             SpacerHorizontal12()
             Box(modifier = Modifier.weight(1f)) {
-                CustomButton(text = stringResource(R.string.home), onClick = {
+                CustomButton(text = "Play again", onClick = {
                     //TODO PLAY AGAIN
-                })
+                }, buttonColor = Secondary, textColor = Black_60)
 
             }
             SpacerVertical16()
