@@ -59,6 +59,7 @@ private fun lazyGrid() {
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(top = 16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),
+        horizontalArrangement = Arrangement.spacedBy((-16).dp),
 
 
         ) {
@@ -125,18 +126,3 @@ val list = listOf(
     R.drawable.sport,
 
     )
-
-
-//fun CustomVerticalArrangement(): VerticalArrangement {
-//    return VerticalArrangement { measurableList, constraints ->
-//        val itemHeight = constraints.maxHeight / 3 // Adjust the fraction as needed
-//        var yPos = 0
-//        layout(constraints.maxWidth, constraints.maxHeight) {
-//            measurableList.forEachIndexed { index, measurable ->
-//                val placeable = measurable.measure(constraints)
-//                placeable.placeRelative(0, yPos)
-//                yPos += if (index % 2 == 0) itemHeight * 2 else itemHeight
-//            }
-//        }
-//    }
-//}
