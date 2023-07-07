@@ -22,6 +22,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.theme.Typography
+import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
@@ -39,7 +42,7 @@ fun ReusableCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = com.example.triviagame.ui.theme.Card)
+                .background(color = Card)
                 .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.Start
@@ -49,9 +52,9 @@ fun ReusableCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CustomIcon(icon = icon)
-                TextResult(text = labelText, size = 14, modifier = Modifier)
+                TextResult(text = labelText, style = Typography.bodyMedium)
             }
-            TextResult(text = questionCount, size = 14, modifier = Modifier)
+            TextResult(text = questionCount, style = Typography.bodyLarge)
         }
     }
 }
@@ -75,6 +78,8 @@ fun CustomIcon(
 fun CustomButton(
     modifier: Modifier = Modifier,
     text: String,
+    buttonColor: Color,
+    textColor: Color,
     onClick: () -> Unit,
 ) {
     Button(
@@ -82,26 +87,23 @@ fun CustomButton(
             .fillMaxWidth()
             .height(54.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = ButtonDefaults.buttonColors(Color(0xFF6F2F7B)),
+        colors = ButtonDefaults.buttonColors(buttonColor),
         onClick = onClick,
     ) {
-        Text(text = text)
+        Text(
+            text = text,
+            style = Typography.bodyLarge,
+            color = textColor
+        )
     }
 }
-
 
 
 @Preview
 @Composable
 fun Previews() {
-//    ReusableCard(
-//        modifier = Modifier,
-//        labelText = "CORRECT",
-//        questionCount = "7 Questions",
-//        icon = R.drawable.dot_blue
-//    )
     CustomButton(text = "Play again", onClick = {
         //TODO PLAY AGAIN
-    })
+    }, buttonColor = Card, textColor = White_FF)
 
 }
