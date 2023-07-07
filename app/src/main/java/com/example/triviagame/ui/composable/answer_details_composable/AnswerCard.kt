@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -29,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.theme.Primary
+import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
 
@@ -104,7 +104,7 @@ fun ButtonCheckAnswer(
         onClick = onClick, modifier = modifier
             .width(202.dp)
             .height(54.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedShape.medium,
         colors = ButtonDefaults.buttonColors(Primary)
     ) {
         Text(
@@ -127,7 +127,7 @@ fun ImageResult(
         contentDescription = "Profile picture",
         contentScale = ContentScale.Crop,
         modifier = Modifier
-            .clip(RoundedCornerShape(24.dp))
+            .clip(RoundedShape.large)
             .size(size.dp)
     )
 }
