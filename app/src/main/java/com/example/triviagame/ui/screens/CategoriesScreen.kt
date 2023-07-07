@@ -15,6 +15,8 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -27,13 +29,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
+import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
+import com.example.triviagame.ui.viewmodel.state.CategoriesUiState
 
-@Preview(showSystemUi = true, showBackground = true)
+
+@Preview
 @Composable
-fun CategoriesScreen() {
+fun CategoriesScreen(viewModel: TriviaGameViewModel = hiltViewModel()) {
+    val state by viewModel.state.collectAsState()
+    CategoriesContent(state = state)
+}
+
+@Composable
+fun CategoriesContent(
+    state: CategoriesUiState,
+) {
     Column(
         Modifier
             .paint(
@@ -47,13 +61,15 @@ fun CategoriesScreen() {
         Header()
         ChooseText()
         SpacerVertical12()
-        lazyGrid()
+        LazyGrid(state = state)
 
     }
 }
 
 @Composable
-private fun lazyGrid() {
+private fun LazyGrid(
+    state: CategoriesUiState,
+) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -63,9 +79,12 @@ private fun lazyGrid() {
 
 
         ) {
-        items(list.size) {
+        items(state.CategoreyList.size) {
 
-            CategoryCard(CategoryImage = list[it])
+            CategoryCard(
+                CategoryImage = state.CategoreyList[it].image,
+                text = state.CategoreyList[it].name
+            )
         }
     }
 }
@@ -114,15 +133,4 @@ private fun Header() {
     }
 }
 
-val list = listOf(
-    R.drawable.food,
-    R.drawable.geo,
-    R.drawable.tv,
-    R.drawable.history,
-    R.drawable.knowledge,
-    R.drawable.literature,
-    R.drawable.science,
-    R.drawable.society,
-    R.drawable.sport,
 
-    )
