@@ -63,14 +63,14 @@ fun BottomSheet() {
                 }
                 SpacerVertical12()
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                    PrimaryChip(text = "Easy", selected = false, onChipState = {})
-                    PrimaryChip(text = "Medium", selected = false, onChipState = {})
-                    PrimaryChip(text = "Hard", selected = false, onChipState = {})
+                    ChipItem(text = "Easy", selected = false, onChipState = {})
+                    ChipItem(text = "Medium", selected = false, onChipState = {})
+                    ChipItem(text = "Hard", selected = false, onChipState = {})
 
                 }
                 SpacerVertical24()
 
-                PrimaryButton(
+                ButtonItem(
                     text = "Play",
                     width = 328,
                     modifier = Modifier.padding(bottom = 16.dp)
