@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +24,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
@@ -81,7 +81,11 @@ private fun Header() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         ImageButton(R.drawable.arrow_left, backgroundColor = Card) {}
-        Text(text = stringResource(id = R.string.skip), color = White_FF)
+        Text(
+            text = stringResource(id = R.string.skip),
+            color = White_FF,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
@@ -124,7 +128,7 @@ private fun PlayContent(
                             )
                             .padding(22.dp),
                         color = White_FF,
-                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.labelLarge,
                         textAlign = TextAlign.Center
                     )
                     SpacerVertical16()
@@ -132,7 +136,7 @@ private fun PlayContent(
                     Text(
                         text = joke,
                         color = White_EC,
-                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
                     )
                     SpacerVertical16()
@@ -166,8 +170,16 @@ private fun PlayContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(text = stringResource(R.string.question), color = Black_87, fontSize = 16.sp)
-                Text(text = questionNumber, color = Black_87, fontSize = 16.sp)
+                Text(
+                    text = stringResource(R.string.question),
+                    color = Black_87,
+                    style = MaterialTheme.typography.labelLarge,
+                )
+                Text(
+                    text = questionNumber,
+                    color = Black_87,
+                    style = MaterialTheme.typography.labelLarge
+                )
             }
         }
 
