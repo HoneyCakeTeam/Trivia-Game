@@ -13,7 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,21 +25,21 @@ import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical24
-import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.theme.CardBackgroundColor
 
 @OptIn(ExperimentalMaterialApi::class)
 @Preview
 @Composable
 fun BottomSheet() {
     BottomSheetScaffold(
-        sheetBackgroundColor = Card,
+        sheetBackgroundColor = CardBackgroundColor,
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         sheetContent = {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(211.dp)
-                    .background(Card)
+                    .background(CardBackgroundColor)
                     .padding(top = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
