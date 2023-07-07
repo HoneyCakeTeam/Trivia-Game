@@ -28,8 +28,7 @@ fun Header(
     onClickScore: () -> Unit = { }
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -43,15 +42,14 @@ fun Header(
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = modifier
+            modifier = Modifier
                 .padding(vertical = 6.dp, horizontal = 8.dp)
                 .clickable { onClickScore() }
         ) {
             Text(
                 text = score.toString(),
                 color = White_FF,
-                modifier = modifier,
-                style = Typography.titleLarge
+                style = Typography.titleMedium
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_score),

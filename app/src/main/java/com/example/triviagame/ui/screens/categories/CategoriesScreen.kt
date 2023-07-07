@@ -45,27 +45,28 @@ fun CategoriesContent(
                 contentScale = ContentScale.Crop
             )
             .fillMaxSize()
-            .padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally
+            .padding(top = 48.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Header(score = 321000)
+        Header(score = 321000, modifier = Modifier.padding(horizontal = 16.dp))
         SpacerVertical16()
         CategoryTitle()
         SpacerVertical16()
-        LazyGrid(state = state)
+        LazyGrid(category = state)
     }
 }
 
 @Composable
 private fun LazyGrid(
-    state: CategoriesUiState,
+    category: CategoriesUiState,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(top = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
-        horizontalArrangement = Arrangement.spacedBy((-16).dp),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(32.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        items(state.categories) {
+        items(category.categories) {
             CategoryCard(category = it, onClickCategory = { })
         }
     }

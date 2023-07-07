@@ -34,6 +34,13 @@ class TriviaGameViewModel @Inject constructor() : ViewModel() {
                     CategoryUiState(categoryName = "Society", categoryImage = R.drawable.society),
                     CategoryUiState(categoryName = "Sport", categoryImage = R.drawable.sport),
                     CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
+                    CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
+                    CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
+                    CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
+                    CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
+                    CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
+                    CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
+                    CategoryUiState(categoryName = "Music", categoryImage = R.drawable.music),
                 ),
             )
         }
