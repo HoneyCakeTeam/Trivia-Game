@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.example.triviagame.ui.theme.Card
 import com.example.triviagame.ui.theme.Error
 import com.example.triviagame.ui.theme.Secondary
+import com.example.triviagame.ui.theme.Shape
 import com.example.triviagame.ui.theme.Success
+import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_EC
 
 @Composable
@@ -36,7 +38,7 @@ fun AnswerCard(
             .border(
                 width = 2.dp,
                 color = if (isSelected) Secondary else Card,
-                shape = RoundedCornerShape(16.dp)
+                shape = Shape.medium
             )
             .background(
                 color = if (isSelected) {
@@ -54,13 +56,8 @@ fun AnswerCard(
     ) {
         Text(
             text = text,
+            style = Typography.bodyLarge,
             color = if (isSelected) White_EC else White_EC
         )
     }
-}
-
-@Preview
-@Composable
-fun Previ() {
-    AnswerCard(isSelected = true, text = "Play", onChecked = {}, isSuccess = true)
 }

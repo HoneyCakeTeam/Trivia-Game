@@ -14,21 +14,22 @@ import androidx.compose.ui.unit.sp
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Montserrat
 import com.example.triviagame.ui.theme.Secondary
+import com.example.triviagame.ui.theme.Shape
+import com.example.triviagame.ui.theme.Typography
 
 @Composable
-fun PrimaryButton(text : String, modifier: Modifier = Modifier, width: Int) {
+fun ButtonItem(text : String, modifier: Modifier = Modifier, width: Int) {
     Button(
         onClick = {},
         colors = ButtonDefaults.buttonColors(containerColor = Secondary),
         modifier = modifier
             .height(54.dp)
-            .width(width.dp)
+            .width(width.dp),
+        shape = Shape.medium
     ){
         Text(
             text = text,
-            fontFamily = Montserrat,
-            fontWeight = FontWeight.Medium,
-            fontSize = 14.sp,
+            style = Typography.bodyMedium,
             color = Black_60
         )
     }
