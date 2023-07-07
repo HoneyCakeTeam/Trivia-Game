@@ -21,15 +21,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
-import com.example.triviagame.ui.theme.Montserrat
 import com.example.triviagame.ui.theme.Primary
+import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
 
 
@@ -51,9 +51,9 @@ fun AnswerCard(text: String, image: Int) {
         {
             ImageResult(painter = painterResource(image))
             SpacerVertical16()
-            TextResult(text = text, size = 14, modifier = Modifier)
+            TextResult(text = text)
             SpacerVertical16()
-            ButtonCheckAnswer(text = "Check Your Answer", {})
+            ButtonCheckAnswer(text = stringResource(R.string.check_your_answer), {})
             SpacerVertical16()
         }
 
@@ -72,21 +72,22 @@ fun AlignText(
         modifier = modifier
             .fillMaxWidth(),
         textAlign = textAlign,
-        fontSize = 14.sp,
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
+        style = Typography.titleMedium,
         color = White_FF
     )
 
 }
 
 @Composable
-fun TextResult(text: String, size: Int, modifier: Modifier) {
+fun TextResult(
+    text: String,
+    modifier: Modifier = Modifier,
+    style: TextStyle = Typography.bodyMedium,
+) {
     Text(
+        modifier = modifier,
         text = text,
-        fontSize = size.sp,
-        fontFamily = Montserrat,
-        fontWeight = FontWeight.Medium,
+        style = style,
         color = White_FF
     )
 
@@ -108,7 +109,7 @@ fun ButtonCheckAnswer(
     ) {
         Text(
             text = text,
-            fontSize = 14.sp,
+            style = Typography.labelMedium,
             color = White_FF
         )
 
