@@ -2,7 +2,16 @@ package com.example.triviagame.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -10,19 +19,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.triviagame.R
-import com.example.triviagame.ui.composable.ActionButton
+import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
-import com.example.triviagame.ui.composable.PlayButton
+import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal24
+import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
+import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
 import com.example.triviagame.ui.theme.BackGround
+import com.example.triviagame.ui.theme.Black_60
+import com.example.triviagame.ui.theme.Black_87
 import com.example.triviagame.ui.theme.Card
 import com.example.triviagame.ui.theme.Secondary
+import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
 
 
@@ -37,7 +50,7 @@ fun PlayScreen() {
 
         Header()
 
-        Spacer(Modifier.height(24.dp))
+        SpacerHorizontal24()
 
         PlayContent(
             percent = "30",
@@ -45,14 +58,14 @@ fun PlayScreen() {
             questionNumber = "7/10"
         )
 
-        Spacer(Modifier.height(32.dp))
+        SpacerVertical32()
 
         PlayButtons(
             "Bacteria", "Mold",
             "Fungus", "Algae"
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.weight(1f))
 
         nextButton(buttonText = "Next")
 
@@ -97,7 +110,7 @@ private fun PlayContent(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
 
-                    Spacer(modifier = Modifier.height(32.dp))
+                    SpacerVertical32()
 
                     Text(
                         text = percent,
@@ -110,19 +123,19 @@ private fun PlayContent(
                                 width = 6.dp, color = Secondary, shape = CircleShape
                             )
                             .padding(22.dp),
-                        color = Color.White,
+                        color = White_FF,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    SpacerVertical16()
 
                     Text(
                         text = joke,
-                        color = Color.White,
+                        color = White_EC,
                         fontSize = 16.sp,
                         textAlign = TextAlign.Center,
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    SpacerVertical16()
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -153,8 +166,8 @@ private fun PlayContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(text = stringResource(R.string.question), fontSize = 16.sp)
-                Text(text = questionNumber, fontSize = 16.sp)
+                Text(text = stringResource(R.string.question), color = Black_87, fontSize = 16.sp)
+                Text(text = questionNumber, color = Black_87, fontSize = 16.sp)
             }
         }
 
@@ -169,23 +182,21 @@ private fun PlayButtons(
     thirdQuestion: String,
     fourthQuestion: String
 ) {
-    PlayButton(text = firstQuestion, onClick = {})
-    Spacer(Modifier.height(16.dp))
-    PlayButton(text = secondQuestion, onClick = {})
-    Spacer(Modifier.height(16.dp))
-    PlayButton(text = thirdQuestion, onClick = {})
-    Spacer(Modifier.height(16.dp))
-    PlayButton(text = fourthQuestion, onClick = {})
+    GameButton(text = firstQuestion) {}
+    SpacerVertical16()
+    GameButton(text = secondQuestion) {}
+    SpacerVertical16()
+    GameButton(text = thirdQuestion) {}
+    SpacerVertical16()
+    GameButton(text = fourthQuestion) {}
+    SpacerVertical16()
 }
 
 @Composable
 private fun nextButton(buttonText: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center,
-    ) {
-        ActionButton(
-            text = buttonText, onClick = {})
-    }
+    GameButton(
+        text = buttonText, textColor = Black_60, buttonColor = Secondary
+    ) {}
 }
 
 @Preview(showSystemUi = true, showBackground = true)

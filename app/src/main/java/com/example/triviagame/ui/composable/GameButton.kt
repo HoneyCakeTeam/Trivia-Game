@@ -12,10 +12,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.theme.White_EC
 
 @Composable
-fun PlayButton(
+fun GameButton(
     text: String,
+    textColor: Color = White_EC,
     buttonColor: Color = Card,
     onClick: () -> Unit,
 ) {
@@ -27,6 +29,6 @@ fun PlayButton(
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(buttonColor)
     ) {
-        Text(text = text, fontSize = 16.sp)
+        Text(text = text, fontSize = 16.sp, color = textColor)
     }
 }
