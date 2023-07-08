@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Trivia Game</string>
     <string name="incorrect">INCORRECT</string>
     <string name="skipped">SKIPPED</string>
     <string name="completion">COMPLETION</string>
@@ -7,4 +6,8 @@
     <string name="play_again">Play again</string>
     <string name="home">Home</string>
     <string name="check_your_answer">Check Your Answer</string>
+    <string name="user_image">User Image</string>
+    <string name="score_icon">Score Icon</string>
+    <string name="categories_title">Choose your game type</string>
+    <string name="app_name">Trivia Crush</string>
 </resources>

@@ -5,7 +5,7 @@ import androidx.compose.ui.graphics.Color
 
 val Primary = Color(0xFF581665)
 val Secondary = Color(0xFFC8C4F0)
-val Card = Color(0xFF6F2F7B)
+val CardBackgroundColor = Color(0xFF6F2F7B)
 val Success = Color(0xFF56AE67)
 val Error = Color(0xFFB72525)
 

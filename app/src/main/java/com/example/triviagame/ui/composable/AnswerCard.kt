@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Error
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Secondary
@@ -36,7 +36,7 @@ fun AnswerCard(
             .height(54.dp)
             .border(
                 width = 2.dp,
-                color = if (isSelected) Secondary else Card,
+                color = if (isSelected) Secondary else CardBackgroundColor,
                 shape = RoundedShape.medium
             )
             .background(
@@ -46,7 +46,7 @@ fun AnswerCard(
                     } else {
                         Error
                     }
-                } else Card,
+                } else CardBackgroundColor,
                 shape = RoundedCornerShape(16.dp)
             )
             .clickable {
