@@ -1,6 +1,5 @@
-package com.example.triviagame.ui.screens
+package com.example.triviagame.ui.screens.GameResult
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.triviagame.R
+import com.example.triviagame.Screen
 import com.example.triviagame.ui.composable.answer_details_composable.AlignText
 import com.example.triviagame.ui.composable.answer_details_composable.AnswerCard
 import com.example.triviagame.ui.composable.answer_details_composable.CustomButton
@@ -31,14 +32,23 @@ import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVerti
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.CardBackgroundColor
-import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
-fun GameScreen() {
+fun GameScreen(navController: NavController) {
+    GameContent(onClickBack = {
+        navController.popBackStack(Screen.Categories.rout, false)
+    })
+}
+
+
+@Composable
+fun GameContent(
+    onClickBack: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -114,7 +124,7 @@ fun GameScreen() {
             SpacerHorizontal12()
             Box(modifier = Modifier.weight(1f)) {
                 CustomButton(text = "Play again", onClick = {
-                    //TODO PLAY AGAIN
+                    onClickBack
                 }, buttonColor = Secondary, textColor = Black_60)
 
             }
@@ -128,5 +138,5 @@ fun GameScreen() {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewGameScreen() {
-    GameScreen()
+//    GameScreen()
 }

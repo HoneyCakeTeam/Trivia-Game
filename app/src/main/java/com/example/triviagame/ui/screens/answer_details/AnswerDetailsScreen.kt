@@ -13,9 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.AppBarWithIconBack
 import com.example.triviagame.ui.composable.ButtonItem
@@ -35,14 +35,17 @@ import com.example.triviagame.ui.util.QuestionState
 
 
 @Composable
-fun AnswerDetailsScreen() {
+fun AnswerDetailsScreen(
+    navController: NavController,
+) {
 
 }
 
 
-@Preview(showSystemUi = true)
 @Composable
-fun AnswerDetailsContent() {
+fun AnswerDetailsContent(
+    onClickBack: () -> Unit
+) {
     val question = listOf(
         AnswerUiState(
             id = 0,

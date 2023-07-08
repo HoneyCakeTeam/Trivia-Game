@@ -24,7 +24,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.triviagame.R
+import com.example.triviagame.Screen
 import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
 import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal24
@@ -40,7 +42,9 @@ import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
-fun PlayScreen() {
+fun PlayScreen(
+    navController: NavController,
+) {
     Column(
         Modifier
             .fillMaxSize()
@@ -55,7 +59,10 @@ fun PlayScreen() {
         PlayContent(
             percent = "30",
             joke = "What microbes are used to \n break down plant matter for \n composting?",
-            questionNumber = "7/10"
+            questionNumber = "7/10",
+            onClick = {
+                navController.navigate(Screen.GameResultScreen.rout)
+            }
         )
 
         SpacerVertical32()
@@ -94,6 +101,7 @@ private fun PlayContent(
     percent: String,
     joke: String,
     questionNumber: String,
+    onClick: () -> Unit
 ) {
     Box {
         Column(
@@ -208,11 +216,13 @@ private fun PlayButtons(
 private fun nextButton(buttonText: String) {
     GameButton(
         text = buttonText, textColor = Black_60, buttonColor = Secondary
-    ) {}
+    ) {
+
+    }
 }
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewPlayScreen() {
-    PlayScreen()
+//    PlayScreen()
 }
