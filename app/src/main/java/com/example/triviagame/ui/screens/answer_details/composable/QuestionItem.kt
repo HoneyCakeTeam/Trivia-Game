@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.composable.answer_details
+package com.example.triviagame.ui.screens.answer_details.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
-import com.example.triviagame.ui.screens.AnswerUiState
+import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.theme.Error
 import com.example.triviagame.ui.theme.Success
 import com.example.triviagame.ui.theme.Typography

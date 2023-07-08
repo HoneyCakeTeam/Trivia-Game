@@ -11,8 +11,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
-import com.example.triviagame.ui.theme.Card
-import com.example.triviagame.ui.theme.Shapes
+import com.example.triviagame.ui.theme.CardBackgroundColor
+import com.example.triviagame.ui.theme.RoundedShape
 
 
 @Preview
@@ -21,7 +21,7 @@ fun ButtonBack(modifier: Modifier = Modifier, onBack: () -> Unit = {}) {
     IconButton(
         onClick = onBack,
         modifier = modifier
-            .background(shape = Shapes.medium, color = Card)
+            .background(shape = RoundedShape.medium, color = CardBackgroundColor)
             .size(32.dp)
 
     ) {

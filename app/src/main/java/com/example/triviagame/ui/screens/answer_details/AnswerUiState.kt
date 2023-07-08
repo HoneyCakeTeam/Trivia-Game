@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.screens
+package com.example.triviagame.ui.screens.answer_details
 
 import com.example.triviagame.ui.util.QuestionState
 

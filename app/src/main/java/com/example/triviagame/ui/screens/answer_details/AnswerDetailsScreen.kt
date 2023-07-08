@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.screens
+package com.example.triviagame.ui.screens.answer_details
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -18,15 +18,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.AppBarWithIconBack
-import com.example.triviagame.ui.composable.PrimaryButton
+import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.TextLabel
-import com.example.triviagame.ui.composable.answer_details.AnswerChart
-import com.example.triviagame.ui.composable.answer_details.QuestionItem
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical8
-import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.screens.answer_details.composable.AnswerChart
+import com.example.triviagame.ui.screens.answer_details.composable.QuestionItem
+import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
-import com.example.triviagame.ui.theme.Shapes
+import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.util.QuestionState
 
 /**
@@ -45,48 +45,51 @@ fun AnswerDetailsScreen() {
 fun AnswerDetailsContent() {
     val question = listOf(
         AnswerUiState(
-            id=0,
+            id = 0,
             question = "What is the capital of Egypt?",
             state = QuestionState.Correct,
             answer = "Cairo",
         ),
         AnswerUiState(
-            id=1,
+            id = 1,
             question = "What is the study of mushrooms called?",
             state = QuestionState.Wrong,
             answer = "Mycology",
         ),
         AnswerUiState(
-            id=3,
+            id = 3,
             question = "What is the name of the tallest grass on earth?",
             state = QuestionState.Wrong,
             answer = "Bamboo",
         ),
         AnswerUiState(
-            id=4,
+            id = 4,
             question = "What is the study of mushrooms called?",
             state = QuestionState.Wrong,
             answer = "Mycology",
         ),
         AnswerUiState(
-            id=5,
+            id = 5,
             question = "What is the study of mushrooms called?",
             state = QuestionState.Wrong,
             answer = "Mycology",
         ),
         AnswerUiState(
-            id=6,
+            id = 6,
             question = "What is the study of mushrooms called?",
             state = QuestionState.SKIPPED,
             answer = "Mycology",
         ),
     )
     Box {
-        AppBarWithIconBack(stringResource(R.string.review_answer), modifier = Modifier.zIndex(2f), onBack = {})
+        AppBarWithIconBack(
+            stringResource(R.string.review_answer),
+            modifier = Modifier.zIndex(2f),
+            onBack = {})
         Box(
             modifier = Modifier
                 .background(color = Primary)
-                .padding(vertical = 100.dp)
+                .padding(top = 100.dp, bottom = 150.dp)
                 .align(Alignment.Center)
         ) {
             Column(
@@ -97,8 +100,8 @@ fun AnswerDetailsContent() {
             ) {
                 AnswerChart(
                     quizType = "Science",
-                    correctAnswerPrecedent = 80,
-                    inCorrectAnswerPrecedent = 20
+                    correctAnswerPrecedent = 20,
+                    inCorrectAnswerPrecedent = 80
                 )
                 SpacerVertical16()
                 TextLabel(stringResource(R.string.your_answers))
@@ -106,7 +109,7 @@ fun AnswerDetailsContent() {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = Card, shape = Shapes.large)
+                        .background(color = CardBackgroundColor, shape = RoundedShape.large)
                 ) {
 
                     Column(modifier = Modifier.padding(16.dp)) {
@@ -119,13 +122,13 @@ fun AnswerDetailsContent() {
             }
 
         }
-        PrimaryButton(
+        ButtonItem(
             text = stringResource(R.string.done),
             onClick = {},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
-                .padding(bottom = 24.dp)
+                .padding(bottom = 68.dp)
                 .align(Alignment.BottomCenter)
         )
 

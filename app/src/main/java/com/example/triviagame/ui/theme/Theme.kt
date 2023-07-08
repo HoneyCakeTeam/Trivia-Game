@@ -63,7 +63,7 @@ fun TriviaGameTheme(
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography,
-        shapes = Shapes,
+        shapes = RoundedShape,
         content = content
     )
 }

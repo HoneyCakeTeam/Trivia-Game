@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.composable.answer_details
+package com.example.triviagame.ui.screens.answer_details.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.triviagame.ui.theme.Shapes
+import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
 import com.example.triviagame.ui.theme.Yellow
@@ -35,7 +35,7 @@ fun CircleWithText(
         Box(
             modifier = Modifier
                 .size(10.dp)
-                .background(color = color, shape = Shapes.extraLarge)
+                .background(color = color, shape = RoundedShape.extraLarge)
         )
         Text(
             text = text,

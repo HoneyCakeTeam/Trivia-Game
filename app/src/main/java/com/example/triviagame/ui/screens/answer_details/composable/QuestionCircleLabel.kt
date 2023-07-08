@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.composable.answer_details
+package com.example.triviagame.ui.screens.answer_details.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.ui.theme.Primary
-import com.example.triviagame.ui.theme.Shapes
+import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
 
@@ -24,7 +24,7 @@ fun QuestionCircleLabel(
     Box(
         modifier = Modifier
             .size(32.dp)
-            .background(shape = Shapes.medium, color = Primary),
+            .background(shape = RoundedShape.medium, color = Primary),
     ) {
         Text(
             text = "Q$questionNumber",
