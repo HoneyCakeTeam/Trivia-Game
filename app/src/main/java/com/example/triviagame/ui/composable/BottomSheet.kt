@@ -36,7 +36,6 @@ fun BottomSheet(
 ) {
     BottomSheetScaffold(
         sheetBackgroundColor = CardBackgroundColor,
-        sheetPeekHeight = 200.dp,
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         sheetContent = {
             Column(
@@ -96,7 +95,8 @@ fun BottomSheet(
 SpacerVertical12()
                 ButtonItem(
                     text = "Play",
-                    modifier = Modifier.padding( start = 16.dp, end = 16.dp)
+                    modifier = Modifier.padding( start = 16.dp, end = 16.dp),
+                    onClick = {}
                 )
 
             }
