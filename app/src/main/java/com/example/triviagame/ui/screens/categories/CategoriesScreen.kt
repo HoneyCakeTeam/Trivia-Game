@@ -19,25 +19,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
+import com.example.triviagame.ui.composable.BottomSheet
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical48
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
 import com.example.triviagame.ui.screens.categories.composable.Header
-import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
 @Preview
 @Composable
-fun CategoriesScreen(viewModel: TriviaGameViewModel = hiltViewModel()) {
+fun CategoriesScreen(viewModel: CategoriesViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
-    CategoriesContent(state = state)
+    CategoriesContent(state = state,
+        onClick = viewModel::onClickCategory,
+        onClickChip = viewModel::onClickDiffcultliyChip)
 }
 
 
 @Composable
 fun CategoriesContent(
     state: CategoriesUiState,
+    onClick: (CategoryUiState) -> Unit,
+    onClickChip: (String) -> Unit
 ) {
     Column(
         Modifier
@@ -45,6 +48,7 @@ fun CategoriesContent(
                 painter = painterResource(id = R.drawable.background),
                 contentScale = ContentScale.Crop
             )
+
             .fillMaxSize()
             .padding(top = 48.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -53,13 +57,15 @@ fun CategoriesContent(
         SpacerVertical16()
         CategoryTitle()
         SpacerVertical16()
-        LazyGrid(category = state)
+        LazyGrid(category = state, onClick = onClick)
+        BottomSheet(onClick = onClickChip)
     }
 }
 
 @Composable
 private fun LazyGrid(
     category: CategoriesUiState,
+    onClick: (CategoryUiState) -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -68,10 +74,16 @@ private fun LazyGrid(
     ) {
         items(count = category.categories.size) { index ->
             if (index % 2 == 0) { // Even index, place in the first column
-                CategoryCard(category = category.categories[index], onClickCategory = { })
+                CategoryCard(
+                    category = category.categories[index],
+                    onClickCategory = onClick
+                )
             } else { // Odd index, place in the second column
                 Column(modifier = Modifier.padding(top = 32.dp)) {
-                    CategoryCard(category = category.categories[index], onClickCategory = { })
+                    CategoryCard(
+                        category = category.categories[index],
+                        onClickCategory = onClick
+                    )
                 }
             }
         }

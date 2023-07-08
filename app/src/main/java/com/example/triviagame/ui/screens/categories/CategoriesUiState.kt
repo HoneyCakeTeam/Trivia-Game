@@ -6,6 +6,7 @@ data class CategoriesUiState(
     val isError: Boolean = false,
     val error: String? = "",
     val userScore: Int = 0,
+    val selectedCategoryName:String = "",
     val categories: List<CategoryUiState> = emptyList(),
     val selectedDifficulty: String = "",
 )
@@ -14,4 +15,5 @@ data class CategoriesUiState(
 data class CategoryUiState(
     val categoryName: String = "",
     val categoryImage: Int = 0,
+    val categoryDifficulty: String = "",
 )

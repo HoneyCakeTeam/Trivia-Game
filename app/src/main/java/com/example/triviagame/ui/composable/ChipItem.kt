@@ -1,7 +1,6 @@
 package com.example.triviagame.ui.composable
 
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
@@ -21,20 +20,22 @@ import com.example.triviagame.ui.theme.White_FF
 fun ChipItem(
     text: String,
     selected: Boolean,
-    onChipState: (String) -> Unit
+    onChipState: (String) -> Unit,
 ) {
-    SuggestionChip(onClick = {
-        if (!selected)
-            onChipState(text)
-        else
-            onChipState("")
-    }, label = {
-        Text(
-            text = text,
-            color = White_FF,
-            style = Typography.bodyMedium
-        )
-    },
+    SuggestionChip(
+
+        onClick = {
+            if (!selected)
+                onChipState(text)
+            else
+                onChipState("")
+        }, label = {
+            Text(
+                text = text,
+                color = White_FF,
+                style = Typography.bodyMedium,
+            )
+        },
         border = SuggestionChipDefaults.suggestionChipBorder(
             borderWidth = 1.5.dp,
             borderColor = if (selected) Color.Transparent else Secondary
