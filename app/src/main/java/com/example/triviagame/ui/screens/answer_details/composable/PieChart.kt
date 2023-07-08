@@ -63,7 +63,7 @@ fun PieChart(
 
     var lastValue = 0f
 
-    // it is the diameter value of the Pie
+
     val animateSize by animateFloatAsState(
         targetValue = if (animationPlayed) radiusOuter.value * 2f else 0f,
         animationSpec = tween(
@@ -73,8 +73,6 @@ fun PieChart(
         )
     )
 
-    // if you want to stabilize the Pie Chart you can use value -90f
-    // 90f is used to complete 1/4 of the rotation
     val animateRotation by animateFloatAsState(
         targetValue = if (animationPlayed) 90f * 11f else 0f,
         animationSpec = tween(
@@ -84,17 +82,11 @@ fun PieChart(
         )
     )
 
-    // to play the animation only once when the function is Created or Recomposed
-    LaunchedEffect(key1 = true) {
-        animationPlayed = true
-    }
-
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // Pie Chart using Canvas Arc
         Box(
             modifier = Modifier.size(animateSize.dp),
             contentAlignment = Alignment.Center
@@ -104,7 +96,7 @@ fun PieChart(
                     .size(radiusOuter * 2f)
                     .rotate(animateRotation)
             ) {
-                // draw each Arc for each data entry in Pie Chart
+
                 floatValue.forEachIndexed { index, value ->
                     drawArc(
                         color = colors[index],
@@ -133,7 +125,9 @@ fun PieChart(
         )
 
     }
-
+    LaunchedEffect(key1 = true) {
+        animationPlayed = true
+    }
 }
 
 @Composable
