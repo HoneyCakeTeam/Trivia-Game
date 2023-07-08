@@ -43,6 +43,8 @@ fun GameScreen(navController: NavController) {
         navController.popBackStack(Screen.Categories.rout, false)
     }, onClickBackToGame = {
         navController.popBackStack(Screen.PlayScreen.rout, false)
+    }, onClick = {
+        navController.navigate(Screen.AnswerDetails.rout)
     })
 }
 
@@ -51,6 +53,7 @@ fun GameScreen(navController: NavController) {
 fun GameContent(
     onClickBackToHome: () -> Unit,
     onClickBackToGame: () -> Unit,
+    onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -70,7 +73,7 @@ fun GameContent(
             style = Typography.titleLarge
         )
         SpacerVertical32()
-        AnswerCard("You get +80 Quiz Points", R.drawable.winning_cup)
+        AnswerCard("You get +80 Quiz Points", R.drawable.winning_cup, onClick = onClick)
         SpacerVertical24()
         AlignText("Answer Details", TextAlign.Start, modifier = Modifier)
         SpacerVertical16()

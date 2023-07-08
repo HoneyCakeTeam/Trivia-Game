@@ -35,7 +35,7 @@ import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
-fun AnswerCard(text: String, image: Int) {
+fun AnswerCard(text: String, image: Int, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,7 +54,7 @@ fun AnswerCard(text: String, image: Int) {
             SpacerVertical16()
             TextResult(text = text)
             SpacerVertical16()
-            ButtonCheckAnswer(text = stringResource(R.string.check_your_answer), {})
+            ButtonCheckAnswer(text = stringResource(R.string.check_your_answer), onClick = onClick)
             SpacerVertical16()
         }
 
@@ -136,6 +136,6 @@ fun ImageResult(
 @Preview
 @Composable
 fun PreviewCardWinScreen() {
-    AnswerCard(text = "You get +80 Quiz Points", image = R.drawable.winning_cup)
+    AnswerCard(text = "You get +80 Quiz Points", image = R.drawable.winning_cup, onClick = {})
 
 }
