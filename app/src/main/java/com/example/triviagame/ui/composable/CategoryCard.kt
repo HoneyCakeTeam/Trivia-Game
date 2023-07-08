@@ -33,10 +33,9 @@ fun CategoryCard(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp)
-            .clickable { onClickCategory(category) },
+            .clickable { onClickCategory(category)},
         contentAlignment = Alignment.Center
     ) {
-
         Card(
             modifier = Modifier.fillMaxSize(),
             colors = CardDefaults.cardColors(CardBackgroundColor)
