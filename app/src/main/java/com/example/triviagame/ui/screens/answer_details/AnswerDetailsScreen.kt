@@ -131,7 +131,7 @@ fun AnswerDetailsContent(
         }
         ButtonItem(
             text = stringResource(R.string.done),
-            onClick = { onClickBack },
+            onClick = onClickBack,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)

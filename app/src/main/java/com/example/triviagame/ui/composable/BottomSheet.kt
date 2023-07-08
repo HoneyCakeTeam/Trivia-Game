@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
+import com.example.triviagame.ui.screens.categories.CategoriesUiState
 import com.example.triviagame.ui.screens.categories.CategoriesViewModel
 import com.example.triviagame.ui.theme.CardBackgroundColor
 
@@ -33,6 +34,8 @@ import com.example.triviagame.ui.theme.CardBackgroundColor
 fun BottomSheet(
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit,
+    onClickPlay: (String, String) -> Unit,
+    state: CategoriesUiState
 ) {
     BottomSheetScaffold(sheetBackgroundColor = CardBackgroundColor,
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
@@ -82,9 +85,11 @@ fun BottomSheet(
                     )
                 }
                 SpacerVertical12()
-                ButtonItem(text = "Play",
+                ButtonItem(
+                    text = "Play",
                     modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                    onClick = {})
+                    onClick = { onClickPlay(state.selectedCategoryName, state.selectedDifficulty) }
+                )
             }
         }) {}
 }
@@ -93,5 +98,5 @@ fun BottomSheet(
 @Preview
 @Composable
 fun BottomSheetPreview(viewModel: CategoriesViewModel = hiltViewModel()) {
-    BottomSheet(onClick = viewModel::onClickDiffcultliyChip)
+//    BottomSheet(onClick = viewModel::onClickDiffcultliyChip, onClickPlay = {})
 }

@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.screens.GameResult
+package com.example.triviagame.ui.screens.game_result
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -120,15 +120,21 @@ fun GameContent(
         Spacer(modifier = Modifier.weight(1f))
         Row {
             Box(modifier = Modifier.weight(1f)) {
-                CustomButton(text = "Home", onClick = {
-                    onClickBackToHome
-                }, buttonColor = CardBackgroundColor, textColor = White_FF)
+                CustomButton(
+                    text = "Home",
+                    onClick = onClickBackToHome,
+                    buttonColor = CardBackgroundColor,
+                    textColor = White_FF
+                )
             }
             SpacerHorizontal12()
             Box(modifier = Modifier.weight(1f)) {
-                CustomButton(text = "Play again", onClick = {
-                    onClickBackToGame
-                }, buttonColor = Secondary, textColor = Black_60)
+                CustomButton(
+                    text = "Play again",
+                    onClick = onClickBackToGame,
+                    buttonColor = Secondary,
+                    textColor = Black_60
+                )
 
             }
             SpacerVertical16()

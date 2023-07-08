@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.data.UiToolingDataApi
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -24,8 +25,10 @@ import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
 import com.example.triviagame.ui.screens.categories.composable.Header
+import com.example.triviagame.ui.screens.play.navigateToPlay
 
 
+@OptIn(UiToolingDataApi::class)
 @Composable
 fun CategoriesScreen(
     navController: NavController,
@@ -35,7 +38,10 @@ fun CategoriesScreen(
     CategoriesContent(
         state = state,
         onClick = viewModel::onClickCategory,
-        onClickChip = viewModel::onClickDiffcultliyChip
+        onClickChip = viewModel::onClickDiffcultliyChip,
+        onClickPlay = { name, level ->
+            navController.navigateToPlay(name = name, level = level)
+        }
     )
 }
 
@@ -44,6 +50,7 @@ fun CategoriesContent(
     state: CategoriesUiState,
     onClick: (CategoryUiState) -> Unit,
     onClickChip: (String) -> Unit,
+    onClickPlay: (String, String) -> Unit
 ) {
     Column(
         Modifier
@@ -60,7 +67,7 @@ fun CategoriesContent(
         CategoryTitle()
         SpacerVertical16()
         LazyGrid(category = state, onClick = onClick)
-        BottomSheet(onClick = onClickChip)
+        BottomSheet(onClick = onClickChip, onClickPlay = onClickPlay, state = state)
     }
 }
 

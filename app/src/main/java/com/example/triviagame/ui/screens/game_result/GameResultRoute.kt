@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.screens.GameResult
+package com.example.triviagame.ui.screens.game_result
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
