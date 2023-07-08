@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
-import com.example.triviagame.ui.theme.*
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
+import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
@@ -45,7 +45,7 @@ fun AnswerCard(text: String, image: Int) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Card),
+                .background(color = CardBackgroundColor),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         )

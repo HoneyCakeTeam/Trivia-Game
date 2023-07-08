@@ -30,7 +30,7 @@ import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVerti
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical24
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
 import com.example.triviagame.ui.theme.Black_60
-import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Typography
@@ -110,7 +110,7 @@ fun GameScreen() {
             Box(modifier = Modifier.weight(1f)) {
                 CustomButton(text = "Home", onClick = {
                     //TODO Home
-                }, buttonColor = Card, textColor = White_FF)
+                }, buttonColor = CardBackgroundColor, textColor = White_FF)
             }
             SpacerHorizontal12()
             Box(modifier = Modifier.weight(1f)) {
