@@ -34,7 +34,7 @@ fun CircleWithText(
     ) {
         Box(
             modifier = Modifier
-                .size(16.dp)
+                .size(10.dp)
                 .background(color = color, shape = Shapes.extraLarge)
         )
         Text(

@@ -18,15 +18,16 @@ import com.example.triviagame.ui.theme.White_FF
 
 @Preview
 @Composable
-fun QuestionCircleLabel() {
-
+fun QuestionCircleLabel(
+    questionNumber: Int = 0,
+) {
     Box(
         modifier = Modifier
             .size(32.dp)
             .background(shape = Shapes.medium, color = Primary),
     ) {
         Text(
-            text = "Q1",
+            text = "Q$questionNumber",
             style = Typography.bodySmall,
             color = White_FF,
             textAlign = TextAlign.Center,

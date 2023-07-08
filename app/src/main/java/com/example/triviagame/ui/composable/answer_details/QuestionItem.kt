@@ -31,7 +31,7 @@ fun QuestionItem(question: AnswerUiState) {
             .fillMaxWidth()
             .padding(bottom = 8.dp),
     ) {
-        QuestionCircleLabel()
+        QuestionCircleLabel(questionNumber = question.id)
         Column(
             modifier = Modifier
                 .wrapContentWidth()
@@ -49,15 +49,17 @@ fun QuestionItem(question: AnswerUiState) {
             Text(
                 text = question.answer,
                 style = Typography.bodySmall,
-                color = if(question.state == QuestionState.Correct ) Success else Error,
+                color = if (question.state == QuestionState.Correct) Success else Error,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Start
             )
 
         }
         Image(
-            painter = if(question.state == QuestionState.Correct ) painterResource(id = R.drawable.resource_true) else painterResource(id = R.drawable.resource_false),
-            contentDescription = if(question.state == QuestionState.Correct ) " Question Success" else " Question Wrong"
+            painter = if (question.state == QuestionState.Correct) painterResource(id = R.drawable.resource_true) else painterResource(
+                id = R.drawable.resource_false
+            ),
+            contentDescription = if (question.state == QuestionState.Correct) " Question Success" else " Question Wrong"
         )
 
     }

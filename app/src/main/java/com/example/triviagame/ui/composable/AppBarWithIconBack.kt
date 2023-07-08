@@ -15,15 +15,16 @@ import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
-fun AppBar(name: String){
+fun AppBarWithIconBack(name: String, onBack: () -> Unit, modifier: Modifier = Modifier) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(56.dp)
-            .padding(horizontal = 16.dp),
+            .padding(vertical = 24.dp)
+            .padding(horizontal = 16.dp)
+            .height(56.dp),
     ) {
-        ButtonBack(onBack = {})
+        ButtonBack(onBack = onBack)
         Text(
             text = name,
             style = Typography.titleLarge,

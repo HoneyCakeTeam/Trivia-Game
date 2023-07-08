@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Trivia Game</string>
     <string name="review_answer">Review Answer</string>
+    <string name="done">Done</string>
+    <string name="your_answers">Your Answers</string>
+    <string name="quiz_type">Quiz Type</string>
 </resources>
