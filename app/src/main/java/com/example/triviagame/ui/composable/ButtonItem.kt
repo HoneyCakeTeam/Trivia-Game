@@ -14,9 +14,9 @@ import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Typography
 
 @Composable
-fun ButtonItem(text : String, modifier: Modifier = Modifier) {
+fun ButtonItem(text : String, modifier: Modifier = Modifier, onClick:() -> Unit) {
     Button(
-        onClick = {},
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = Secondary),
         modifier = modifier
             .height(54.dp)

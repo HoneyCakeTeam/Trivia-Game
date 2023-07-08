@@ -53,7 +53,7 @@ fun CategoriesContent(
             .padding(top = 48.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Header(score = 321000, modifier = Modifier.padding(horizontal = 16.dp))
+        Header(score = state.userScore, modifier = Modifier.padding(horizontal = 16.dp))
         SpacerVertical16()
         CategoryTitle()
         SpacerVertical16()

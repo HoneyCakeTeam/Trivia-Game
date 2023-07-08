@@ -15,32 +15,30 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
+import com.example.triviagame.ui.screens.categories.CategoriesViewModel
 import com.example.triviagame.ui.theme.CardBackgroundColor
-import com.example.triviagame.ui.theme.Primary
-import com.example.triviagame.ui.theme.White_FF
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheet(
-    modifier: Modifier = Modifier,
-
-) {
+    modifier: Modifier = Modifier) {
     BottomSheetScaffold(
         sheetBackgroundColor = CardBackgroundColor,
         sheetPeekHeight = 0.1.dp,
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         sheetContent = {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .height(211.dp)
                     .background(CardBackgroundColor)
