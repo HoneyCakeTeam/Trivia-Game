@@ -7,7 +7,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Typography
@@ -39,7 +38,7 @@ fun ChipItem(
             borderColor = if (selected) Color.Transparent else Secondary
         ),
         colors = SuggestionChipDefaults.suggestionChipColors(
-            containerColor = if (selected) Primary else Color.Transparent
+            containerColor = if (selected) Secondary else Color.Transparent
         ),
         shape = RoundedShape.medium
     )

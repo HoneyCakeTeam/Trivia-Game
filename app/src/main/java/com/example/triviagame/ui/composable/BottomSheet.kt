@@ -15,28 +15,28 @@ import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
-import com.example.triviagame.ui.screens.categories.CategoriesViewModel
 import com.example.triviagame.ui.theme.CardBackgroundColor
+import com.example.triviagame.ui.theme.Primary
+import com.example.triviagame.ui.theme.White_FF
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheet(
     modifier: Modifier = Modifier,
-    onClick: (String) -> Unit
+
 ) {
     BottomSheetScaffold(
         sheetBackgroundColor = CardBackgroundColor,
-        sheetPeekHeight = 200.dp,
+        sheetPeekHeight = 0.1.dp,
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         sheetContent = {
             Column(
@@ -51,7 +51,7 @@ fun BottomSheet(
                     Card(
                         modifier = Modifier
                             .size(32.dp, 4.dp),
-                        backgroundColor = Color(0xFF734B7C),
+                        backgroundColor = Primary,
                     ) {
 
                     }
@@ -62,7 +62,7 @@ fun BottomSheet(
                             .padding(top = 16.dp),
                         text = "Choose your level",
                         fontFamily = FontFamily(Font(R.font.montserrat_semibold)),
-                        color = Color.White,
+                        color = White_FF,
                     )
                 }
                 SpacerVertical12()
@@ -72,28 +72,28 @@ fun BottomSheet(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
 
-                    ChipItem(
-                        text = "easy",
-                        selected = false,
-                        onChipState = onClick,
-                    )
+                    val selectedChipIndex = remember { mutableStateOf(2) }
 
-                    ChipItem(
+                        ChipItem(
+                            text = "easy",
+                            selected = selectedChipIndex.value == 1,
+                            onChipState = { selectedChipIndex.value = 1 }
+                        )
 
-                        text = "medium",
-                        selected = false,
-                        onChipState = onClick,
-                    )
+                        ChipItem(
+                            text = "medium",
+                            selected = selectedChipIndex.value == 2,
+                            onChipState = { selectedChipIndex.value = 2 }
+                        )
 
-                    ChipItem(
-                        text = "hard",
-                        selected = false,
-                        onChipState = onClick,
-                    )
+                        ChipItem(
+                            text = "hard",
+                            selected = selectedChipIndex.value == 3,
+                            onChipState = { selectedChipIndex.value = 3 }
+                        )
+                    }
 
-
-                }
-SpacerVertical12()
+                SpacerVertical12()
                 ButtonItem(
                     text = "Play",
                     modifier = Modifier.padding( start = 16.dp, end = 16.dp)
@@ -106,8 +106,3 @@ SpacerVertical12()
 }
 
 
-@Preview
-@Composable
-fun BottomSheetPreview(viewModel: CategoriesViewModel = hiltViewModel()) {
-    BottomSheet(onClick = viewModel::onClickDiffcultliyChip)
-}

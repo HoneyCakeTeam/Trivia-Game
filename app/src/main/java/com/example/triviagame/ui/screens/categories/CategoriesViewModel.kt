@@ -1,6 +1,5 @@
 package com.example.triviagame.ui.screens.categories
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.triviagame.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +23,6 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
         _state.update {
             it.copy(selectedCategoryName = category.categoryName)
         }
-        Log.i("CategoriesViewModel", "onClickCategory: ${state.value.selectedCategoryName}")
     }
 
      fun onClickDiffcultliyChip(diffcultliy: String) {
@@ -33,7 +31,6 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
                 selectedDifficulty =diffcultliy
             )
         }
-        Log.i("CategoriesViewModel", "onClickDiffcultliyChip: ${state.value.selectedDifficulty}")
     }
 
 
