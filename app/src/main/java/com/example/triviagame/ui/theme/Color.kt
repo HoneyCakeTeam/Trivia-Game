@@ -8,6 +8,7 @@ val Secondary = Color(0xFFC8C4F0)
 val CardBackgroundColor = Color(0xFF6F2F7B)
 val Success = Color(0xFF56AE67)
 val Error = Color(0xFFB72525)
+val Yellow = Color(0xFFFEF400)
 
 val BackGround = Color(0xFF601B6D)
 
