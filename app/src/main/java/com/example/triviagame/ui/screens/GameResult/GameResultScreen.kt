@@ -50,7 +50,7 @@ fun GameScreen(navController: NavController) {
 @Composable
 fun GameContent(
     onClickBackToHome: () -> Unit,
-    onClickBackToGame: () -> Unit
+    onClickBackToGame: () -> Unit,
 ) {
     Column(
         modifier = Modifier

@@ -57,13 +57,14 @@ fun CategoriesContent(
         SpacerVertical16()
         CategoryTitle()
         SpacerVertical16()
-        LazyGrid(category = state)
+        LazyGrid(category = state, onClick = { onClickPlay })
     }
 }
 
 @Composable
 private fun LazyGrid(
     category: CategoriesUiState,
+    onClick: () -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -72,7 +73,9 @@ private fun LazyGrid(
     ) {
         items(count = category.categories.size) { index ->
             if (index % 2 == 0) { // Even index, place in the first column
-                CategoryCard(category = category.categories[index], onClickCategory = { })
+                CategoryCard(
+                    category = category.categories[index],
+                    onClickCategory = { onClick })
             } else { // Odd index, place in the second column
                 Column(modifier = Modifier.padding(top = 32.dp)) {
                     CategoryCard(category = category.categories[index], onClickCategory = { })

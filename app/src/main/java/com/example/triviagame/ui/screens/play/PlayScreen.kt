@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.screens
+package com.example.triviagame.ui.screens.play
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
