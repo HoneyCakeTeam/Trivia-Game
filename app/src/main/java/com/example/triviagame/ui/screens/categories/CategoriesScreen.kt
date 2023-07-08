@@ -20,30 +20,30 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.BottomSheet
-import com.example.triviagame.Screen
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
 import com.example.triviagame.ui.screens.categories.composable.Header
 
 
-@Preview
 @Composable
 fun CategoriesScreen(
     navController: NavController,
-    viewModel: CategoriesViewModel = hiltViewModel()
+    viewModel: CategoriesViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
-    CategoriesContent(state = state,
+    CategoriesContent(
+        state = state,
         onClick = viewModel::onClickCategory,
-        onClickChip = viewModel::onClickDiffcultliyChip)
+        onClickChip = viewModel::onClickDiffcultliyChip
+    )
 }
 
 @Composable
 fun CategoriesContent(
     state: CategoriesUiState,
     onClick: (CategoryUiState) -> Unit,
-    onClickChip: (String) -> Unit
+    onClickChip: (String) -> Unit,
 ) {
     Column(
         Modifier
@@ -67,7 +67,7 @@ fun CategoriesContent(
 @Composable
 private fun LazyGrid(
     category: CategoriesUiState,
-    onClick: (CategoryUiState) -> Unit
+    onClick: (CategoryUiState) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
