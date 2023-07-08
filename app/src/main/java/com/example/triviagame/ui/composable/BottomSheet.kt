@@ -71,6 +71,7 @@ fun BottomSheet(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
+
                     ChipItem(
                         text = "easy",
                         selected = false,
@@ -92,7 +93,7 @@ fun BottomSheet(
 
 
                 }
-
+SpacerVertical12()
                 ButtonItem(
                     text = "Play",
                     modifier = Modifier.padding( start = 16.dp, end = 16.dp)
