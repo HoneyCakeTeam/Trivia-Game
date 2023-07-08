@@ -1,6 +1,5 @@
 package com.example.triviagame.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +30,6 @@ import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVerti
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.CardBackgroundColor
-import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF

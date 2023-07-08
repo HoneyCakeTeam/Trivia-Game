@@ -32,14 +32,13 @@ import com.example.triviagame.ui.theme.CardBackgroundColor
 @Composable
 fun BottomSheet(
     modifier: Modifier = Modifier,
-    onClick: (String) -> Unit
+    onClick: (String) -> Unit,
 ) {
-    BottomSheetScaffold(
-        sheetBackgroundColor = CardBackgroundColor,
+    BottomSheetScaffold(sheetBackgroundColor = CardBackgroundColor,
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
         sheetContent = {
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .height(211.dp)
                     .background(CardBackgroundColor)
@@ -48,17 +47,13 @@ fun BottomSheet(
             ) {
                 Box {
                     Card(
-                        modifier = Modifier
-                            .size(32.dp, 4.dp),
+                        modifier = Modifier.size(32.dp, 4.dp),
                         backgroundColor = Color(0xFF734B7C),
-                    ) {
-
-                    }
+                    ) {}
                 }
                 Box {
                     Text(
-                        modifier = Modifier
-                            .padding(top = 16.dp),
+                        modifier = Modifier.padding(top = 16.dp),
                         text = "Choose your level",
                         fontFamily = FontFamily(Font(R.font.montserrat_semibold)),
                         color = Color.White,
@@ -66,43 +61,32 @@ fun BottomSheet(
                 }
                 SpacerVertical12()
                 Row(
-
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-
                     ChipItem(
                         text = "easy",
                         selected = false,
                         onChipState = onClick,
                     )
-
                     ChipItem(
 
                         text = "medium",
                         selected = false,
                         onChipState = onClick,
                     )
-
                     ChipItem(
                         text = "hard",
                         selected = false,
                         onChipState = onClick,
                     )
-
-
                 }
-SpacerVertical12()
-                ButtonItem(
-                    text = "Play",
-                    modifier = Modifier.padding( start = 16.dp, end = 16.dp),
-                    onClick = {}
-                )
-
+                SpacerVertical12()
+                ButtonItem(text = "Play",
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                    onClick = {})
             }
-
         }) {}
-
 }
 
 
