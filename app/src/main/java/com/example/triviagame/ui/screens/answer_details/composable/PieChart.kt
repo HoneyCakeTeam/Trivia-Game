@@ -16,11 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -28,9 +24,15 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.triviagame.R
+import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.Typography
@@ -46,6 +48,9 @@ fun PieChart(
     radiusOuter: Dp = 100.dp,
     chartBarWidth: Dp = 16.dp,
     animDuration: Int = 1000,
+    animationPlayed: Boolean = false,
+    totalQuestions: Int,
+    totalAnswers: Int
 ) {
 
     val totalSum = data.values.sum()
@@ -58,8 +63,6 @@ fun PieChart(
     val colors = listOf(
         White_FF, Primary
     )
-
-    var animationPlayed by remember { mutableStateOf(false) }
 
     var lastValue = 0f
 
@@ -109,10 +112,24 @@ fun PieChart(
                 }
             }
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(text = "Result", style = Typography.bodySmall, color = Black_60)
+                Text(
+                    text = stringResource(R.string.result),
+                    style = Typography.bodySmall,
+                    color = Black_60
+                )
                 Row(verticalAlignment = Alignment.Bottom) {
-                    Text(text = "8/", fontSize = 20.sp, color = White_FF)
-                    Text(text = "10", color = White_FF)
+
+                    val result = buildAnnotatedString {
+                        withStyle(style = SpanStyle(color = White_FF, fontSize = 20.sp)) {
+                            append("${totalAnswers}/")
+                        }
+
+                        withStyle(style = SpanStyle(color = White_FF)) {
+                            append(totalQuestions.toString())
+                        }
+                    }
+
+                    Text(text = result, color = White_FF)
                 }
 
             }
@@ -125,11 +142,7 @@ fun PieChart(
         )
 
     }
-    LaunchedEffect(key1 = true) {
-        animationPlayed = true
-    }
 }
-
 @Composable
 fun DetailsPieChart(
     data: Map<String, Int>,
@@ -167,7 +180,7 @@ fun DetailsPieChartItem(
                 .background(color)
         )
         Text(text = data.first, color = White_FF)
-        Text(text = data.second.toString(), color = Yellow)
+        Text(text = "${data.second} %", color = Yellow)
     }
 
 }

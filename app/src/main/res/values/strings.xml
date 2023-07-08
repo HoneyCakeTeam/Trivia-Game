@@ -18,4 +18,5 @@
     <string name="quiz_type">Quiz Type</string>
     <string name="correct_small_case">Correct</string>
     <string name="incorrect_small_case">Incorrect</string>
+    <string name="result">Result</string>
 </resources>

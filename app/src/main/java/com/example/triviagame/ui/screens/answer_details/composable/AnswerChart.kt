@@ -3,7 +3,6 @@ package com.example.triviagame.ui.screens.answer_details.composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -15,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical24
+import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
@@ -24,9 +23,11 @@ import com.example.triviagame.ui.theme.White_FF
 
 @Composable
 fun AnswerChart(
-    quizType:String,
-    correctAnswerPrecedent:Int,
-    inCorrectAnswerPrecedent:Int
+    quizType: String,
+    correctAnswerPrecedent: Int,
+    inCorrectAnswerPrecedent: Int,
+    animationPlayed: Boolean,
+    answerUiState: AnswerUiState
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,8 +60,11 @@ fun AnswerChart(
             PieChart(
                 data = mapOf(
                     Pair("Correct", 80),
-                    Pair("Incorrect", 20)
-                )
+                    Pair("Incorrect", 20),
+                ),
+                animationPlayed = animationPlayed,
+                totalAnswers = answerUiState.totalAnswers,
+                totalQuestions = answerUiState.totalQuestions
             )
     }
 }
