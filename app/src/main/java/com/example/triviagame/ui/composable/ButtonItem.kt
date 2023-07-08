@@ -8,24 +8,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.triviagame.ui.theme.Black_60
-import com.example.triviagame.ui.theme.Montserrat
+import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Secondary
+import com.example.triviagame.ui.theme.Typography
 
 @Composable
-fun PrimaryButton(text : String,onClick:() -> Unit, modifier: Modifier = Modifier) {
+fun ButtonItem(text : String, onClick:() -> Unit,modifier: Modifier = Modifier) {
+
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = Secondary),
-        modifier = modifier.height(54.dp)
-
+        modifier = modifier
+            .height(54.dp),
+        shape = RoundedShape.medium
     ){
         Text(
             text = text,
-            fontFamily = Montserrat,
-            fontWeight = FontWeight.Medium,
-            fontSize = 14.sp,
+            style = Typography.bodyMedium,
             color = Black_60
         )
     }
