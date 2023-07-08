@@ -39,15 +39,18 @@ import com.example.triviagame.ui.theme.White_FF
 
 @Composable
 fun GameScreen(navController: NavController) {
-    GameContent(onClickBack = {
+    GameContent(onClickBackToHome = {
         navController.popBackStack(Screen.Categories.rout, false)
+    }, onClickBackToGame = {
+        navController.popBackStack(Screen.PlayScreen.rout, false)
     })
 }
 
 
 @Composable
 fun GameContent(
-    onClickBack: () -> Unit
+    onClickBackToHome: () -> Unit,
+    onClickBackToGame: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -118,13 +121,13 @@ fun GameContent(
         Row {
             Box(modifier = Modifier.weight(1f)) {
                 CustomButton(text = "Home", onClick = {
-                    //TODO Home
+                    onClickBackToHome
                 }, buttonColor = CardBackgroundColor, textColor = White_FF)
             }
             SpacerHorizontal12()
             Box(modifier = Modifier.weight(1f)) {
                 CustomButton(text = "Play again", onClick = {
-                    onClickBack
+                    onClickBackToGame
                 }, buttonColor = Secondary, textColor = Black_60)
 
             }
