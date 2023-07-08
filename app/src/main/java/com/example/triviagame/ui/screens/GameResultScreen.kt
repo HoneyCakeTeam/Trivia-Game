@@ -42,7 +42,6 @@ fun GameScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Primary)
             .paint(
                 painter = painterResource(id = R.drawable.background),
                 contentScale = ContentScale.Crop

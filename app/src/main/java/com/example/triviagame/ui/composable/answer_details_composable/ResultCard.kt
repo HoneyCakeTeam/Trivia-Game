@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
@@ -42,7 +42,7 @@ fun ReusableCard(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Card)
+                .background(color = CardBackgroundColor)
                 .padding(12.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.Start
@@ -104,6 +104,6 @@ fun CustomButton(
 fun Previews() {
     CustomButton(text = "Play again", onClick = {
         //TODO PLAY AGAIN
-    }, buttonColor = Card, textColor = White_FF)
+    }, buttonColor = CardBackgroundColor, textColor = White_FF)
 
 }
