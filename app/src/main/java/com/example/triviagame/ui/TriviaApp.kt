@@ -16,7 +16,7 @@ fun TriviaApp() {
     TriviaGameTheme {
         Scaffold() {
             val navController = rememberNavController()
-            TriviaNavGraph(navController = navController)
+            TriviaNavGraph(navController)
         }
 
     }

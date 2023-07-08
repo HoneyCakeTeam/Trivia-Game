@@ -15,7 +15,6 @@ fun NavController.navigateToPlay() {
 }
 
 fun NavGraphBuilder.playRoute(navController: NavController) {
-
     composable(
         "$ROUTE/{${PlayArgs.NAME_ARG}}/{${PlayArgs.LEVEL}",
         arguments = listOf(
@@ -31,7 +30,6 @@ fun NavGraphBuilder.playRoute(navController: NavController) {
     }
 
 }
-
 
 class PlayArgs(savedStateHandle: SavedStateHandle) {
     val name: String = checkNotNull(savedStateHandle[NAME_ARG])

@@ -7,7 +7,6 @@ import androidx.navigation.compose.composable
 private const val ROUTE = "gameResult"
 
 fun NavGraphBuilder.gameResultRoute(navController: NavController) {
-
     composable(route = ROUTE) {
         GameScreen(navController)
 

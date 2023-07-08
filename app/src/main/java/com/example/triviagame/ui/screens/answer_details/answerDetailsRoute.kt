@@ -7,7 +7,6 @@ import androidx.navigation.compose.composable
 private const val ROUTE = "answerDetails"
 
 fun NavGraphBuilder.answerDetailsRoute(navController: NavController) {
-
     composable(route = ROUTE) {
         AnswerDetailsScreen(navController)
     }

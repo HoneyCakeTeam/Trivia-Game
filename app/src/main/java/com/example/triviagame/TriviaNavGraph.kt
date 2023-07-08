@@ -10,13 +10,10 @@ import com.example.triviagame.ui.screens.play.playRoute
 
 @Composable
 fun TriviaNavGraph(navController: NavHostController) {
-
     NavHost(navController = navController, startDestination = Screen.Categories.rout) {
         categoriesRoute(navController)
         playRoute(navController)
         gameResultRoute(navController)
         answerDetailsRoute(navController)
     }
-
-
 }

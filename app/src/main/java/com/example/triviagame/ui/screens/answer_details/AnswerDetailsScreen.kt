@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.triviagame.R
+import com.example.triviagame.Screen
 import com.example.triviagame.ui.composable.AppBarWithIconBack
 import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.TextLabel
@@ -38,6 +39,9 @@ import com.example.triviagame.ui.util.QuestionState
 fun AnswerDetailsScreen(
     navController: NavController,
 ) {
+    AnswerDetailsContent(onClickBack = {
+        navController.popBackStack(Screen.Categories.rout, false)
+    })
 
 }
 
@@ -127,7 +131,7 @@ fun AnswerDetailsContent(
         }
         ButtonItem(
             text = stringResource(R.string.done),
-            onClick = {},
+            onClick = { onClickBack },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
