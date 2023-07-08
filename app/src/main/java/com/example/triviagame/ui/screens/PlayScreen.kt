@@ -33,7 +33,7 @@ import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVerti
 import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Black_87
-import com.example.triviagame.ui.theme.Card
+import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
@@ -80,7 +80,7 @@ private fun Header() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        ImageButton(R.drawable.arrow_left, backgroundColor = Card) {}
+        ImageButton(R.drawable.arrow_left, backgroundColor = CardBackgroundColor) {}
         Text(
             text = stringResource(id = R.string.skip),
             color = White_FF,
@@ -93,7 +93,7 @@ private fun Header() {
 private fun PlayContent(
     percent: String,
     joke: String,
-    questionNumber: String
+    questionNumber: String,
 ) {
     Box {
         Column(
@@ -109,7 +109,7 @@ private fun PlayContent(
             ) {
                 Column(
                     modifier = Modifier
-                        .background(Card)
+                        .background(CardBackgroundColor)
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -121,7 +121,7 @@ private fun PlayContent(
                         modifier = Modifier
                             .size(64.dp)
                             .background(
-                                color = Card, shape = CircleShape
+                                color = CardBackgroundColor, shape = CircleShape
                             )
                             .border(
                                 width = 6.dp, color = Secondary, shape = CircleShape
@@ -192,7 +192,7 @@ private fun PlayButtons(
     firstQuestion: String,
     secondQuestion: String,
     thirdQuestion: String,
-    fourthQuestion: String
+    fourthQuestion: String,
 ) {
     GameButton(text = firstQuestion) {}
     SpacerVertical16()
