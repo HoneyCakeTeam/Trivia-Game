@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -21,30 +19,38 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
+import com.example.triviagame.ui.screens.categories.CategoriesViewModel
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.White_FF
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheet(
-    modifier: Modifier = Modifier) {
-    BottomSheetScaffold(
-        sheetBackgroundColor = CardBackgroundColor,
-        sheetPeekHeight = 0.1.dp,
-        sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-        sheetContent = {
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit,
+) {
+
+    BottomAppBar(
+        containerColor = CardBackgroundColor,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(211.dp)
+            .background(CardBackgroundColor)
+            .padding(top = 16.dp),
+
+         ) {
             Column(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(211.dp)
-                    .background(CardBackgroundColor)
-                    .padding(top = 16.dp),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
+
             ) {
+
                 Box {
                     Card(
                         modifier = Modifier
@@ -70,38 +76,43 @@ fun BottomSheet(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
 
-                    val selectedChipIndex = remember { mutableStateOf(2) }
+                    val selectedChipIndex = remember { mutableStateOf(0) }
 
-                        ChipItem(
-                            text = "easy",
-                            selected = selectedChipIndex.value == 1,
-                            onChipState = { selectedChipIndex.value = 1 }
-                        )
+                    ChipItem(
+                        text = "easy",
+                        selected = selectedChipIndex.value == 1,
+                        onChipState = onClick,
+                        onColor = { selectedChipIndex.value = 1 }
+                    )
+                    ChipItem(
+                        text = "medium",
+                        selected = selectedChipIndex.value == 2,
+                        onChipState = onClick, onColor = { selectedChipIndex.value = 2 }
 
-                        ChipItem(
-                            text = "medium",
-                            selected = selectedChipIndex.value == 2,
-                            onChipState = { selectedChipIndex.value = 2 }
-                        )
+                    )
+                    ChipItem(
+                        text = "hard",
+                        selected = selectedChipIndex.value == 3,
+                        onChipState = onClick, onColor = { selectedChipIndex.value = 3 }
 
-                        ChipItem(
-                            text = "hard",
-                            selected = selectedChipIndex.value == 3,
-                            onChipState = { selectedChipIndex.value = 3 }
-                        )
-                    }
+                    )
+                }
 
                 SpacerVertical12()
                 ButtonItem(
                     text = "Play",
-                    modifier = Modifier.padding( start = 16.dp, end = 16.dp),
-                    onClick = {  }
-                )
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp)
+                ) {}
 
             }
 
-        }) {}
+        }
 
 }
 
 
+@Preview
+@Composable
+fun BottomSheetPreview(viewModel: CategoriesViewModel = hiltViewModel()) {
+    BottomSheet(onClick = viewModel::onClickDiffcultliyChip)
+}
