@@ -18,14 +18,19 @@ fun ChipItem(
     text: String,
     selected: Boolean,
     onChipState: (String) -> Unit,
+    onColor: (Boolean) -> Unit
+
 ) {
     SuggestionChip(
 
         onClick = {
-            if (!selected)
+            if (!selected) {
                 onChipState(text)
-            else
+                onColor(true)
+            } else {
                 onChipState("")
+                onColor(false)
+            }
         }, label = {
             Text(
                 text = text,

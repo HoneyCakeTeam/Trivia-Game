@@ -27,13 +27,16 @@ import com.example.triviagame.ui.theme.White_FF
 @Composable
 fun CategoryCard(
     category: CategoryUiState,
-    onClickCategory: (CategoryUiState) -> Unit
+    onClickCategory: (CategoryUiState) -> Unit,
+    onToggleBottomSheet: () -> Unit
+
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp)
-            .clickable { onClickCategory(category)},
+            .clickable { onClickCategory(category)
+                       onToggleBottomSheet()},
         contentAlignment = Alignment.Center
     ) {
         Card(
