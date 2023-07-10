@@ -12,6 +12,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             TriviaApp()
         }
