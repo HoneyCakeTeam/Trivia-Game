@@ -9,5 +9,6 @@ import com.example.triviagame.ui.screens.categories.CategoriesScreen
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TriviaApp() {
-    AnswerDetailsContent()
+    //AnswerDetailsContent()
+    CategoriesScreen()
 }

@@ -1,12 +1,16 @@
 package com.example.triviagame.ui.composable
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.SuggestionChipDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.triviagame.ui.theme.Black_87
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Typography
@@ -17,33 +21,41 @@ import com.example.triviagame.ui.theme.White_FF
 fun ChipItem(
     text: String,
     selected: Boolean,
-    onChipState: (String) -> Unit,
-    onColor: (Boolean) -> Unit
+    onClickChip: (String) -> Unit,
+    onColor: () -> Unit,
 
-) {
+    ) {
+    val chipContainerColor by animateColorAsState(
+        if (selected) Secondary else Color.Transparent,
+        tween(300)
+    )
+    val chipBorderColor by animateColorAsState(
+        if (selected) Color.Transparent else Secondary,
+        tween(300)
+    )
+    val chipTextColor by animateColorAsState(
+        if (selected) Black_87 else White_FF,
+        tween(300)
+    )
     SuggestionChip(
-
         onClick = {
             if (!selected) {
-                onChipState(text)
-                onColor(true)
-            } else {
-                onChipState("")
-                onColor(false)
+                onClickChip(text)
+                onColor()
             }
         }, label = {
             Text(
                 text = text,
-                color = White_FF,
+                color = chipTextColor,
                 style = Typography.bodyMedium,
             )
         },
         border = SuggestionChipDefaults.suggestionChipBorder(
             borderWidth = 1.5.dp,
-            borderColor = if (selected) Color.Transparent else Secondary
+            borderColor = chipBorderColor
         ),
         colors = SuggestionChipDefaults.suggestionChipColors(
-            containerColor = if (selected) Secondary else Color.Transparent
+            containerColor = chipContainerColor
         ),
         shape = RoundedShape.medium
     )
