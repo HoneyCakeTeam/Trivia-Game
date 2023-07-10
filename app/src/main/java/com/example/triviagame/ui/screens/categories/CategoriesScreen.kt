@@ -14,9 +14,9 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -31,7 +31,6 @@ import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
 import com.example.triviagame.ui.screens.categories.composable.Header
-import kotlinx.coroutines.launch
 
 
 @Preview
@@ -42,7 +41,7 @@ fun CategoriesScreen(viewModel: CategoriesViewModel = hiltViewModel()) {
     CategoriesContent(
         state = state,
         onClick = viewModel::onClickCategory,
-        onClickChip = viewModel::onClickDiffcultliyChip,
+        onClickChip = viewModel::onClickDifficultyChip,
     )
 }
 
@@ -58,7 +57,6 @@ fun CategoriesContent(
         rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
     val scaffoldState =
         rememberBottomSheetScaffoldState(bottomSheetState = bottomSheetState)
-    val coroutineScope = rememberCoroutineScope()
     BottomSheetScaffold(
         sheetPeekHeight = 0.dp,
         scaffoldState = scaffoldState,
@@ -74,7 +72,6 @@ fun CategoriesContent(
                     painter = painterResource(id = R.drawable.background),
                     contentScale = ContentScale.Crop
                 )
-
                 .fillMaxSize()
                 .padding(top = 48.dp),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -83,16 +80,14 @@ fun CategoriesContent(
             SpacerVertical16()
             CategoryTitle()
             SpacerVertical16()
-            LazyGrid(category = state, onClick =onClick,
-                onToggleBottomSheet = {
-                coroutineScope.launch {
-                    if (bottomSheetState.isCollapsed) {
-                        bottomSheetState.expand()
-                    } else {
-                        bottomSheetState.collapse()
-                    }
+            LazyGrid(category = state, onClick = onClick)
+            LaunchedEffect(key1 = state.selectedCategoryName) {
+                if (state.selectedCategoryName.isNotEmpty()) {
+                    bottomSheetState.expand()
+                } else {
+                    bottomSheetState.collapse()
                 }
-            })
+            }
         }
     }
 }
@@ -102,7 +97,6 @@ fun CategoriesContent(
 private fun LazyGrid(
     category: CategoriesUiState,
     onClick: (CategoryUiState) -> Unit,
-    onToggleBottomSheet: () -> Unit
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -112,17 +106,15 @@ private fun LazyGrid(
         items(category.categories.size) { index ->
             if (index % 2 == 0) { // Even index, place in the first column
                 CategoryCard(
+                    onClickCategory = onClick,
                     category = category.categories[index],
-                    onClickCategory = {
-                        onClick(category.categories[index])},
-                    onToggleBottomSheet = onToggleBottomSheet)
+                )
             } else { // Odd index, place in the second column
                 Column(modifier = Modifier.padding(top = 32.dp)) {
                     CategoryCard(
                         category = category.categories[index],
-                        onClickCategory = {
-                            onClick(category.categories[index])},
-                        onToggleBottomSheet = onToggleBottomSheet)
+                        onClickCategory = onClick,
+                    )
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.example.triviagame.ui.composable
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.Transparent
@@ -21,27 +24,31 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.ui.screens.categories.CategoryUiState
 import com.example.triviagame.ui.theme.CardBackgroundColor
+import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
 
 @Composable
 fun CategoryCard(
-    category: CategoryUiState,
     onClickCategory: (CategoryUiState) -> Unit,
-    onToggleBottomSheet: () -> Unit
-
-) {
+    category: CategoryUiState,
+    ) {
+    val cardColor by animateColorAsState(
+        if (category.selected) Secondary else CardBackgroundColor,
+        tween(300)
+    )
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .height(120.dp)
-            .clickable { onClickCategory(category)
-                       onToggleBottomSheet()},
+            .clickable {
+                onClickCategory(category)
+            },
         contentAlignment = Alignment.Center
     ) {
         Card(
             modifier = Modifier.fillMaxSize(),
-            colors = CardDefaults.cardColors(CardBackgroundColor)
+            colors = CardDefaults.cardColors(cardColor)
         ) { }
         Card(
             modifier = Modifier

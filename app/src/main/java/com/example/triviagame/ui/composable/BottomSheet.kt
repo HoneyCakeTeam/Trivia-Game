@@ -41,7 +41,7 @@ fun BottomSheet(
             .fillMaxWidth()
             .height(211.dp)
             .background(CardBackgroundColor)
-            .padding(top = 16.dp),
+            .padding(vertical = 16.dp),
 
          ) {
             Column(
@@ -81,19 +81,19 @@ fun BottomSheet(
                     ChipItem(
                         text = "easy",
                         selected = selectedChipIndex.value == 1,
-                        onChipState = onClick,
+                        onClickChip = onClick,
                         onColor = { selectedChipIndex.value = 1 }
                     )
                     ChipItem(
                         text = "medium",
                         selected = selectedChipIndex.value == 2,
-                        onChipState = onClick, onColor = { selectedChipIndex.value = 2 }
+                        onClickChip = onClick, onColor = { selectedChipIndex.value = 2 }
 
                     )
                     ChipItem(
                         text = "hard",
                         selected = selectedChipIndex.value == 3,
-                        onChipState = onClick, onColor = { selectedChipIndex.value = 3 }
+                        onClickChip = onClick, onColor = { selectedChipIndex.value = 3 }
 
                     )
                 }
@@ -114,5 +114,5 @@ fun BottomSheet(
 @Preview
 @Composable
 fun BottomSheetPreview(viewModel: CategoriesViewModel = hiltViewModel()) {
-    BottomSheet(onClick = viewModel::onClickDiffcultliyChip)
+    BottomSheet(onClick = viewModel::onClickDifficultyChip)
 }

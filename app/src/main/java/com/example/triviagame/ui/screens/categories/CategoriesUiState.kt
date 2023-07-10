@@ -16,4 +16,5 @@ data class CategoryUiState(
     val categoryName: String = "",
     val categoryImage: Int = 0,
     val categoryDifficulty: String = "",
+    val selected: Boolean,
 )
