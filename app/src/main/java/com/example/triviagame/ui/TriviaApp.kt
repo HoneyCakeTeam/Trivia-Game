@@ -14,11 +14,9 @@ import com.example.triviagame.ui.theme.TriviaGameTheme
 @Composable
 fun TriviaApp() {
     TriviaGameTheme {
-        Scaffold() {
+        Scaffold {
             val navController = rememberNavController()
             TriviaNavGraph(navController)
         }
-
     }
-
 }
