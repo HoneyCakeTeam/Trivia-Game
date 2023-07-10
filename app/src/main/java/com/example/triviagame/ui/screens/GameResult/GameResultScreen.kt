@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.screens
+package com.example.triviagame.ui.screens.GameResult
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +17,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.triviagame.R
+import com.example.triviagame.Screen
 import com.example.triviagame.ui.composable.answer_details_composable.AlignText
 import com.example.triviagame.ui.composable.answer_details_composable.AnswerCard
 import com.example.triviagame.ui.composable.answer_details_composable.CustomButton
@@ -36,7 +38,20 @@ import com.example.triviagame.ui.theme.White_FF
 
 
 @Composable
-fun GameScreen() {
+fun GameScreen(navController: NavController) {
+    GameContent(onClickBackToHome = {
+        navController.popBackStack(Screen.Categories.rout, false)
+    }, onClickBackToGame = {
+        navController.popBackStack(Screen.PlayScreen.rout, false)
+    })
+}
+
+
+@Composable
+fun GameContent(
+    onClickBackToHome: () -> Unit,
+    onClickBackToGame: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -106,13 +121,13 @@ fun GameScreen() {
         Row {
             Box(modifier = Modifier.weight(1f)) {
                 CustomButton(text = "Home", onClick = {
-                    //TODO Home
+                    onClickBackToHome
                 }, buttonColor = CardBackgroundColor, textColor = White_FF)
             }
             SpacerHorizontal12()
             Box(modifier = Modifier.weight(1f)) {
                 CustomButton(text = "Play again", onClick = {
-                    //TODO PLAY AGAIN
+                    onClickBackToGame
                 }, buttonColor = Secondary, textColor = Black_60)
 
             }
@@ -126,5 +141,5 @@ fun GameScreen() {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewGameScreen() {
-    GameScreen()
+//    GameScreen()
 }

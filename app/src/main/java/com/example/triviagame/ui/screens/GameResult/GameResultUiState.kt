@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.screens
+package com.example.triviagame.ui.screens.GameResult
 
 data class GameResultUiState(
     val textResult: String = "",
