@@ -94,6 +94,9 @@ dependencies {
     implementation "androidx.datastore:datastore-preferences:1.0.0"
     //splash
     implementation "androidx.core:core-splashscreen:1.0.1"
+
+    implementation 'com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta'
+
     //ktor-client
     implementation "io.ktor:ktor-client-core:$ktor_version"
     implementation "io.ktor:ktor-client-android:$ktor_version"
