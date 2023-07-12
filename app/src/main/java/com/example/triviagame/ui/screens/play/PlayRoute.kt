@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.example.triviagame.ui.screens.PlayScreen
 
 private const val ROUTE = "categories"
 
@@ -26,7 +25,7 @@ fun NavGraphBuilder.playRoute(navController: NavController) {
             }
         )
     ) {
-        PlayScreen(navController)
+      //  PlayScreen(navController)
     }
 
 }
