@@ -22,19 +22,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.data.UiToolingDataApi
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.BottomSheet
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
 import com.example.triviagame.ui.screens.categories.composable.Header
+import com.example.triviagame.ui.screens.play.navigateToPlay
 
-
-@Preview
 @Composable
 fun CategoriesScreen(
     navController: NavController,
@@ -59,7 +57,7 @@ fun CategoriesContent(
     state: CategoriesUiState,
     onClick: (CategoryUiState) -> Unit,
     onClickChip: (String) -> Unit,
-    onClickPlay: (String, String) -> Unit
+    onClickPlay: (String, String) -> Unit,
 ) {
     val bottomSheetState =
         rememberBottomSheetState(initialValue = BottomSheetValue.Collapsed)
@@ -69,7 +67,7 @@ fun CategoriesContent(
         sheetPeekHeight = 0.dp,
         scaffoldState = scaffoldState,
         sheetContent = {
-            BottomSheet(onClick = onClickChip)
+            BottomSheet(onClick = onClickChip, onClickPlay = onClickPlay, state = state)
         },
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
 

@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name=".TriviaGameApplication"
         android:allowBackup="true"
         android:name=".TriviaApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"

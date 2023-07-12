@@ -19,13 +19,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
 import com.example.triviagame.ui.screens.categories.CategoriesUiState
-import com.example.triviagame.ui.screens.categories.CategoriesViewModel
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.White_FF
@@ -35,7 +32,7 @@ fun BottomSheet(
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit,
     onClickPlay: (String, String) -> Unit,
-    state: CategoriesUiState
+    state: CategoriesUiState,
 ) {
 
     BottomAppBar(
@@ -46,77 +43,70 @@ fun BottomSheet(
             .background(CardBackgroundColor)
             .padding(vertical = 16.dp),
 
-         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
 
-                Box {
-                    Card(
-                        modifier = Modifier
-                            .size(32.dp, 4.dp),
-                        backgroundColor = Primary,
-                    ) {
-
-                    }
-                }
-                Box {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 16.dp),
-                        text = "Choose your level",
-                        fontFamily = FontFamily(Font(R.font.montserrat_semibold)),
-                        color = White_FF,
-                    )
-                }
-                SpacerVertical12()
-                Row(
-
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+            Box {
+                Card(
+                    modifier = Modifier
+                        .size(32.dp, 4.dp),
+                    backgroundColor = Primary,
                 ) {
 
-                    val selectedChipIndex = remember { mutableStateOf(0) }
-
-                    ChipItem(
-                        text = "easy",
-                        selected = selectedChipIndex.value == 1,
-                        onClickChip = onClick,
-                        onColor = { selectedChipIndex.value = 1 }
-                    )
-                    ChipItem(
-                        text = "medium",
-                        selected = selectedChipIndex.value == 2,
-                        onClickChip = onClick, onColor = { selectedChipIndex.value = 2 }
-
-                    )
-                    ChipItem(
-                        text = "hard",
-                        selected = selectedChipIndex.value == 3,
-                        onClickChip = onClick, onColor = { selectedChipIndex.value = 3 }
-
-                    )
                 }
-
-                SpacerVertical12()
-                ButtonItem(
-                    text = "Play",
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp),
-                    onClick = { onClickPlay(state.selectedCategoryName, state.selectedDifficulty) }
-                ) {}
-
             }
+            Box {
+                Text(
+                    modifier = Modifier
+                        .padding(top = 16.dp),
+                    text = "Choose your level",
+                    fontFamily = FontFamily(Font(R.font.montserrat_semibold)),
+                    color = White_FF,
+                )
+            }
+            SpacerVertical12()
+            Row(
+
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+
+                val selectedChipIndex = remember { mutableStateOf(0) }
+
+                ChipItem(
+                    text = "easy",
+                    selected = selectedChipIndex.value == 1,
+                    onClickChip = onClick,
+                    onColor = { selectedChipIndex.value = 1 }
+                )
+                ChipItem(
+                    text = "medium",
+                    selected = selectedChipIndex.value == 2,
+                    onClickChip = onClick, onColor = { selectedChipIndex.value = 2 }
+
+                )
+                ChipItem(
+                    text = "hard",
+                    selected = selectedChipIndex.value == 3,
+                    onClickChip = onClick, onColor = { selectedChipIndex.value = 3 }
+
+                )
+            }
+
+            SpacerVertical12()
+            ButtonItem(
+                text = "Play",
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                onClick = { onClickPlay(state.selectedCategoryName, state.selectedDifficulty) }
+            )
 
         }
 
-}
+    }
 
-
-@Preview
-@Composable
-fun BottomSheetPreview(viewModel: CategoriesViewModel = hiltViewModel()) {
-    BottomSheet(onClick = viewModel::onClickDifficultyChip)
 }
