@@ -27,7 +27,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
@@ -45,31 +47,16 @@ import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
 import com.example.triviagame.ui.util.QuestionState
+import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
 @Composable
 fun PlayScreen(
-    navController: NavController,
+    navController: NavHostController,
     state: PlayUiState,
+    viewModel: TriviaGameViewModel = hiltViewModel(),
 ) {
     PlayContent(state = state)
-}
-
-
-@Composable
-private fun Header() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        ImageButton(R.drawable.arrow_left, backgroundColor = CardBackgroundColor) {}
-        Text(
-            text = stringResource(id = R.string.skip),
-            color = White_FF,
-            style = MaterialTheme.typography.bodyMedium
-        )
-    }
 }
 
 @Composable
@@ -83,7 +70,6 @@ private fun PlayContent(state: PlayUiState) {
             .padding(16.dp)
     ) {
         Header()
-
         SpacerHorizontal24()
         Box {
             Card(
@@ -117,11 +103,6 @@ private fun PlayContent(state: PlayUiState) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        ImageButton(painter = R.drawable.arrow_square_left, iconTint = Secondary) {}
-                        ImageButton(
-                            painter = R.drawable.arrow_square_right,
-                            iconTint = Secondary
-                        ) {}
                     }
                 }
             }
@@ -176,6 +157,22 @@ private fun PlayContent(state: PlayUiState) {
             NextButton(buttonText = "Submit") {
             }
         }
+    }
+}
+
+@Composable
+private fun Header() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        ImageButton(R.drawable.arrow_left, backgroundColor = CardBackgroundColor) {}
+        Text(
+            text = stringResource(id = R.string.skip),
+            color = White_FF,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 
@@ -289,6 +286,6 @@ fun PreviewPlayScreen() {
         currentQuestionIndex = 0,
         userScore = 0,
     )
-    PlayScreen(navController = NavController(LocalContext.current), sampleState)
+    PlayScreen(navController = NavHostController(LocalContext.current), sampleState)
 }
 

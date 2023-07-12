@@ -9,8 +9,8 @@ import androidx.navigation.navArgument
 
 private const val ROUTE = "categories"
 
-fun NavController.navigateToPlay(name: String, level: String) {
-    navigate("${ROUTE}/${name}/${level}")
+fun NavController.navigateToPlay(categoryName: String, level: String) {
+    navigate("${ROUTE}/${categoryName}/${level}")
 }
 
 fun NavGraphBuilder.playRoute(navController: NavController) {

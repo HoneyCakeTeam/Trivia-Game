@@ -44,8 +44,8 @@ fun CategoriesScreen(
         state = state,
         onClick = viewModel::onClickCategory,
         onClickChip = viewModel::onClickDifficultyChip,
-        onClickPlay = { name, level ->
-            navController.navigateToPlay(name = name, level = level)
+        onClickPlay = { categoryName, level ->
+            navController.navigateToPlay(categoryName = categoryName, level = level)
         }
     )
 }
