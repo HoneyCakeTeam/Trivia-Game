@@ -15,25 +15,35 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
     val state = _state.asStateFlow()
 
 
-
     init {
         getCategoryDetails()
     }
 
-    fun onClickCategory(category: CategoryUiState) {
-        _state.update {
-            it.copy(selectedCategoryName = category.categoryName)
-        }
-        Log.i("CategoriesViewModel", "onClickCategory: ${state.value.selectedCategoryName}")
-    }
-
-     fun onClickDiffcultliyChip(diffcultliy: String) {
+    fun onClickCategory(selectedCategory: CategoryUiState) {
+        var selectedCategoryName = ""
         _state.update {
             it.copy(
-                selectedDifficulty =diffcultliy
+                categories = it.categories.map { category ->
+                    if (!category.selected && category == selectedCategory) {
+                        category.copy(selected = true).also {
+                            selectedCategoryName = selectedCategory.categoryName
+                        }
+                    } else {
+                        category.copy(selected = false)
+                    }
+                },
+                selectedCategoryName = selectedCategoryName
             )
         }
-        Log.i("CategoriesViewModel", "onClickDiffcultliyChip: ${state.value.selectedDifficulty}")
+        Log.e("CategoriesViewModel", "onClickCategory: ${selectedCategoryName}")
+    }
+
+    fun onClickDifficultyChip(difficulty: String) {
+        _state.update {
+            it.copy(
+                selectedDifficulty = difficulty
+            )
+        }
     }
 
 
@@ -43,31 +53,55 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
                 categories = listOf(
                     CategoryUiState(
                         categoryName = "food_and_drink",
-                        categoryImage = R.drawable.food_and_drink
+                        categoryImage = R.drawable.food_and_drink,
+                        selected = false
                     ),
-                    CategoryUiState(categoryName = "geography", categoryImage = R.drawable.geo),
+                    CategoryUiState(
+                        categoryName = "geography", categoryImage = R.drawable.geo,
+                        selected = false
+                    ),
                     CategoryUiState(
                         categoryName = "film_and_tv,music",
-                        categoryImage = R.drawable.smart_tv
+                        categoryImage = R.drawable.smart_tv,
+                        selected = false
                     ),
-                    CategoryUiState(categoryName = "history", categoryImage = R.drawable.history),
+                    CategoryUiState(
+                        categoryName = "history", categoryImage = R.drawable.history,
+                        selected = false
+                    ),
                     CategoryUiState(
                         categoryName = "general_knowledge",
-                        categoryImage = R.drawable.knowledge
+                        categoryImage = R.drawable.knowledge,
+                        selected = false
                     ),
                     CategoryUiState(
                         categoryName = "art_and_literature",
-                        categoryImage = R.drawable.literature
+                        categoryImage = R.drawable.literature,
+                        selected = false
                     ),
-                    CategoryUiState(categoryName = "science", categoryImage = R.drawable.science),
-                    CategoryUiState(categoryName = "society", categoryImage = R.drawable.society),
+                    CategoryUiState(
+                        categoryName = "science", categoryImage = R.drawable.science,
+                        selected = false
+                    ),
+                    CategoryUiState(
+                        categoryName = "society", categoryImage = R.drawable.society,
+                        selected = false
+                    ),
                     CategoryUiState(
                         categoryName = "sport_and_leisure",
-                        categoryImage = R.drawable.sport
+                        categoryImage = R.drawable.sport,
+                        selected = false
                     ),
-                    CategoryUiState(categoryName = "music", categoryImage = R.drawable.music),
+                    CategoryUiState(
+                        categoryName = "music", categoryImage = R.drawable.music,
+                        selected = false
+                    ),
                 ),
             )
         }
+    }
+
+    fun onCategorySelected(selectedCategory: CategoryUiState) {
+
     }
 }
