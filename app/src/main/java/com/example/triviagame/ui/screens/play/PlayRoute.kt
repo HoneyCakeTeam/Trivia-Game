@@ -25,7 +25,7 @@ fun NavGraphBuilder.playRoute(navController: NavController) {
             }
         )
     ) {
-        PlayScreen(navController)
+      //  PlayScreen(navController)
     }
 
 }

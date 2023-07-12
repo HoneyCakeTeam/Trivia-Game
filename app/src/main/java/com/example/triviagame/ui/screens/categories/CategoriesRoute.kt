@@ -9,7 +9,8 @@ private const val ROUTE = "categories"
 
 fun NavGraphBuilder.categoriesRoute(navController: NavController) {
     composable(route = ROUTE) {
-        CategoriesScreen(navController)
+        //CategoriesScreen(navController)
+        CategoriesScreen()
     }
 }
 

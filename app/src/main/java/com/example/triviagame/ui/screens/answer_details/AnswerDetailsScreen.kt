@@ -9,6 +9,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,16 +44,24 @@ import com.example.triviagame.ui.util.QuestionState
 fun AnswerDetailsScreen(
     navController: NavController,
 ) {
-    AnswerDetailsContent(onClickBack = {
-        navController.popBackStack(Screen.Categories.rout, false)
-    })
-
+    var animationPlayed by remember { mutableStateOf(false) }
+    AnswerDetailsContent(
+        animationPlayed = animationPlayed,
+        onClickBack = {
+            navController.popBackStack(Screen.Categories.rout, false)
+        },
+    )
+    LaunchedEffect(key1 = true) {
+        animationPlayed = true
+    }
 }
 
 
 @Composable
 fun AnswerDetailsContent(
-    onClickBack: () -> Unit
+    animationPlayed: Boolean,
+    onClickBack: () -> Unit,
+    answerUiState: AnswerUiState = AnswerUiState()
 ) {
     val question = listOf(
         AnswerUiState(
@@ -108,7 +121,9 @@ fun AnswerDetailsContent(
                 AnswerChart(
                     quizType = "Science",
                     correctAnswerPrecedent = 20,
-                    inCorrectAnswerPrecedent = 80
+                    inCorrectAnswerPrecedent = 80,
+                    animationPlayed = animationPlayed,
+                    answerUiState = answerUiState
                 )
                 SpacerVertical16()
                 TextLabel(stringResource(R.string.your_answers))
