@@ -52,50 +52,7 @@ fun PlayScreen(
     navController: NavController,
     state: PlayUiState,
 ) {
-    var state by remember { mutableStateOf(state) }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BackGround)
-            .padding(16.dp)
-    ) {
-        Header()
-
-        SpacerHorizontal24()
-
-        PlayContent(state = state)
-
-        SpacerVertical32()
-
-        PlayButtons(
-            answers = state.questions[state.currentQuestionIndex].answers,
-            selectedAnswer = state.questions[state.currentQuestionIndex].selectedAnswer,
-        ) { answer ->
-            state = state.copy(
-                questions = state.questions.mapIndexed { index, question ->
-                    if (index == state.currentQuestionIndex) {
-                        question.copy(selectedAnswer = answer)
-                    } else {
-                        question
-                    }
-                }
-            )
-        }
-
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        if (state.currentQuestionIndex < state.questions.size - 1) {
-            NextButton(buttonText = "Next") {
-                state = state.copy(currentQuestionIndex = state.currentQuestionIndex + 1)
-            }
-        } else {
-            NextButton(buttonText = "Submit") {
-
-            }
-        }
-    }
+    PlayContent(state = state)
 }
 
 
@@ -117,71 +74,106 @@ private fun Header() {
 
 @Composable
 private fun PlayContent(state: PlayUiState) {
+    var state by remember { mutableStateOf(state) }
     val currentQuestion = state.questions[state.currentQuestionIndex]
-    Box {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 26.dp),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-            Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BackGround)
+            .padding(16.dp)
+    ) {
+        Header()
+
+        SpacerHorizontal24()
+        Box {
+            Card(
                 modifier = Modifier
-                    .background(CardBackgroundColor)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .padding(top = 26.dp),
+                shape = RoundedCornerShape(16.dp)
             ) {
-                SpacerVertical32()
-                Timer(
-                    totalTime = currentQuestion.timer,
-                    activeBarColor = Secondary,
-                    modifier = Modifier.size(64.dp)
-                )
-                SpacerVertical16()
-                Text(
-                    text = currentQuestion.question,
-                    color = White_EC,
-                    style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center,
-                )
-                SpacerVertical16()
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                Column(
+                    modifier = Modifier
+                        .background(CardBackgroundColor)
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    ImageButton(painter = R.drawable.arrow_square_left, iconTint = Secondary) {}
-                    ImageButton(
-                        painter = R.drawable.arrow_square_right,
-                        iconTint = Secondary
-                    ) {}
+                    SpacerVertical32()
+                    Timer(
+                        totalTime = currentQuestion.timer,
+                        activeBarColor = Secondary,
+                        modifier = Modifier.size(64.dp)
+                    )
+                    SpacerVertical16()
+                    Text(
+                        text = currentQuestion.question,
+                        color = White_EC,
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center,
+                    )
+                    SpacerVertical16()
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        ImageButton(painter = R.drawable.arrow_square_left, iconTint = Secondary) {}
+                        ImageButton(
+                            painter = R.drawable.arrow_square_right,
+                            iconTint = Secondary
+                        ) {}
+                    }
+                }
+            }
+            Card(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .width(186.dp),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .background(Secondary)
+                        .padding(vertical = 8.dp)
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.question),
+                        color = Black_87,
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                    Text(
+                        text = "${currentQuestion.questionNumber}/${state.numberOfQuestions}",
+                        color = Black_87,
+                        style = MaterialTheme.typography.labelLarge
+                    )
                 }
             }
         }
-        Card(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .width(186.dp),
-            shape = RoundedCornerShape(16.dp)
-        ) {
-            Column(
-                modifier = Modifier
-                    .background(Secondary)
-                    .padding(vertical = 8.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = stringResource(R.string.question),
-                    color = Black_87,
-                    style = MaterialTheme.typography.labelLarge
-                )
-                Text(
-                    text = "${currentQuestion.questionNumber}/${state.numberOfQuestions}",
-                    color = Black_87,
-                    style = MaterialTheme.typography.labelLarge
-                )
+        SpacerVertical32()
+        PlayButtons(
+            answers = state.questions[state.currentQuestionIndex].answers,
+            selectedAnswer = state.questions[state.currentQuestionIndex].selectedAnswer,
+        ) { answer ->
+            state = state.copy(
+                questions = state.questions.mapIndexed { index, question ->
+                    if (index == state.currentQuestionIndex) {
+                        question.copy(selectedAnswer = answer)
+                    } else {
+                        question
+                    }
+                }
+            )
+        }
+        Spacer(modifier = Modifier.weight(1f))
+        if (state.currentQuestionIndex < state.questions.size - 1) {
+            NextButton(buttonText = "Next") {
+                state = state.copy(currentQuestionIndex = state.currentQuestionIndex + 1)
+            }
+        } else {
+            NextButton(buttonText = "Submit") {
             }
         }
     }
@@ -231,25 +223,25 @@ fun PreviewPlayScreen() {
                 answers = listOf(
                     AnswerUiState(
                         id = 1,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = "Sample Question 1",
                         answer = "Sample Answer 1"
                     ),
                     AnswerUiState(
                         id = 2,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = "Sample Question 1",
                         answer = "Sample Answer 2"
                     ),
                     AnswerUiState(
                         id = 3,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = "Sample Question 1",
                         answer = "Sample Answer 3"
                     ),
                     AnswerUiState(
                         id = 4,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = "Sample Question 1",
                         answer = "Sample Answer 4"
                     )
@@ -264,25 +256,25 @@ fun PreviewPlayScreen() {
                 answers = listOf(
                     AnswerUiState(
                         id = 1,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = " Question 2",
                         answer = " Answer 1"
                     ),
                     AnswerUiState(
                         id = 2,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = " Question 2",
                         answer = " Answer 2"
                     ),
                     AnswerUiState(
                         id = 3,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = " Question 2",
                         answer = " Answer 3"
                     ),
                     AnswerUiState(
                         id = 4,
-                        state = QuestionState.UNANSWERED,
+                        state = QuestionState.NOT_ANSWERED,
                         question = " Question 2",
                         answer = " Answer 4"
                     )

@@ -18,17 +18,17 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal object NetworkModule {
-    private const val BASE_URL = "https://the-trivia-api.com/v2/"
+    private const val BASE_URL = "https://the-trivia-api.com/v2/questions?"
 
     @Singleton
     @Provides
     fun provideHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
-    )
-            : HttpClient {
+    ): HttpClient {
         return HttpClient(OkHttp) {
             expectSuccess = true
             engine {
+                addInterceptor(loggingInterceptor)
                 config {
                     retryOnConnectionFailure(true)
                     connectTimeout(1, TimeUnit.MINUTES)
