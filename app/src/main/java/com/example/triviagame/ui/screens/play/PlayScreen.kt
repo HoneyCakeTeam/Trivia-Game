@@ -16,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,16 +47,18 @@ import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
-import com.example.triviagame.ui.util.QuestionState
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
 @Composable
 fun PlayScreen(
-    navController: NavHostController,
-    state: PlayUiState,
-    viewModel: TriviaGameViewModel = hiltViewModel(),
+    navController: NavController,
 ) {
+    val backStackEntry = remember(navController.currentBackStackEntry) {
+        navController.getBackStackEntry("PlayScreen/{name}/{level}")
+    }
+    val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
+    val state by viewModel.state.collectAsState()
     PlayContent(state = state)
 }
 
@@ -213,79 +216,6 @@ private fun NextButton(buttonText: String, onClick: () -> Unit) {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewPlayScreen() {
-    val sampleState = PlayUiState(
-        questions = listOf(
-            QuestionUiState(
-                question = "Sample Question 1",
-                answers = listOf(
-                    AnswerUiState(
-                        id = 1,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = "Sample Question 1",
-                        answer = "Sample Answer 1"
-                    ),
-                    AnswerUiState(
-                        id = 2,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = "Sample Question 1",
-                        answer = "Sample Answer 2"
-                    ),
-                    AnswerUiState(
-                        id = 3,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = "Sample Question 1",
-                        answer = "Sample Answer 3"
-                    ),
-                    AnswerUiState(
-                        id = 4,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = "Sample Question 1",
-                        answer = "Sample Answer 4"
-                    )
-                ),
-                correctAnswer = "Sample Answer 1",
-                isAnswered = false,
-                isCorrect = false,
-                questionNumber = 1
-            ),
-            QuestionUiState(
-                question = " Question 2",
-                answers = listOf(
-                    AnswerUiState(
-                        id = 1,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = " Question 2",
-                        answer = " Answer 1"
-                    ),
-                    AnswerUiState(
-                        id = 2,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = " Question 2",
-                        answer = " Answer 2"
-                    ),
-                    AnswerUiState(
-                        id = 3,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = " Question 2",
-                        answer = " Answer 3"
-                    ),
-                    AnswerUiState(
-                        id = 4,
-                        state = QuestionState.NOT_ANSWERED,
-                        question = " Question 2",
-                        answer = " Answer 4"
-                    )
-                ),
-                correctAnswer = " Answer 2",
-                isAnswered = false,
-                isCorrect = false,
-                questionNumber = 2
-            ),
-        ),
-        numberOfQuestions = 10,
-        currentQuestionIndex = 0,
-        userScore = 0,
-    )
-    PlayScreen(navController = NavHostController(LocalContext.current), sampleState)
+    PlayScreen(navController = NavHostController(LocalContext.current))
 }
 
