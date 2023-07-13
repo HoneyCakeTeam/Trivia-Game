@@ -54,7 +54,7 @@ fun GameResultScreen() {
         onClickBackToHome = {
             navController.popBackStack(Screen.Categories.rout, false)
         }, onClickBackToGame = {
-            navController.popBackStack(Screen.PlayScreen.rout, false)
+            navController.navigateUp()
         }, onClick = {
             navController.navigate(Screen.AnswerDetails.rout)
         })

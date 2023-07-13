@@ -56,7 +56,10 @@ fun AnswerDetailsScreen() {
         onClickBack = {
             navController.popBackStack(Screen.Categories.rout, false)
         },
-        answersUiState = state
+        answersUiState = state,
+        onBack = {
+            navController.navigateUp()
+        }
     )
     LaunchedEffect(key1 = true) {
         animationPlayed = true
@@ -69,13 +72,15 @@ fun AnswerDetailsContent(
     animationPlayed: Boolean,
     onClickBack: () -> Unit,
     answersUiState: AnswersUiState,
+    onBack: () -> Unit
 ) {
     Box {
         AppBarWithIconBack(
             stringResource(R.string.review_answer),
             modifier = Modifier
                 .zIndex(2f),
-            onBack = {})
+            onBack = onBack
+        )
         Box(
             modifier = Modifier
                 .background(color = Primary)
