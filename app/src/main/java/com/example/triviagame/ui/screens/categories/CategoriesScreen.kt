@@ -106,7 +106,7 @@ private fun LazyGrid(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(16.dp),
+        contentPadding = PaddingValues(start = 16.dp,end = 16.dp,top = 16.dp, bottom = 32.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(category.categories.size) { index ->
