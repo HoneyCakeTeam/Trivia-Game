@@ -3,8 +3,10 @@ package com.example.triviagame.ui.composable
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -60,7 +62,8 @@ fun GameButton(
         onClick = { onClick(text) },
         modifier = Modifier
             .fillMaxWidth()
-            .height(54.dp)
+            .wrapContentHeight()
+            .defaultMinSize(minHeight = 54.dp)
             .border(1.dp, buttonBorderColor, shape = RoundedCornerShape(16.dp)),
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(buttonContainerColor,disabledContainerColor = buttonContainerColor),

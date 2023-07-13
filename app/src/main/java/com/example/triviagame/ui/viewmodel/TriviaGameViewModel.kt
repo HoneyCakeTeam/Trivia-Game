@@ -62,7 +62,7 @@ class TriviaGameViewModel @Inject constructor(
     fun onClickAnswer(answer: String) {
         _state.update {
             it.copy(
-                timer = 0L,
+                timer = -1L,
                 questions = _state.value.questions.mapIndexed { index, question ->
                     if (index == state.value.currentQuestionIndex) {
                         question.copy(selectedAnswer = answer, enabled = false)

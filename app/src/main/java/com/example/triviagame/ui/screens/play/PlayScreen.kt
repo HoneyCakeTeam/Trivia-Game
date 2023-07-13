@@ -119,7 +119,8 @@ private fun PlayContent(
                     Timer(
                         state = state,
                         activeBarColor = Secondary,
-                        modifier = Modifier.size(64.dp)
+                        modifier = Modifier.size(64.dp),
+                        onTimeOut = onClickNext
                     )
                     SpacerVertical16()
                     state.questions.getOrNull(state.currentQuestionIndex)?.question?.let {
