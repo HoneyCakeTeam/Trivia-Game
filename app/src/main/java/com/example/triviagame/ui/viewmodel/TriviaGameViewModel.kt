@@ -3,22 +3,17 @@ package com.example.triviagame.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.triviagame.data.repository.TriviaRepository
+import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.screens.play.PlayUiState
+import com.example.triviagame.ui.screens.play.QuestionUiState
 import com.example.triviagame.ui.screens.play.toQuestionUiState
+import com.example.triviagame.ui.util.QuestionState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import com.example.triviagame.ui.screens.answer_details.AnswerUiState
-import com.example.triviagame.ui.screens.play.PlayUiState
-import com.example.triviagame.ui.screens.play.QuestionUiState
-import com.example.triviagame.ui.util.QuestionState
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,9 +25,7 @@ class TriviaGameViewModel @Inject constructor(
 
     init {
         getTriviaQuestions("food_and_drink","easy")
-    }
 
-    init {
         _state.update {
             PlayUiState(
                 questions = listOf(
