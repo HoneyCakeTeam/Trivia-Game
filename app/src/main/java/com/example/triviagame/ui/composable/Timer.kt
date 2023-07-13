@@ -2,11 +2,13 @@ package com.example.triviagame.ui.composable
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -18,23 +20,47 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import com.example.triviagame.ui.theme.Secondary
+import com.example.triviagame.ui.screens.play.PlayUiState
 import com.example.triviagame.ui.theme.White_FF
+import kotlinx.coroutines.delay
 import kotlin.math.min
 
 @Composable
 fun Timer(
     modifier: Modifier = Modifier,
-    currentTime: Long,
+    state: PlayUiState,
     inactiveBarColor: Color = Color.Green,
     activeBarColor: Color,
-    value: Float = 1f,
     strokeWidth: Dp = 6.dp,
 ) {
+
+    var value by remember {
+        mutableFloatStateOf(1f)
+    }
+
+    var currentTime by remember {
+        mutableLongStateOf(state.timer)
+    }
+
+    LaunchedEffect(key1 = state) {
+        currentTime = state.timer
+    }
+
+    LaunchedEffect(key1 = currentTime) {
+        if (currentTime > 0) {
+            if (state.timer > 0) {
+                delay(100L)
+                currentTime -= 100L
+                value = currentTime / 30000f
+            }
+        } else {
+            //onClickNext()
+        }
+    }
+
     var size by remember {
         mutableStateOf(IntSize.Zero)
     }
@@ -71,20 +97,6 @@ fun Timer(
             color = White_FF,
             style = MaterialTheme.typography.labelLarge,
             textAlign = TextAlign.Center
-        )
-    }
-}
-
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun TimerPreview() {
-    Box(
-        contentAlignment = Alignment.Center
-    ) {
-        Timer(
-            currentTime = 30000L,
-            activeBarColor = Secondary,
-            modifier = Modifier.size(64.dp)
         )
     }
 }

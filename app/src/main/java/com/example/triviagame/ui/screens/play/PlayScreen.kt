@@ -16,24 +16,16 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.triviagame.R
 import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.GameButton
@@ -51,7 +43,6 @@ import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
-import kotlinx.coroutines.delay
 
 
 @Composable
@@ -97,26 +88,9 @@ private fun PlayContent(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     SpacerVertical32()
-                    var value by remember {
-                        mutableFloatStateOf(1f)
-                    }
-                    var currentTime by remember {
-                        mutableLongStateOf(state.timer)
-                    }
-                    LaunchedEffect(key1 = currentTime) {
-                        if (currentTime > 0) {
-                            delay(100L)
-                            currentTime -= 100L
-                            value = currentTime / state.timer.toFloat()
-                        } else {
-                            state.timer = 0
-                            onClickNext()
-                        }
-                    }
                     Timer(
-                        currentTime = currentTime,
+                        state = state,
                         activeBarColor = Secondary,
-                        value = value,
                         modifier = Modifier.size(64.dp)
                     )
                     SpacerVertical16()

@@ -8,7 +8,6 @@ import com.example.triviagame.ui.screens.play.PlayArgs
 import com.example.triviagame.ui.screens.play.PlayUiState
 import com.example.triviagame.ui.screens.play.toQuestionUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -19,7 +18,7 @@ import javax.inject.Inject
 class TriviaGameViewModel @Inject constructor(
     private val repository: TriviaRepository,
     savedStateHandle: SavedStateHandle,
-    ) : ViewModel() {
+) : ViewModel() {
     private val _state = MutableStateFlow(PlayUiState())
     val state = _state.asStateFlow()
 
@@ -33,9 +32,10 @@ class TriviaGameViewModel @Inject constructor(
         category: String,
         difficulty: String,
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             _state.update { playUiState ->
                 playUiState.copy(
+                    timer = 30000L,
                     questions = repository.getTriviaQuestions(
                         category,
                         difficulty
@@ -48,6 +48,7 @@ class TriviaGameViewModel @Inject constructor(
     fun onClickAnswer(answer: String) {
         _state.update {
             it.copy(
+                timer = 0L,
                 questions = _state.value.questions.mapIndexed { index, question ->
                     if (index == state.value.currentQuestionIndex) {
                         question.copy(selectedAnswer = answer)
@@ -61,7 +62,7 @@ class TriviaGameViewModel @Inject constructor(
 
     fun onClickNext() {
         _state.update {
-            it.copy(currentQuestionIndex = state.value.currentQuestionIndex + 1)
+            it.copy(timer = 30000L, currentQuestionIndex = state.value.currentQuestionIndex + 1)
         }
     }
 }

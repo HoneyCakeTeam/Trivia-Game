@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.White_EC
@@ -29,6 +30,9 @@ fun GameButton(
         shape = RoundedCornerShape(16.dp),
         colors = ButtonDefaults.buttonColors(buttonColor)
     ) {
-        Text(text = text, style = MaterialTheme.typography.bodyLarge, color = textColor)
+        Text(
+            textAlign = TextAlign.Center,
+            text = text, style = MaterialTheme.typography.bodyLarge, color = textColor
+        )
     }
 }

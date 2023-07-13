@@ -7,7 +7,7 @@ data class PlayUiState(
     val numberOfQuestions: Int = 10,
     val currentQuestionIndex: Int = 0,
     val userScore: Int = 0,
-    var timer: Long = 30000L,
+    var timer: Long = 0L,
 )
 
 data class QuestionUiState(

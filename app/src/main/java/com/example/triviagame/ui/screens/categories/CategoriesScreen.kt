@@ -24,7 +24,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.BottomSheet
@@ -80,7 +79,7 @@ fun CategoriesContent(
                     contentScale = ContentScale.Crop
                 )
                 .fillMaxSize()
-                .padding(top = 48.dp),
+                .padding(top = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Header(score = state.userScore, modifier = Modifier.padding(horizontal = 16.dp))
@@ -107,7 +106,7 @@ private fun LazyGrid(
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(start = 16.dp,end = 16.dp,top = 16.dp, bottom = 32.dp),
+        contentPadding = PaddingValues(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         items(category.categories.size) { index ->
