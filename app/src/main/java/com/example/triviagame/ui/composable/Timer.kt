@@ -6,10 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -27,33 +24,19 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_FF
-import kotlinx.coroutines.delay
 import kotlin.math.min
 
 @Composable
 fun Timer(
     modifier: Modifier = Modifier,
-    totalTime: Long,
+    currentTime: Long,
     inactiveBarColor: Color = Color.Green,
     activeBarColor: Color,
-    initialValue: Float = 1f,
+    value: Float = 1f,
     strokeWidth: Dp = 6.dp,
 ) {
     var size by remember {
         mutableStateOf(IntSize.Zero)
-    }
-    var value by remember {
-        mutableFloatStateOf(initialValue)
-    }
-    var currentTime by remember {
-        mutableLongStateOf(totalTime)
-    }
-    LaunchedEffect(key1 = currentTime) {
-        if (currentTime > 0) {
-            delay(100L)
-            currentTime -= 100L
-            value = currentTime / totalTime.toFloat()
-        }
     }
     Box(
         contentAlignment = Alignment.Center,
@@ -70,12 +53,12 @@ fun Timer(
         Canvas(modifier = modifier) {
             val radius = min(size.width, size.height) / 2f
             drawCircle(
-                color = barColor,
+                color = activeBarColor,
                 radius = radius,
                 style = Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
             )
             drawArc(
-                color = activeBarColor,
+                color = barColor,
                 startAngle = -90f,
                 sweepAngle = 360f * value,
                 useCenter = false,
@@ -99,7 +82,7 @@ fun TimerPreview() {
         contentAlignment = Alignment.Center
     ) {
         Timer(
-            totalTime = 30000L,
+            currentTime = 30000L,
             activeBarColor = Secondary,
             modifier = Modifier.size(64.dp)
         )

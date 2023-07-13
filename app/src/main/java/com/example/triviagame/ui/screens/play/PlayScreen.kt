@@ -16,8 +16,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -39,7 +42,6 @@ import com.example.triviagame.ui.composable.Timer
 import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal24
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
-import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Black_87
@@ -48,6 +50,7 @@ import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
+import kotlinx.coroutines.delay
 
 
 @Composable
@@ -59,13 +62,19 @@ fun PlayScreen(
     }
     val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
     val state by viewModel.state.collectAsState()
-    PlayContent(state = state)
+    PlayContent(
+        state = state,
+        onClickAnswer = viewModel::onClickAnswer,
+        onClickNext = viewModel::onClickNext
+    )
 }
 
 @Composable
-private fun PlayContent(state: PlayUiState) {
-    var state by remember { mutableStateOf(state) }
-    val currentQuestion = state.questions[state.currentQuestionIndex]
+private fun PlayContent(
+    onClickAnswer: (String) -> Unit,
+    state: PlayUiState,
+    onClickNext: () -> Unit,
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -88,18 +97,37 @@ private fun PlayContent(state: PlayUiState) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     SpacerVertical32()
+                    var value by remember {
+                        mutableFloatStateOf(1f)
+                    }
+                    var currentTime by remember {
+                        mutableLongStateOf(state.timer)
+                    }
+                    LaunchedEffect(key1 = currentTime) {
+                        if (currentTime > 0) {
+                            delay(100L)
+                            currentTime -= 100L
+                            value = currentTime / state.timer.toFloat()
+                        } else {
+                            state.timer = 0
+                            onClickNext()
+                        }
+                    }
                     Timer(
-                        totalTime = currentQuestion.timer,
+                        currentTime = currentTime,
                         activeBarColor = Secondary,
+                        value = value,
                         modifier = Modifier.size(64.dp)
                     )
                     SpacerVertical16()
-                    Text(
-                        text = currentQuestion.question,
-                        color = White_EC,
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center,
-                    )
+                    state.questions.getOrNull(state.currentQuestionIndex)?.question?.let {
+                        Text(
+                            text = it,
+                            color = White_EC,
+                            style = MaterialTheme.typography.bodyLarge,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                     SpacerVertical16()
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -129,7 +157,7 @@ private fun PlayContent(state: PlayUiState) {
                         style = MaterialTheme.typography.labelLarge
                     )
                     Text(
-                        text = "${currentQuestion.questionNumber}/${state.numberOfQuestions}",
+                        text = "${state.currentQuestionIndex + 1}/${state.numberOfQuestions}",
                         color = Black_87,
                         style = MaterialTheme.typography.labelLarge
                     )
@@ -137,25 +165,19 @@ private fun PlayContent(state: PlayUiState) {
             }
         }
         SpacerVertical32()
-        PlayButtons(
-            answers = state.questions[state.currentQuestionIndex].answers,
-            selectedAnswer = state.questions[state.currentQuestionIndex].selectedAnswer,
-        ) { answer ->
-            state = state.copy(
-                questions = state.questions.mapIndexed { index, question ->
-                    if (index == state.currentQuestionIndex) {
-                        question.copy(selectedAnswer = answer)
-                    } else {
-                        question
-                    }
-                }
+        state.questions.getOrNull(state.currentQuestionIndex)?.let {
+            PlayButtons(
+                answers = it.answers,
+                selectedAnswer = it.selectedAnswer,
+                onAnswerSelected = onClickAnswer
             )
         }
         Spacer(modifier = Modifier.weight(1f))
         if (state.currentQuestionIndex < state.questions.size - 1) {
-            NextButton(buttonText = "Next") {
-                state = state.copy(currentQuestionIndex = state.currentQuestionIndex + 1)
-            }
+            NextButton(
+                buttonText = "Next",
+                onClick = onClickNext
+            )
         } else {
             NextButton(buttonText = "Submit") {
             }
@@ -182,21 +204,21 @@ private fun Header() {
 
 @Composable
 private fun PlayButtons(
-    answers: List<AnswerUiState>,
+    answers: List<String>,
     selectedAnswer: String,
     onAnswerSelected: (String) -> Unit,
 ) {
     answers.forEachIndexed { _, answer ->
-        val isSelected = answer.answer == selectedAnswer
+        val isSelected = answer == selectedAnswer
         if (isSelected) {
             OutlinePlayButton(
-                text = answer.answer,
-                onClick = { onAnswerSelected(answer.answer) }
+                text = answer,
+                onClick = { onAnswerSelected(answer) }
             )
         } else {
             GameButton(
-                text = answer.answer,
-                onClick = { onAnswerSelected(answer.answer) }
+                text = answer,
+                onClick = { onAnswerSelected(answer) }
             )
         }
         SpacerVertical16()

@@ -16,13 +16,16 @@ data class QuestionDto(
     @SerializedName("isNiche")
     val isNiche: Boolean,
     @SerializedName("question")
-    val question: String,
+    val question: Question,
     @SerializedName("regions")
     val regions: List<Any>,
-    @SerializedName("correctAnswer")
+    @SerializedName("tags")
     val tags: List<String>,
     @SerializedName("type")
     val type: String
+)
+data class Question(
+    val text:String
 )
 
 
