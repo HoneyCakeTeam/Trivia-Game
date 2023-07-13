@@ -8,4 +8,7 @@ interface TriviaRepository {
         category: String,
         difficulty: String
     ): List<QuestionDto>
+
+    suspend fun savePints(points: Int)
+    fun getPoints(): String?
 }

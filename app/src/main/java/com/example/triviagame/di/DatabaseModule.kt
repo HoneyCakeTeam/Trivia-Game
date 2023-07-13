@@ -16,7 +16,7 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Singleton
     @Provides
-    fun provideAuthDataStorePref(@ApplicationContext context: Context): DataStorePref {
+    fun provideDataStorePref(@ApplicationContext context: Context): DataStorePref {
         return DataStorePrefImp(context)
     }
 }

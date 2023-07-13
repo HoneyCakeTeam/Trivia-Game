@@ -48,6 +48,8 @@ fun GameResultScreen() {
     }
     val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
     val state by viewModel.resultState.collectAsState()
+    val answer = (state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100
+    viewModel.savePoint(answer.toInt())
 
     GameContent(
         state = state,
@@ -68,8 +70,10 @@ fun GameContent(
     onClickBackToGame: () -> Unit,
     onClick: () -> Unit,
 ) {
-    val imageState = if (state.correctAnswers > 50) R.drawable.winning_cup else R.drawable.game_over
-    val textState = if (state.correctAnswers > 50) "Greet Job !!" else "You Lose!"
+    val answer = (state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100
+    val imageState = if (answer >= 50) R.drawable.winning_cup else R.drawable.game_over
+    val textState = if (answer >= 50) "Greet Job !!" else "You Lose!"
+
     Column(
         modifier = Modifier
             .fillMaxSize()

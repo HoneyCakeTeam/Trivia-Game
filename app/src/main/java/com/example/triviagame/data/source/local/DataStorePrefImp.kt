@@ -23,13 +23,13 @@ class DataStorePrefImp @Inject constructor(context: Context) : DataStorePref {
     private val USER_POINTS_KEY = stringPreferencesKey("Points")
 
 
-    override suspend fun savePoints(points: String) {
+    override suspend fun savePoints(points: Int) {
         prefDataStore.edit { preferences ->
-            preferences[USER_POINTS_KEY] = points
+            preferences[USER_POINTS_KEY] = points.toString()
         }
     }
 
-    override fun getPoints(): String? {
+    override fun getPoints(): String {
         return prefDataStore.data.map { preferences ->
             preferences[USER_POINTS_KEY]
         }.toString()

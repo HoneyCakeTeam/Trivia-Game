@@ -140,6 +140,18 @@ class TriviaGameViewModel @Inject constructor(
             )
         }
     }
+
+    fun savePoint(points:Int){
+        viewModelScope.launch{
+            if (points>=50){
+                repository.savePints(points)
+            }else
+            {
+                repository.getPoints()
+            }
+        }
+    }
+
 }
 
 
