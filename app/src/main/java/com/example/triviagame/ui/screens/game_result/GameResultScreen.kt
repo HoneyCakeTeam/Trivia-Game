@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.Screen
+import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.screens.game_result.composable.AnswerCard
 import com.example.triviagame.ui.screens.game_result.composable.ReusableCard
@@ -35,7 +36,9 @@ import com.example.triviagame.ui.theme.Yellow
 
 
 @Composable
-fun GameScreen(navController: NavController) {
+fun GameScreen() {
+    val navController = LocalNavigationProvider.current
+
     GameContent(onClickBackToHome = {
         navController.popBackStack(Screen.Categories.rout, false)
     }, onClickBackToGame = {

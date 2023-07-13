@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.triviagame.ui.LocalNavigationProvider
 
 private const val ROUTE = "PlayScreen"
 
@@ -13,7 +14,7 @@ fun NavController.navigateToPlay(categoryName: String, level: String) {
     navigate("${ROUTE}/${categoryName}/${level}")
 }
 
-fun NavGraphBuilder.playRoute(navController: NavController) {
+fun NavGraphBuilder.playRoute() {
     composable(
         "$ROUTE/{${PlayArgs.NAME_ARG}}/{${PlayArgs.LEVEL}}",
         arguments = listOf(
@@ -25,9 +26,8 @@ fun NavGraphBuilder.playRoute(navController: NavController) {
             }
         )
     ) {
-      PlayScreen(navController)
+      PlayScreen()
     }
-
 }
 
 class PlayArgs(savedStateHandle: SavedStateHandle) {

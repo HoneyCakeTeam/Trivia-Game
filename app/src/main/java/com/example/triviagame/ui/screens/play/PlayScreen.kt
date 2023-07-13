@@ -35,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.triviagame.R
+import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
 import com.example.triviagame.ui.composable.OutlinePlayButton
@@ -54,9 +55,8 @@ import kotlinx.coroutines.delay
 
 
 @Composable
-fun PlayScreen(
-    navController: NavController,
-) {
+fun PlayScreen() {
+    val navController = LocalNavigationProvider.current
     val backStackEntry = remember(navController.currentBackStackEntry) {
         navController.getBackStackEntry("PlayScreen/{name}/{level}")
     }
@@ -238,6 +238,6 @@ private fun NextButton(buttonText: String, onClick: () -> Unit) {
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewPlayScreen() {
-    PlayScreen(navController = NavHostController(LocalContext.current))
+    PlayScreen()
 }
 

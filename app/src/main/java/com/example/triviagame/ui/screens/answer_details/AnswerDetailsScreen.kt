@@ -23,6 +23,7 @@ import androidx.compose.ui.zIndex
 import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.Screen
+import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.AppBarWithIconBack
 import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.TextLabel
@@ -39,10 +40,10 @@ import com.example.triviagame.ui.util.QuestionState
 
 
 @Composable
-fun AnswerDetailsScreen(
-    navController: NavController,
-) {
+fun AnswerDetailsScreen() {
     var animationPlayed by remember { mutableStateOf(false) }
+    val navController = LocalNavigationProvider.current
+
     AnswerDetailsContent(
         animationPlayed = animationPlayed,
         onClickBack = {
