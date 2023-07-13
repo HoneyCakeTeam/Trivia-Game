@@ -199,7 +199,7 @@ private fun PlayContent(
 @Composable
 fun LottieAnimation() {
     val animationSpeed by remember { mutableFloatStateOf(1f) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loadinganim))
 
     val lottieAnimation by animateLottieCompositionAsState(
         composition,
