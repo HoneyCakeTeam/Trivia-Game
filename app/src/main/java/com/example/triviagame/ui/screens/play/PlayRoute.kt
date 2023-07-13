@@ -7,7 +7,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-private const val ROUTE = "categories"
+private const val ROUTE = "PlayScreen"
 
 fun NavController.navigateToPlay(categoryName: String, level: String) {
     navigate("${ROUTE}/${categoryName}/${level}")
@@ -25,7 +25,7 @@ fun NavGraphBuilder.playRoute(navController: NavController) {
             }
         )
     ) {
-      //  PlayScreen(navController)
+    PlayScreen(navController)
     }
 
 }

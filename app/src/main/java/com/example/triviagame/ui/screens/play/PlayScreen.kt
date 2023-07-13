@@ -16,6 +16,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,7 +30,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
@@ -46,16 +46,15 @@ import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
-import com.example.triviagame.ui.util.QuestionState
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
 @Composable
 fun PlayScreen(
-    navController: NavHostController,
-    state: PlayUiState,
+    navController: NavController,
     viewModel: TriviaGameViewModel = hiltViewModel(),
 ) {
+    val state by viewModel.state.collectAsState()
     PlayContent(state = state)
 }
 
@@ -210,9 +209,9 @@ private fun NextButton(buttonText: String, onClick: () -> Unit) {
     )
 }
 
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun PreviewPlayScreen() {
+//@Preview(showSystemUi = true, showBackground = true)
+//@Composable
+/*fun PreviewPlayScreen() {
     val sampleState = PlayUiState(
         questions = listOf(
             QuestionUiState(
@@ -286,6 +285,12 @@ fun PreviewPlayScreen() {
         currentQuestionIndex = 0,
         userScore = 0,
     )
-    PlayScreen(navController = NavHostController(LocalContext.current), sampleState)
+    PlayScreen(navController = NavHostController(LocalContext.current))
+}*/
+
+@Preview
+@Composable
+fun PreviewPlay2Screen() {
+    PlayScreen(navController = NavController(LocalContext.current))
 }
 
