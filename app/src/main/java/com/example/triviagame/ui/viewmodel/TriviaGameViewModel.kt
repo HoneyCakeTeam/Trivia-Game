@@ -40,7 +40,6 @@ class TriviaGameViewModel @Inject constructor(
                 playUiState.copy(
                     timer = COUNTER_COUNT,
                     isLoading = false,
-                    timer = 30000L,
                     questions = repository.getTriviaQuestions(
                         category,
                         difficulty
