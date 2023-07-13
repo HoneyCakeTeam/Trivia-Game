@@ -5,5 +5,5 @@ package com.example.triviagame.ui.util
  * sehunexo710@gmail.com
  */
 enum class QuestionState {
-    Correct, Wrong, SKIPPED, NOT_ANSWERED
+    Correct, Wrong, NOT_ANSWERED
 }

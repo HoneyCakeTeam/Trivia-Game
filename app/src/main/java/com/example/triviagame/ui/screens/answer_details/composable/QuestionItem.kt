@@ -15,16 +15,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
 import com.example.triviagame.ui.screens.answer_details.AnswerUiState
-import com.example.triviagame.ui.theme.Wrong
 import com.example.triviagame.ui.theme.Success
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
+import com.example.triviagame.ui.theme.Wrong
 import com.example.triviagame.ui.util.QuestionState
 
 
 @Composable
 fun QuestionItem(question: AnswerUiState) {
-
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
@@ -56,7 +55,9 @@ fun QuestionItem(question: AnswerUiState) {
 
         }
         Image(
-            painter = if (question.state == QuestionState.Correct) painterResource(id = R.drawable.resource_true) else painterResource(
+            painter = if (question.state == QuestionState.Correct)
+                painterResource(id = R.drawable.resource_true)
+            else painterResource(
                 id = R.drawable.resource_false
             ),
             contentDescription = if (question.state == QuestionState.Correct) " Question Success" else " Question Wrong"

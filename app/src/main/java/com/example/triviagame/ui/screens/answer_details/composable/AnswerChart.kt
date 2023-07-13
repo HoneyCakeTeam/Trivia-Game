@@ -14,7 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
-import com.example.triviagame.ui.screens.answer_details.AnswerUiState
+import com.example.triviagame.ui.screens.answer_details.AnswersUiState
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
@@ -28,7 +28,7 @@ fun AnswerChart(
     correctAnswerPrecedent: Int,
     inCorrectAnswerPrecedent: Int,
     animationPlayed: Boolean,
-    answerUiState: AnswerUiState
+    answersUiState: AnswersUiState
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -63,8 +63,8 @@ fun AnswerChart(
                     Pair("Incorrect", 20),
                 ),
                 animationPlayed = animationPlayed,
-                totalAnswers = answerUiState.totalAnswers,
-                totalQuestions = answerUiState.totalQuestions
+                totalAnswers = answersUiState.totalAnswers,
+                totalQuestions = answersUiState.totalQuestions
             )
     }
 }

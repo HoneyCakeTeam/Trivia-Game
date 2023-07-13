@@ -63,6 +63,7 @@ fun PlayScreen() {
             if (state.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
                 viewModel.onClickNext()
             } else {
+                viewModel.addCurrentQuestionResult()
                 navController.navigateToGameResult()
             }
         },

@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,7 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
@@ -32,7 +33,7 @@ import com.example.triviagame.ui.screens.answer_details.composable.QuestionItem
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.RoundedShape
-import com.example.triviagame.ui.util.QuestionState
+import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
@@ -44,11 +45,18 @@ fun AnswerDetailsScreen() {
     var animationPlayed by remember { mutableStateOf(false) }
     val navController = LocalNavigationProvider.current
 
+    val backStackEntry = remember(navController.currentBackStackEntry) {
+        navController.getBackStackEntry("PlayScreen/{name}/{level}")
+    }
+    val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
+    val state by viewModel.resultState.collectAsState()
+
     AnswerDetailsContent(
         animationPlayed = animationPlayed,
         onClickBack = {
             navController.popBackStack(Screen.Categories.rout, false)
         },
+        answersUiState = state
     )
     LaunchedEffect(key1 = true) {
         animationPlayed = true
@@ -60,50 +68,14 @@ fun AnswerDetailsScreen() {
 fun AnswerDetailsContent(
     animationPlayed: Boolean,
     onClickBack: () -> Unit,
-    answerUiState: AnswerUiState = AnswerUiState()
+    answersUiState: AnswersUiState,
 ) {
-    val question = listOf(
-        AnswerUiState(
-            id = 0,
-            question = "What is the capital of Egypt?",
-            state = QuestionState.Correct,
-            answer = "Cairo",
-        ),
-        AnswerUiState(
-            id = 1,
-            question = "What is the study of mushrooms called?",
-            state = QuestionState.Wrong,
-            answer = "Mycology",
-        ),
-        AnswerUiState(
-            id = 3,
-            question = "What is the name of the tallest grass on earth?",
-            state = QuestionState.Wrong,
-            answer = "Bamboo",
-        ),
-        AnswerUiState(
-            id = 4,
-            question = "What is the study of mushrooms called?",
-            state = QuestionState.Wrong,
-            answer = "Mycology",
-        ),
-        AnswerUiState(
-            id = 5,
-            question = "What is the study of mushrooms called?",
-            state = QuestionState.Wrong,
-            answer = "Mycology",
-        ),
-        AnswerUiState(
-            id = 6,
-            question = "What is the study of mushrooms called?",
-            state = QuestionState.SKIPPED,
-            answer = "Mycology",
-        ),
-    )
     Box {
         AppBarWithIconBack(
             stringResource(R.string.review_answer),
-            modifier = Modifier.zIndex(2f).padding(16.dp),
+            modifier = Modifier
+                .zIndex(2f)
+                .padding(16.dp),
             onBack = {})
         Box(
             modifier = Modifier
@@ -122,15 +94,16 @@ fun AnswerDetailsContent(
                     correctAnswerPrecedent = 20,
                     inCorrectAnswerPrecedent = 80,
                     animationPlayed = animationPlayed,
-                    answerUiState = answerUiState
+                    answersUiState = answersUiState
                 )
                 TextLabel(stringResource(R.string.your_answers))
                 Box(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .background(color = CardBackgroundColor, shape = RoundedShape.large)
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        question.forEach { item ->
+                        answersUiState.questions.forEach { item ->
                             QuestionItem(item)
                         }
                     }

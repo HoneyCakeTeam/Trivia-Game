@@ -13,6 +13,6 @@ fun NavController.navigateToGameResult() {
 
 fun NavGraphBuilder.gameResultRoute() {
     composable(route = ROUTE) {
-        GameScreen()
+        GameResultScreen()
     }
 }

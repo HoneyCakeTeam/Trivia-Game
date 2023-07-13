@@ -19,4 +19,6 @@
     <string name="correct_small_case">Correct</string>
     <string name="incorrect_small_case">Incorrect</string>
     <string name="result">Result</string>
+    <string name="home_button">Home</string>
+    <string name="play_again_button">Play again</string>
 </resources>

@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.triviagame.R
-import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.Typography
