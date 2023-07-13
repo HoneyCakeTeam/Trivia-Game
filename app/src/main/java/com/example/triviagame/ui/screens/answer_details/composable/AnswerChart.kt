@@ -59,8 +59,8 @@ fun AnswerChart(
 
             PieChart(
                 data = mapOf(
-                    Pair("Correct", 80),
-                    Pair("Incorrect", 20),
+                    Pair("Correct", correctAnswerPrecedent),
+                    Pair("Incorrect", inCorrectAnswerPrecedent),
                 ),
                 animationPlayed = animationPlayed,
                 totalAnswers = answersUiState.totalAnswers,

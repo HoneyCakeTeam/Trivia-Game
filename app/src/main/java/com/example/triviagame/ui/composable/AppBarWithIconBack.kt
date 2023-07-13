@@ -20,8 +20,7 @@ fun AppBarWithIconBack(name: String, onBack: () -> Unit, modifier: Modifier = Mo
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 24.dp)
-            .padding(horizontal = 16.dp)
+            .padding(16.dp)
             .height(56.dp),
     ) {
         ButtonBack(onBack = onBack)

@@ -33,6 +33,7 @@ import com.example.triviagame.ui.screens.answer_details.composable.QuestionItem
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.RoundedShape
+import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 /**
@@ -73,13 +74,12 @@ fun AnswerDetailsContent(
         AppBarWithIconBack(
             stringResource(R.string.review_answer),
             modifier = Modifier
-                .zIndex(2f)
-                .padding(16.dp),
+                .zIndex(2f),
             onBack = {})
         Box(
             modifier = Modifier
                 .background(color = Primary)
-                .padding(top = 100.dp, bottom = 120.dp)
+                .padding(vertical = 90.dp)
                 .align(Alignment.Center)
         ) {
             Column(
@@ -90,8 +90,12 @@ fun AnswerDetailsContent(
             ) {
                 AnswerChart(
                     quizType = "Science",
-                    correctAnswerPrecedent = 20,
-                    inCorrectAnswerPrecedent = 80,
+                    correctAnswerPrecedent = (
+                            (answersUiState.correctAnswers / NUMBER_OF_QUESTIONS.toFloat())
+                                    * 100).toInt(),
+                    inCorrectAnswerPrecedent = 100 - (
+                            (answersUiState.correctAnswers / NUMBER_OF_QUESTIONS.toFloat())
+                                    * 100).toInt(),
                     animationPlayed = animationPlayed,
                     answersUiState = answersUiState
                 )
@@ -114,8 +118,7 @@ fun AnswerDetailsContent(
             onClick = onClickBack,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(bottom = 48.dp)
+                .padding(16.dp)
                 .align(Alignment.BottomCenter)
         )
 

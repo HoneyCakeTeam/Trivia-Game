@@ -72,8 +72,11 @@ fun ButtonCheckAnswer(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    ButtonItem(text = text, onClick = onClick, modifier = modifier.width(200.dp)
-        .padding(bottom = 16.dp), buttonBackgroundColor = Primary, textColor = White_FF)
+    ButtonItem(
+        text = text, onClick = onClick, modifier = modifier
+            .width(200.dp)
+            .padding(bottom = 16.dp), buttonBackgroundColor = Primary, textColor = White_FF
+    )
 }
 
 @Composable

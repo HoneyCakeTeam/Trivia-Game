@@ -106,6 +106,7 @@ class TriviaGameViewModel @Inject constructor(
                 }
             )
         }
+        calculateAnswersState()
     }
 
     private fun getQuestionState(answer: String, correctAnswer: String): QuestionState {
@@ -121,6 +122,22 @@ class TriviaGameViewModel @Inject constructor(
             else -> {
                 QuestionState.WRONG
             }
+        }
+    }
+
+    private fun calculateAnswersState() {
+        _resultState.update { answersUiState ->
+            answersUiState.copy(
+                correctAnswers = resultState.value.questions.count {
+                    it.state == QuestionState.CORRECT
+                },
+                wrongAnswers = resultState.value.questions.count {
+                    it.state == QuestionState.WRONG
+                },
+                skippedAnswers = resultState.value.questions.count {
+                    it.state == QuestionState.NOT_ANSWERED
+                }
+            )
         }
     }
 }

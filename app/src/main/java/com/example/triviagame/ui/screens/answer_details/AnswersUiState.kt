@@ -6,6 +6,9 @@ data class AnswersUiState(
     var questions: List<AnswerUiState> = emptyList(),
     val totalQuestions: Int = 10,
     val totalAnswers: Int = 8,
+    var correctAnswers:Int = 0,
+    val skippedAnswers:Int = 0,
+    val wrongAnswers:Int = 0,
 )
 
 data class AnswerUiState(

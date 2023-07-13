@@ -37,7 +37,6 @@ import com.example.triviagame.ui.theme.White_FF
 import com.example.triviagame.ui.theme.Wrong
 import com.example.triviagame.ui.theme.Yellow
 import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
-import com.example.triviagame.ui.util.QuestionState
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
@@ -85,7 +84,11 @@ fun GameContent(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = Typography.titleLarge
         )
-        AnswerCard("You get +80 Quiz Points", R.drawable.winning_cup, onClick = onClick)
+        AnswerCard(
+            "You get " + "%.0f".format(
+                ((state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100)
+            ) + "%" + " Quiz Points", R.drawable.winning_cup, onClick = onClick
+        )
         Text(
             text = "Answer Details", style = Typography.titleMedium, color = White_FF,
             modifier = Modifier
@@ -102,19 +105,16 @@ fun GameContent(
                     modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.correct),
                     questionCount = "${
-                        state.questions.count { it.state == QuestionState.CORRECT }
+                        state.correctAnswers
                     } Questions",
                     circleColor = Success
                 )
                 ReusableCard(
                     modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.completion),
-                    questionCount = "${
-                        (state.questions
-                            .count {
-                                it.state == QuestionState.CORRECT
-                            } / NUMBER_OF_QUESTIONS.toFloat()) * 100
-                    }%",
+                    questionCount = ("%.0f".format(
+                        ((state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100)
+                    ) + "%"),
                     circleColor = Secondary
                 )
             }
@@ -125,9 +125,7 @@ fun GameContent(
                     modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.skipped),
                     questionCount = "${
-                        state.questions.count {
-                            it.state == QuestionState.NOT_ANSWERED
-                        }
+                        state.skippedAnswers
                     } Question",
                     circleColor = Yellow
 
@@ -136,9 +134,7 @@ fun GameContent(
                     modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.incorrect),
                     questionCount = "${
-                        state.questions.count {
-                            it.state == QuestionState.WRONG
-                        }
+                        state.wrongAnswers
                     } Question",
                     circleColor = Wrong
                 )
