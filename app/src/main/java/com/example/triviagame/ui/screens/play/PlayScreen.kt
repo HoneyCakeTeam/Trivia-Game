@@ -35,6 +35,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.triviagame.R
+import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.GameButton
@@ -77,6 +78,9 @@ fun PlayScreen() {
                     navController.navigateToGameResult()
                 }
             },
+            onClickBack = {
+                navController.popBackStack(Screen.Categories.rout, false)
+            },
         )
     }
 
@@ -87,6 +91,7 @@ private fun PlayContent(
     onClickAnswer: (String) -> Unit,
     state: PlayUiState,
     onClickNext: () -> Unit,
+    onClickBack: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -95,10 +100,8 @@ private fun PlayContent(
             .padding(16.dp)
     ) {
         Header(
-            modifier = Modifier
-                .clickable {
-                    onClickNext()
-                }
+            onClickBack = onClickBack,
+            onClickSkip = onClickNext
         )
         SpacerHorizontal24()
         Box {
@@ -225,15 +228,20 @@ fun LottieAnimation() {
 @Composable
 private fun Header(
     modifier: Modifier = Modifier,
+    onClickBack: () -> Unit,
+    onClickSkip: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        ImageButton(R.drawable.arrow_left, backgroundColor = CardBackgroundColor) {}
+        ImageButton(
+            R.drawable.arrow_left,
+            backgroundColor = CardBackgroundColor,
+            modifier = Modifier.clickable { onClickBack() }) {}
         Text(
-            modifier = modifier,
+            modifier = modifier.clickable { onClickSkip() },
             text = stringResource(id = R.string.skip),
             color = White_FF,
             style = MaterialTheme.typography.bodyMedium

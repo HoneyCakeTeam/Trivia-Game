@@ -20,7 +20,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
-import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
@@ -66,31 +65,31 @@ fun AnswerDetailsContent(
         AnswerUiState(
             id = 0,
             question = "What is the capital of Egypt?",
-            state = QuestionState.Correct,
+            state = QuestionState.CORRECT,
             answer = "Cairo",
         ),
         AnswerUiState(
             id = 1,
             question = "What is the study of mushrooms called?",
-            state = QuestionState.Wrong,
+            state = QuestionState.WRONG,
             answer = "Mycology",
         ),
         AnswerUiState(
             id = 3,
             question = "What is the name of the tallest grass on earth?",
-            state = QuestionState.Wrong,
+            state = QuestionState.WRONG,
             answer = "Bamboo",
         ),
         AnswerUiState(
             id = 4,
             question = "What is the study of mushrooms called?",
-            state = QuestionState.Wrong,
+            state = QuestionState.WRONG,
             answer = "Mycology",
         ),
         AnswerUiState(
             id = 5,
             question = "What is the study of mushrooms called?",
-            state = QuestionState.Wrong,
+            state = QuestionState.WRONG,
             answer = "Mycology",
         ),
         AnswerUiState(

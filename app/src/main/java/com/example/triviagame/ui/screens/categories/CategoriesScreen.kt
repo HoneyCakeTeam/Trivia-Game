@@ -55,6 +55,7 @@ fun CategoriesScreen(
 @Composable
 fun CategoriesContent(
     state: CategoriesUiState,
+
     onClick: (CategoryUiState) -> Unit,
     onClickChip: (String) -> Unit,
     onClickPlay: (String, String) -> Unit,
