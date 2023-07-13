@@ -2,7 +2,7 @@ package com.example.triviagame.data.source.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class QuestionModel(
+data class QuestionDto(
     @SerializedName("category")
     val category: String,
     @SerializedName("correctAnswer")
@@ -24,3 +24,5 @@ data class QuestionModel(
     @SerializedName("type")
     val type: String
 )
+
+
