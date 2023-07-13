@@ -1,5 +1,7 @@
 package com.example.triviagame.di
 
+import com.example.triviagame.data.source.remote.network.TriviaService
+import com.example.triviagame.data.source.remote.network.TriviaServiceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +51,11 @@ internal object NetworkModule {
 
     }
 
+    @Singleton
+    @Provides
+    fun provideTriviaService(httpClient: HttpClient): TriviaService {
+        return TriviaServiceImpl(httpClient)
+    }
 
     @Singleton
     @Provides
