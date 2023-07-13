@@ -102,7 +102,7 @@ class TriviaGameViewModel @Inject constructor(
             it.copy(
                 totalQuestions = _resultState.value.questions.size,
                 totalAnswers = resultState.value.questions.count { answer ->
-                    answer.state == QuestionState.Correct
+                    answer.state == QuestionState.CORRECT
                 }
             )
         }
@@ -115,11 +115,11 @@ class TriviaGameViewModel @Inject constructor(
             }
 
             correctAnswer -> {
-                QuestionState.Correct
+                QuestionState.CORRECT
             }
 
             else -> {
-                QuestionState.Wrong
+                QuestionState.WRONG
             }
         }
     }

@@ -19,7 +19,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -27,7 +30,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.triviagame.R
+import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.GameButton
@@ -41,6 +49,7 @@ import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Black_87
 import com.example.triviagame.ui.theme.CardBackgroundColor
+import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
@@ -189,7 +198,7 @@ private fun PlayContent(
 
 @Composable
 fun LottieAnimation() {
-    var animationSpeed by remember { mutableStateOf(1f) }
+    val animationSpeed by remember { mutableFloatStateOf(1f) }
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
 
     val lottieAnimation by animateLottieCompositionAsState(
@@ -208,7 +217,7 @@ fun LottieAnimation() {
 
         ) {
 
-        LottieAnimation(
+        com.airbnb.lottie.compose.LottieAnimation(
             composition,
             lottieAnimation,
             modifier = Modifier.size(200.dp)

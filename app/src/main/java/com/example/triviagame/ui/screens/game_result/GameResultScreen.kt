@@ -102,7 +102,7 @@ fun GameContent(
                     modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.correct),
                     questionCount = "${
-                        state.questions.count { it.state == QuestionState.Correct }
+                        state.questions.count { it.state == QuestionState.CORRECT }
                     } Questions",
                     circleColor = Success
                 )
@@ -112,7 +112,7 @@ fun GameContent(
                     questionCount = "${
                         (state.questions
                             .count {
-                                it.state == QuestionState.Correct
+                                it.state == QuestionState.CORRECT
                             } / NUMBER_OF_QUESTIONS.toFloat()) * 100
                     }%",
                     circleColor = Secondary
@@ -137,7 +137,7 @@ fun GameContent(
                     labelText = stringResource(R.string.incorrect),
                     questionCount = "${
                         state.questions.count {
-                            it.state == QuestionState.Wrong
+                            it.state == QuestionState.WRONG
                         }
                     } Question",
                     circleColor = Wrong
