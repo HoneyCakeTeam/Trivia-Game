@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.composable
+package com.example.triviagame.ui.screens.play.composable
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box

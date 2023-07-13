@@ -15,15 +15,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.triviagame.ui.composable.Timer
 import com.example.triviagame.ui.screens.play.PlayUiState
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 
 @Composable
-fun QuestionCard(state: PlayUiState) {
-    Box{
+fun QuestionCard(
+    state: PlayUiState,
+    onTimeOut: () -> Unit,
+) {
+    Box {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -40,7 +42,8 @@ fun QuestionCard(state: PlayUiState) {
                 Timer(
                     state = state,
                     activeBarColor = Secondary,
-                    modifier = Modifier.size(64.dp)
+                    modifier = Modifier.size(64.dp),
+                    onTimeOut = onTimeOut
                 )
                 state.questions.getOrNull(state.currentQuestionIndex)?.question?.let {
                     Text(
