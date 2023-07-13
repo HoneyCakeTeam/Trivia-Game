@@ -1,40 +1,37 @@
 package com.example.triviagame.ui.screens.game_result
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.Screen
-import com.example.triviagame.ui.composable.answer_details_composable.AlignText
-import com.example.triviagame.ui.composable.answer_details_composable.AnswerCard
-import com.example.triviagame.ui.composable.answer_details_composable.CustomButton
-import com.example.triviagame.ui.composable.answer_details_composable.ReusableCard
-import com.example.triviagame.ui.composable.answer_details_composable.TextResult
-import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal12
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical24
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
-import com.example.triviagame.ui.theme.Black_60
+import com.example.triviagame.ui.composable.ButtonItem
+import com.example.triviagame.ui.screens.game_result.composable.AnswerCard
+import com.example.triviagame.ui.screens.game_result.composable.ReusableCard
+import com.example.triviagame.ui.screens.game_result.composable.TextResult
 import com.example.triviagame.ui.theme.CardBackgroundColor
+import com.example.triviagame.ui.theme.Error
 import com.example.triviagame.ui.theme.Secondary
+import com.example.triviagame.ui.theme.Success
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
+import com.example.triviagame.ui.theme.Yellow
 
 
 @Composable
@@ -56,92 +53,75 @@ fun GameContent(
     onClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
             .paint(
                 painter = painterResource(id = R.drawable.background),
                 contentScale = ContentScale.Crop
             )
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        SpacerVertical16()
         TextResult(
             text = "Greet Job !!",
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = Typography.titleLarge
         )
-        SpacerVertical32()
         AnswerCard("You get +80 Quiz Points", R.drawable.winning_cup, onClick = onClick)
-        SpacerVertical24()
-        AlignText("Answer Details", TextAlign.Start, modifier = Modifier)
-        SpacerVertical16()
-        Row {
-            Box(modifier = Modifier.weight(1f)) {
+        Text(text = "Answer Details", style = Typography.titleMedium, color = White_FF,
+            modifier = Modifier
+                .padding(bottom = 8.dp)
+                .align(Start))
+        Column(
+            verticalArrangement =Arrangement.spacedBy(8.dp)
+        ) {
+            Row (
+                horizontalArrangement =Arrangement.spacedBy(8.dp)
+            ){
                 ReusableCard(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.correct),
-                    questionCount = "7 Questions",
-                    icon = R.drawable.dot_blue
+                    questionCount = "8 Questions",
+                    circleColor = Success
                 )
-
-            }
-            SpacerHorizontal12()
-
-            Box(modifier = Modifier.weight(1f)) {
                 ReusableCard(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.completion),
-                    questionCount = "7 Questions",
-                    icon = R.drawable.dot_mint
+                    questionCount = "80%",
+                    circleColor = Secondary
                 )
             }
-
-        }
-        SpacerVertical12()
-        Row {
-            Box(modifier = Modifier.weight(1f)) {
+            Row (
+                horizontalArrangement =Arrangement.spacedBy(8.dp)
+            ) {
                 ReusableCard(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.skipped),
-                    questionCount = "7 Questions",
-                    icon = R.drawable.dot_yellow
+                    questionCount = "1 Question",
+                    circleColor = Yellow
 
                 )
-            }
-            SpacerHorizontal12()
-            Box(modifier = Modifier.weight(1f)) {
                 ReusableCard(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.incorrect),
-                    questionCount = "7 Questions",
-                    icon = R.drawable.dot_baby_blue
+                    questionCount = "1 Question",
+                    circleColor = Error
                 )
             }
         }
         Spacer(modifier = Modifier.weight(1f))
-        Row {
-            Box(modifier = Modifier.weight(1f)) {
-                CustomButton(
-                    text = "Home",
-                    onClick = onClickBackToHome,
-                    buttonColor = CardBackgroundColor,
-                    textColor = White_FF
-                )
-            }
-            SpacerHorizontal12()
-            Box(modifier = Modifier.weight(1f)) {
-                CustomButton(
-                    text = "Play again",
-                    onClick = onClickBackToGame,
-                    buttonColor = Secondary,
-                    textColor = Black_60
-                )
-
-            }
-            SpacerVertical16()
-
+        Row (
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            verticalAlignment = Alignment.Bottom,
+            modifier = Modifier.fillMaxWidth()
+                ){
+            ButtonItem(text = "Home", onClick = onClickBackToHome,
+                buttonBackgroundColor = CardBackgroundColor,
+                textColor = White_FF, modifier = Modifier.weight(1f)
+            )
+            ButtonItem(text = "Play again", onClick = onClickBackToGame,
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 
@@ -150,5 +130,7 @@ fun GameContent(
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PreviewGameScreen() {
-//    GameScreen()
+    GameContent(onClickBackToHome = { }, onClickBackToGame = { }) {
+        
+    }
 }
