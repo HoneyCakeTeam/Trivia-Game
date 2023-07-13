@@ -1,62 +1,31 @@
 package com.example.triviagame.ui.screens.play
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.LottieConstants
-import com.airbnb.lottie.compose.animateLottieCompositionAsState
-import com.airbnb.lottie.compose.rememberLottieComposition
-import com.example.triviagame.R
 import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
-import com.example.triviagame.ui.composable.ButtonItem
-import com.example.triviagame.ui.composable.GameButton
-import com.example.triviagame.ui.composable.ImageButton
-import com.example.triviagame.ui.composable.Timer
-import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal24
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
 import com.example.triviagame.ui.screens.game_result.navigateToGameResult
+import com.example.triviagame.ui.screens.play.composable.LottieAnimation
+import com.example.triviagame.ui.screens.play.composable.NextButton
+import com.example.triviagame.ui.screens.play.composable.PlayButtons
+import com.example.triviagame.ui.screens.play.composable.PlayHeader
+import com.example.triviagame.ui.screens.play.composable.QuestionCard
 import com.example.triviagame.ui.theme.BackGround
-import com.example.triviagame.ui.theme.Black_60
-import com.example.triviagame.ui.theme.Black_87
-import com.example.triviagame.ui.theme.CardBackgroundColor
-import com.example.triviagame.ui.theme.Primary
-import com.example.triviagame.ui.theme.Secondary
-import com.example.triviagame.ui.theme.White_EC
-import com.example.triviagame.ui.theme.White_FF
 import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
-
+@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun PlayScreen() {
     val navController = LocalNavigationProvider.current
@@ -100,189 +69,29 @@ private fun PlayContent(
             .background(BackGround)
             .padding(16.dp)
     ) {
-        Header(
+        PlayHeader(
             onClickBack = onClickBack,
             onClickSkip = onClickNext
         )
-        SpacerHorizontal24()
-        Box {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 26.dp),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .background(CardBackgroundColor)
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    SpacerVertical32()
-                    Timer(
-                        state = state,
-                        activeBarColor = Secondary,
-                        modifier = Modifier.size(64.dp)
-                    )
-                    SpacerVertical16()
-                    state.questions.getOrNull(state.currentQuestionIndex)?.question?.let {
-                        Text(
-                            text = it,
-                            color = White_EC,
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                    SpacerVertical16()
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                    }
-                }
-            }
-            Card(
-                modifier = Modifier
-                    .align(Alignment.TopCenter)
-                    .width(186.dp),
-                shape = RoundedCornerShape(16.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .background(Secondary)
-                        .padding(vertical = 8.dp)
-                        .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = stringResource(R.string.question),
-                        color = Black_87,
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                    Text(
-                        text = "${state.currentQuestionIndex + 1}/${state.numberOfQuestions}",
-                        color = Black_87,
-                        style = MaterialTheme.typography.labelLarge
-                    )
-                }
-            }
-        }
-        SpacerVertical32()
-        state.questions.getOrNull(state.currentQuestionIndex)?.let {
+        QuestionCard(state = state)
+        state.questions.getOrNull(state.currentQuestionIndex)?.let { question ->
             PlayButtons(
-                answers = it.answers,
-                selectedAnswer = it.selectedAnswer,
+                answers = question.answers,
+                selectedAnswer = question.selectedAnswer,
                 onAnswerSelected = onClickAnswer,
-                correctAnswer = it.correctAnswer,
-                enabled = it.enabled
+                correctAnswer = question.correctAnswer,
+                enabled = question.enabled
             )
             Spacer(modifier = Modifier.weight(1f))
-            if (state.currentQuestionIndex < state.questions.size - 1) {
-                NextButton(
-                    buttonText = "Next",
-                    onClick = onClickNext,
-                    enabled = !it.enabled
-                )
-            } else {
-                NextButton(
-                    buttonText = "Submit",
-                    enabled = !it.enabled,
-                    onClick = onClickNext
-                )
-            }
+            NextButton(
+                buttonText = if (state.currentQuestionIndex < state.questions.size - 1) "Next" else "Submit",
+                enabled = !question.enabled,
+                onClick = onClickNext
+            )
         }
     }
 }
 
-@Composable
-fun LottieAnimation() {
-    val animationSpeed by remember { mutableFloatStateOf(1f) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
-
-    val lottieAnimation by animateLottieCompositionAsState(
-        composition,
-        iterations = LottieConstants.IterateForever,
-        speed = animationSpeed,
-        restartOnPlay = false
-    )
-
-    Column(
-        Modifier
-            .fillMaxSize()
-            .background(Primary),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-
-        ) {
-
-        com.airbnb.lottie.compose.LottieAnimation(
-            composition,
-            lottieAnimation,
-            modifier = Modifier.size(200.dp)
-        )
-    }
-}
-
-
-@Composable
-private fun Header(
-    modifier: Modifier = Modifier,
-    onClickBack: () -> Unit,
-    onClickSkip: () -> Unit,
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        ImageButton(
-            R.drawable.arrow_left,
-            backgroundColor = CardBackgroundColor,
-            modifier = Modifier.clickable { onClickBack() }) {}
-        Text(
-            modifier = modifier.clickable { onClickSkip() },
-            text = stringResource(id = R.string.skip),
-            color = White_FF,
-            style = MaterialTheme.typography.bodyMedium
-        )
-    }
-}
-
-
-@Composable
-private fun PlayButtons(
-    answers: List<String>,
-    selectedAnswer: String,
-    correctAnswer: String,
-    onAnswerSelected: (String) -> Unit,
-    enabled: Boolean,
-) {
-    answers.forEach { answer ->
-        GameButton(
-            text = answer,
-            onClick = onAnswerSelected,
-            correctAnswer = correctAnswer,
-            selectedAnswer = selectedAnswer,
-            enabled = enabled
-        )
-        SpacerVertical16()
-    }
-}
-
-@Composable
-private fun NextButton(
-    buttonText: String, onClick: () -> Unit,
-    enabled: Boolean,
-) {
-    ButtonItem(
-        text = buttonText,
-        textColor = Black_60,
-        onClick = onClick,
-        enabled = enabled
-    )
-}
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
