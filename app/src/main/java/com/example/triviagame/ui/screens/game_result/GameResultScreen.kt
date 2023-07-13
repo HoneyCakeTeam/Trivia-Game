@@ -68,6 +68,8 @@ fun GameContent(
     onClickBackToGame: () -> Unit,
     onClick: () -> Unit,
 ) {
+    val imageState = if (state.correctAnswers > 50) R.drawable.winning_cup else R.drawable.game_over
+    val textState = if (state.correctAnswers > 50) "Greet Job !!" else "You Lose!"
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -80,14 +82,16 @@ fun GameContent(
         verticalArrangement = Arrangement.Center
     ) {
         TextResult(
-            text = "Greet Job !!",
+            text = textState,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             style = Typography.titleLarge
         )
         AnswerCard(
             "You get " + "%.0f".format(
                 ((state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100)
-            ) + "%" + " Quiz Points", R.drawable.winning_cup, onClick = onClick
+            ) + "%" + " Quiz Points",
+            imageState,
+            onClick = onClick
         )
         Text(
             text = "Answer Details", style = Typography.titleMedium, color = White_FF,
