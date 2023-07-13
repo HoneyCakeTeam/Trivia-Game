@@ -19,10 +19,10 @@ import androidx.compose.ui.unit.sp
 fun OutlinePlayButton(
     text: String,
     buttonColor: Color = Color(0xFF6F2F7B),
-    onClick: () -> Unit,
+    onClick: (String) -> Unit,
 ) {
     Button(
-        onClick = onClick,
+        onClick = {onClick(text)},
         modifier = Modifier
             .fillMaxWidth()
             .height(54.dp)

@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
 import com.example.triviagame.ui.screens.answer_details.AnswerUiState
-import com.example.triviagame.ui.theme.Error
+import com.example.triviagame.ui.theme.Wrong
 import com.example.triviagame.ui.theme.Success
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.theme.White_FF
@@ -49,7 +49,7 @@ fun QuestionItem(question: AnswerUiState) {
             Text(
                 text = question.answer,
                 style = Typography.bodySmall,
-                color = if (question.state == QuestionState.Correct) Success else Error,
+                color = if (question.state == QuestionState.Correct) Success else Wrong,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Start
             )

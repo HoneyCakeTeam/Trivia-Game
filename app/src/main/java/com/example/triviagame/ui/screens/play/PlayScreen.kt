@@ -1,6 +1,7 @@
 package com.example.triviagame.ui.screens.play
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,13 +36,14 @@ import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.triviagame.R
 import com.example.triviagame.ui.LocalNavigationProvider
+import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
-import com.example.triviagame.ui.composable.OutlinePlayButton
 import com.example.triviagame.ui.composable.Timer
 import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal24
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
+import com.example.triviagame.ui.screens.game_result.navigateToGameResult
 import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Black_87
@@ -50,6 +52,7 @@ import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
+import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
@@ -67,9 +70,16 @@ fun PlayScreen() {
         PlayContent(
             state = state,
             onClickAnswer = viewModel::onClickAnswer,
-            onClickNext = viewModel::onClickNext
+            onClickNext = {
+                if (state.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
+                    viewModel.onClickNext()
+                } else {
+                    navController.navigateToGameResult()
+                }
+            },
         )
     }
+
 }
 
 @Composable
@@ -84,7 +94,12 @@ private fun PlayContent(
             .background(BackGround)
             .padding(16.dp)
     ) {
-        Header()
+        Header(
+            modifier = Modifier
+                .clickable {
+                    onClickNext()
+                }
+        )
         SpacerHorizontal24()
         Box {
             Card(
@@ -155,17 +170,23 @@ private fun PlayContent(
             PlayButtons(
                 answers = it.answers,
                 selectedAnswer = it.selectedAnswer,
-                onAnswerSelected = onClickAnswer
+                onAnswerSelected = onClickAnswer,
+                correctAnswer = it.correctAnswer,
+                enabled = it.enabled
             )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        if (state.currentQuestionIndex < state.questions.size - 1) {
-            NextButton(
-                buttonText = "Next",
-                onClick = onClickNext
-            )
-        } else {
-            NextButton(buttonText = "Submit") {
+            Spacer(modifier = Modifier.weight(1f))
+            if (state.currentQuestionIndex < state.questions.size - 1) {
+                NextButton(
+                    buttonText = "Next",
+                    onClick = onClickNext,
+                    enabled = !it.enabled
+                )
+            } else {
+                NextButton(
+                    buttonText = "Submit",
+                    enabled = !it.enabled,
+                    onClick = onClickNext
+                )
             }
         }
     }
@@ -202,7 +223,9 @@ fun LottieAnimation() {
 
 
 @Composable
-private fun Header() {
+private fun Header(
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -210,6 +233,7 @@ private fun Header() {
     ) {
         ImageButton(R.drawable.arrow_left, backgroundColor = CardBackgroundColor) {}
         Text(
+            modifier = modifier,
             text = stringResource(id = R.string.skip),
             color = White_FF,
             style = MaterialTheme.typography.bodyMedium
@@ -222,32 +246,32 @@ private fun Header() {
 private fun PlayButtons(
     answers: List<String>,
     selectedAnswer: String,
+    correctAnswer: String,
     onAnswerSelected: (String) -> Unit,
+    enabled: Boolean,
 ) {
-    answers.forEachIndexed { _, answer ->
-        val isSelected = answer == selectedAnswer
-        if (isSelected) {
-            OutlinePlayButton(
-                text = answer,
-                onClick = { onAnswerSelected(answer) }
-            )
-        } else {
-            GameButton(
-                text = answer,
-                onClick = { onAnswerSelected(answer) }
-            )
-        }
+    answers.forEach { answer ->
+        GameButton(
+            text = answer,
+            onClick = onAnswerSelected,
+            correctAnswer = correctAnswer,
+            selectedAnswer = selectedAnswer,
+            enabled = enabled
+        )
         SpacerVertical16()
     }
 }
 
 @Composable
-private fun NextButton(buttonText: String, onClick: () -> Unit) {
-    GameButton(
+private fun NextButton(
+    buttonText: String, onClick: () -> Unit,
+    enabled: Boolean,
+) {
+    ButtonItem(
         text = buttonText,
         textColor = Black_60,
-        buttonColor = Secondary,
-        onClick = onClick
+        onClick = onClick,
+        enabled = enabled
     )
 }
 

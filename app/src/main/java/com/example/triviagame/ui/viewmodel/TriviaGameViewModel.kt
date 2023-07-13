@@ -7,6 +7,7 @@ import com.example.triviagame.data.repository.TriviaRepository
 import com.example.triviagame.ui.screens.play.PlayArgs
 import com.example.triviagame.ui.screens.play.PlayUiState
 import com.example.triviagame.ui.screens.play.toQuestionUiState
+import com.example.triviagame.ui.util.COUNTER_COUNT
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -37,6 +38,7 @@ class TriviaGameViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update { playUiState ->
                 playUiState.copy(
+                    timer = COUNTER_COUNT,
                     isLoading = false,
                     timer = 30000L,
                     questions = repository.getTriviaQuestions(
@@ -54,7 +56,7 @@ class TriviaGameViewModel @Inject constructor(
                 timer = 0L,
                 questions = _state.value.questions.mapIndexed { index, question ->
                     if (index == state.value.currentQuestionIndex) {
-                        question.copy(selectedAnswer = answer)
+                        question.copy(selectedAnswer = answer, enabled = false)
                     } else {
                         question
                     }
@@ -65,7 +67,10 @@ class TriviaGameViewModel @Inject constructor(
 
     fun onClickNext() {
         _state.update {
-            it.copy(timer = 30000L, currentQuestionIndex = state.value.currentQuestionIndex + 1)
+            it.copy(
+                timer = COUNTER_COUNT,
+                currentQuestionIndex = state.value.currentQuestionIndex + 1
+            )
         }
     }
 }

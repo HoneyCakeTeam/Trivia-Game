@@ -20,12 +20,14 @@ data class QuestionUiState(
     val selectedAnswer: String = "",
     val isAnswered: Boolean = false,
     val isCorrect: Boolean = false,
+    val enabled: Boolean = true,
 )
 
 fun QuestionDto.toQuestionUiState() =
     QuestionUiState(
         question = question.text,
-        answers = incorrectAnswers + correctAnswer,
+        answers = (incorrectAnswers + correctAnswer).shuffled(),
         incorrectAnswers = incorrectAnswers,
+        correctAnswer = correctAnswer
     )
 
