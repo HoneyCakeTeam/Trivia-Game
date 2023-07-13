@@ -39,10 +39,13 @@ class TriviaGameViewModel @Inject constructor(
         category: String,
         difficulty: String,
     ) {
+        _state.update { it.copy(isLoading = true) }
+
         viewModelScope.launch {
             _state.update { playUiState ->
                 playUiState.copy(
                     timer = COUNTER_COUNT,
+                    isLoading = false,
                     questions = repository.getTriviaQuestions(
                         category,
                         difficulty

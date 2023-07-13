@@ -56,18 +56,26 @@ fun PlayScreen() {
     }
     val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
     val state by viewModel.state.collectAsState()
-    PlayContent(
-        state = state,
-        onClickAnswer = viewModel::onClickAnswer,
-        onClickNext = {
-            if (state.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
-                viewModel.onClickNext()
-            } else {
-                viewModel.addCurrentQuestionResult()
-                navController.navigateToGameResult()
-            }
-        },
-    )
+    if (state.isLoading) {
+        LottieAnimation()
+    } else {
+        PlayContent(
+            state = state,
+            onClickAnswer = viewModel::onClickAnswer,
+            onClickNext = {
+                if (state.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
+                    viewModel.onClickNext()
+                } else {
+                    viewModel.addCurrentQuestionResult()
+                    navController.navigateToGameResult()
+                }
+            },
+            onClickBack = {
+                navController.popBackStack(Screen.Categories.rout, false)
+            },
+        )
+    }
+
 }
 
 @Composable
@@ -75,6 +83,7 @@ private fun PlayContent(
     onClickAnswer: (String) -> Unit,
     state: PlayUiState,
     onClickNext: () -> Unit,
+    onClickBack: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -83,10 +92,8 @@ private fun PlayContent(
             .padding(16.dp)
     ) {
         Header(
-            modifier = Modifier
-                .clickable {
-                    onClickNext()
-                }
+            onClickBack = onClickBack,
+            onClickSkip = onClickNext
         )
         SpacerHorizontal24()
         Box {
@@ -181,17 +188,52 @@ private fun PlayContent(
 }
 
 @Composable
+fun LottieAnimation() {
+    var animationSpeed by remember { mutableStateOf(1f) }
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+
+    val lottieAnimation by animateLottieCompositionAsState(
+        composition,
+        iterations = LottieConstants.IterateForever,
+        speed = animationSpeed,
+        restartOnPlay = false
+    )
+
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(Primary),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
+        ) {
+
+        LottieAnimation(
+            composition,
+            lottieAnimation,
+            modifier = Modifier.size(200.dp)
+        )
+    }
+}
+
+
+@Composable
 private fun Header(
     modifier: Modifier = Modifier,
+    onClickBack: () -> Unit,
+    onClickSkip: () -> Unit,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        ImageButton(R.drawable.arrow_left, backgroundColor = CardBackgroundColor) {}
+        ImageButton(
+            R.drawable.arrow_left,
+            backgroundColor = CardBackgroundColor,
+            modifier = Modifier.clickable { onClickBack() }) {}
         Text(
-            modifier = modifier,
+            modifier = modifier.clickable { onClickSkip() },
             text = stringResource(id = R.string.skip),
             color = White_FF,
             style = MaterialTheme.typography.bodyMedium

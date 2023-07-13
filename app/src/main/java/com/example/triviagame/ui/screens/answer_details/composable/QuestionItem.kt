@@ -48,19 +48,17 @@ fun QuestionItem(question: AnswerUiState) {
             Text(
                 text = question.answer,
                 style = Typography.bodySmall,
-                color = if (question.state == QuestionState.Correct) Success else Wrong,
+                color = if (question.state == QuestionState.CORRECT) Success else Wrong,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Start
             )
 
         }
         Image(
-            painter = if (question.state == QuestionState.Correct)
-                painterResource(id = R.drawable.resource_true)
-            else painterResource(
+            painter = if (question.state == QuestionState.CORRECT) painterResource(id = R.drawable.resource_true) else painterResource(
                 id = R.drawable.resource_false
             ),
-            contentDescription = if (question.state == QuestionState.Correct) " Question Success" else " Question Wrong"
+            contentDescription = if (question.state == QuestionState.CORRECT) " Question Success" else " Question Wrong"
         )
 
     }
