@@ -9,15 +9,16 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+/**
+ * Created by Aziza Helmy on 7/13/2023.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
     @Singleton
     @Provides
-    fun bindTriviaGameRepository(
-        triviaGameService: TriviaService,
-    ): TriviaRepository {
-        return TriviaRepositoryImp(triviaGameService)
+    fun bindTriviaRepository(triviaService: TriviaService): TriviaRepository {
+        return TriviaRepositoryImp(triviaService)
     }
 }

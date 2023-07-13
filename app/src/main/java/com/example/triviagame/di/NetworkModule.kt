@@ -53,7 +53,7 @@ internal object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideTriviaGameService(httpClient: HttpClient): TriviaService {
+    fun provideTriviaService(httpClient: HttpClient): TriviaService {
         return TriviaServiceImpl(httpClient)
     }
 

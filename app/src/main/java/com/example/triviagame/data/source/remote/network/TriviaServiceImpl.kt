@@ -1,6 +1,6 @@
 package com.example.triviagame.data.source.remote.network
 
-import com.example.triviagame.data.source.remote.model.QuestionModel
+import com.example.triviagame.data.source.remote.model.QuestionDto
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -14,7 +14,7 @@ class TriviaServiceImpl @Inject constructor(
     override suspend fun getTriviaQuestions(
         category: String,
         difficulty: String
-    ): List<QuestionModel> {
+    ): List<QuestionDto> {
         val url = URLBuilder(BASE_URL).apply {
             parameters.append(LIMIT, LIMIT_NUMBER)
             parameters.append(TYPE, TYPE_VALUE)
