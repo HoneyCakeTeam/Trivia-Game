@@ -22,8 +22,8 @@ import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.Screen
 import com.example.triviagame.ui.composable.ButtonItem
-import com.example.triviagame.ui.composable.answer_details_composable.ReusableCard
 import com.example.triviagame.ui.screens.game_result.composable.AnswerCard
+import com.example.triviagame.ui.screens.game_result.composable.ReusableCard
 import com.example.triviagame.ui.screens.game_result.composable.TextResult
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Error

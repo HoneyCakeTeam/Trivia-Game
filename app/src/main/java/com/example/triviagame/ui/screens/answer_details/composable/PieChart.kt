@@ -150,9 +150,9 @@ fun DetailsPieChart(
 ) {
     Row(
         modifier = Modifier
-            .padding(vertical = 60.dp),
+            .padding(vertical = 32.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(34.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         data.values.forEachIndexed { index, value ->
             DetailsPieChartItem(
@@ -175,12 +175,12 @@ fun DetailsPieChartItem(
     ) {
         Box(
             modifier = Modifier
-                .size(14.dp)
+                .size(9.dp)
                 .clip(shape = CircleShape)
                 .background(color)
         )
-        Text(text = data.first, color = White_FF)
-        Text(text = "${data.second} %", color = Yellow)
+        Text(text = data.first, color = White_FF, style = Typography.bodyLarge)
+        Text(text = "${data.second} %", color = Yellow, style = Typography.bodyLarge)
     }
 
 }

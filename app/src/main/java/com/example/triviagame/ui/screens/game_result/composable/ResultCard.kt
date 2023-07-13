@@ -1,4 +1,4 @@
-package com.example.triviagame.ui.composable.answer_details_composable
+package com.example.triviagame.ui.screens.game_result.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.triviagame.ui.screens.game_result.composable.TextResult
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Typography
 

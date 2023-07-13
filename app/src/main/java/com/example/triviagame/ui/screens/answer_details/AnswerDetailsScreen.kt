@@ -26,8 +26,6 @@ import com.example.triviagame.Screen
 import com.example.triviagame.ui.composable.AppBarWithIconBack
 import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.TextLabel
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
-import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical8
 import com.example.triviagame.ui.screens.answer_details.composable.AnswerChart
 import com.example.triviagame.ui.screens.answer_details.composable.QuestionItem
 import com.example.triviagame.ui.theme.CardBackgroundColor
@@ -104,12 +102,12 @@ fun AnswerDetailsContent(
     Box {
         AppBarWithIconBack(
             stringResource(R.string.review_answer),
-            modifier = Modifier.zIndex(2f),
+            modifier = Modifier.zIndex(2f).padding(16.dp),
             onBack = {})
         Box(
             modifier = Modifier
                 .background(color = Primary)
-                .padding(top = 100.dp, bottom = 150.dp)
+                .padding(top = 100.dp, bottom = 120.dp)
                 .align(Alignment.Center)
         ) {
             Column(
@@ -125,24 +123,18 @@ fun AnswerDetailsContent(
                     animationPlayed = animationPlayed,
                     answerUiState = answerUiState
                 )
-                SpacerVertical16()
                 TextLabel(stringResource(R.string.your_answers))
-                SpacerVertical8()
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                         .background(color = CardBackgroundColor, shape = RoundedShape.large)
                 ) {
-
                     Column(modifier = Modifier.padding(16.dp)) {
                         question.forEach { item ->
                             QuestionItem(item)
                         }
                     }
                 }
-
             }
-
         }
         ButtonItem(
             text = stringResource(R.string.done),
@@ -150,7 +142,7 @@ fun AnswerDetailsContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
-                .padding(bottom = 68.dp)
+                .padding(bottom = 48.dp)
                 .align(Alignment.BottomCenter)
         )
 

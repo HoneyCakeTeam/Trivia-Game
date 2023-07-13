@@ -18,6 +18,7 @@ import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Typography
+import com.example.triviagame.ui.theme.White_60
 import com.example.triviagame.ui.theme.White_FF
 
 
@@ -32,14 +33,13 @@ fun AnswerChart(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = Modifier
-            .wrapContentHeight()
+        modifier = Modifier.wrapContentHeight().padding(bottom = 24.dp)
             .background(color = CardBackgroundColor, shape = RoundedShape.large)
     ) {
         Text(
             text = stringResource(R.string.quiz_type),
             style = Typography.bodyMedium,
-            color = White_FF,
+            color = White_60,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp)
