@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.triviagame.R
+import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.BottomSheet
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
@@ -35,10 +36,10 @@ import com.example.triviagame.ui.screens.play.navigateToPlay
 
 @Composable
 fun CategoriesScreen(
-    navController: NavController,
     viewModel: CategoriesViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
+    val navController = LocalNavigationProvider.current
 
     CategoriesContent(
         state = state,
