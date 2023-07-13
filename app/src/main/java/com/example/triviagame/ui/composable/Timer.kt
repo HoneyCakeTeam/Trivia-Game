@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.ui.screens.play.PlayUiState
 import com.example.triviagame.ui.theme.White_FF
+import com.example.triviagame.ui.util.COUNTER_COUNT
 import kotlinx.coroutines.delay
 import kotlin.math.min
 
@@ -54,7 +55,7 @@ fun Timer(
             if (state.timer > 0) {
                 delay(100L)
                 currentTime -= 100L
-                value = currentTime / 30000f
+                value = currentTime / COUNTER_COUNT.toFloat()
             }
         } else {
             //onClickNext()
@@ -71,7 +72,7 @@ fun Timer(
                 size = it
             }
     ) {
-        val barColor = if (currentTime <= 10000) {
+        val barColor = if (currentTime <= 20000) {
             Color.Red
         } else {
             inactiveBarColor

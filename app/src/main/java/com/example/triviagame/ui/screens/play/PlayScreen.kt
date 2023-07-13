@@ -1,6 +1,7 @@
 package com.example.triviagame.ui.screens.play
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -72,7 +73,12 @@ private fun PlayContent(
             .background(BackGround)
             .padding(16.dp)
     ) {
-        Header()
+        Header(
+            modifier = Modifier
+                .clickable {
+                    onClickNext()
+                }
+        )
         SpacerHorizontal24()
         Box {
             Card(
@@ -166,7 +172,9 @@ private fun PlayContent(
 }
 
 @Composable
-private fun Header() {
+private fun Header(
+    modifier: Modifier = Modifier,
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -174,6 +182,7 @@ private fun Header() {
     ) {
         ImageButton(R.drawable.arrow_left, backgroundColor = CardBackgroundColor) {}
         Text(
+            modifier = modifier,
             text = stringResource(id = R.string.skip),
             color = White_FF,
             style = MaterialTheme.typography.bodyMedium
