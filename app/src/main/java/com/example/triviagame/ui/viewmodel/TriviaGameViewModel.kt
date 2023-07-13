@@ -8,7 +8,6 @@ import com.example.triviagame.ui.screens.play.PlayArgs
 import com.example.triviagame.ui.screens.play.PlayUiState
 import com.example.triviagame.ui.screens.play.toQuestionUiState
 import com.example.triviagame.ui.util.COUNTER_COUNT
-import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -63,10 +62,11 @@ class TriviaGameViewModel @Inject constructor(
     }
 
     fun onClickNext() {
-        if (_state.value.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
-            _state.update {
-                it.copy(timer = COUNTER_COUNT, currentQuestionIndex = state.value.currentQuestionIndex + 1)
-            }
+        _state.update {
+            it.copy(
+                timer = COUNTER_COUNT,
+                currentQuestionIndex = state.value.currentQuestionIndex + 1
+            )
         }
     }
 }

@@ -36,6 +36,7 @@ import com.example.triviagame.ui.composable.Timer
 import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal24
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical32
+import com.example.triviagame.ui.screens.game_result.navigateToGameResult
 import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.theme.Black_60
 import com.example.triviagame.ui.theme.Black_87
@@ -43,6 +44,7 @@ import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.White_EC
 import com.example.triviagame.ui.theme.White_FF
+import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
@@ -57,7 +59,13 @@ fun PlayScreen() {
     PlayContent(
         state = state,
         onClickAnswer = viewModel::onClickAnswer,
-        onClickNext = viewModel::onClickNext,
+        onClickNext = {
+            if (state.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
+                viewModel.onClickNext()
+            } else {
+                navController.navigateToGameResult()
+            }
+        },
     )
 }
 
@@ -164,7 +172,7 @@ private fun PlayContent(
                 NextButton(
                     buttonText = "Submit",
                     enabled = !it.enabled,
-                    onClick = {}
+                    onClick = onClickNext
                 )
             }
         }

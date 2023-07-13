@@ -17,7 +17,7 @@ import com.example.triviagame.ui.theme.Typography
 @Composable
 fun ButtonItem(
     text: String,
-    modifier: Modifier = Modifier.Companion,
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     buttonBackgroundColor: Color = Secondary,
     textColor: Color = Black_60,
