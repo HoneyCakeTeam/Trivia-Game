@@ -51,7 +51,7 @@ class TriviaGameViewModel @Inject constructor(
                 timer = 0L,
                 questions = _state.value.questions.mapIndexed { index, question ->
                     if (index == state.value.currentQuestionIndex) {
-                        question.copy(selectedAnswer = answer)
+                        question.copy(selectedAnswer = answer, enabled = false)
                     } else {
                         question
                     }

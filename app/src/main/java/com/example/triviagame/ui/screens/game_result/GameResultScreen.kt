@@ -18,7 +18,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.triviagame.R
 import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
@@ -27,7 +26,7 @@ import com.example.triviagame.ui.screens.game_result.composable.AnswerCard
 import com.example.triviagame.ui.screens.game_result.composable.ReusableCard
 import com.example.triviagame.ui.screens.game_result.composable.TextResult
 import com.example.triviagame.ui.theme.CardBackgroundColor
-import com.example.triviagame.ui.theme.Error
+import com.example.triviagame.ui.theme.Wrong
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Success
 import com.example.triviagame.ui.theme.Typography
@@ -108,7 +107,7 @@ fun GameContent(
                     modifier = Modifier.weight(1f),
                     labelText = stringResource(R.string.incorrect),
                     questionCount = "1 Question",
-                    circleColor = Error
+                    circleColor = Wrong
                 )
             }
         }

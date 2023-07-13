@@ -16,20 +16,24 @@ import com.example.triviagame.ui.theme.Typography
 
 @Composable
 fun ButtonItem(
-    text : String,
-    modifier: Modifier = Modifier,
-    onClick:() -> Unit,
+    text: String,
+    modifier: Modifier = Modifier.Companion,
+    onClick: () -> Unit,
     buttonBackgroundColor: Color = Secondary,
-    textColor: Color = Black_60
+    textColor: Color = Black_60,
+    enabled: Boolean = true,
 ) {
     Button(
+        enabled = enabled,
         onClick = onClick,
-        colors = ButtonDefaults.buttonColors(buttonBackgroundColor),
+        colors = ButtonDefaults.buttonColors(
+            buttonBackgroundColor
+        ),
         modifier = modifier
             .height(54.dp)
             .fillMaxWidth(),
         shape = RoundedShape.medium
-    ){
+    ) {
         Text(
             text = text,
             style = Typography.bodyMedium,

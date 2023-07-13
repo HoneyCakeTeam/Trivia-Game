@@ -28,9 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.ui.LocalNavigationProvider
+import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.composable.ImageButton
-import com.example.triviagame.ui.composable.OutlinePlayButton
 import com.example.triviagame.ui.composable.Timer
 import com.example.triviagame.ui.composable.spacing.padding_horizontal.SpacerHorizontal24
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
@@ -56,7 +56,7 @@ fun PlayScreen() {
     PlayContent(
         state = state,
         onClickAnswer = viewModel::onClickAnswer,
-        onClickNext = viewModel::onClickNext
+        onClickNext = viewModel::onClickNext,
     )
 }
 
@@ -143,17 +143,23 @@ private fun PlayContent(
             PlayButtons(
                 answers = it.answers,
                 selectedAnswer = it.selectedAnswer,
-                onAnswerSelected = onClickAnswer
+                onAnswerSelected = onClickAnswer,
+                correctAnswer = it.correctAnswer,
+                enabled = it.enabled
             )
-        }
-        Spacer(modifier = Modifier.weight(1f))
-        if (state.currentQuestionIndex < state.questions.size - 1) {
-            NextButton(
-                buttonText = "Next",
-                onClick = onClickNext
-            )
-        } else {
-            NextButton(buttonText = "Submit") {
+            Spacer(modifier = Modifier.weight(1f))
+            if (state.currentQuestionIndex < state.questions.size - 1) {
+                NextButton(
+                    buttonText = "Next",
+                    onClick = onClickNext,
+                    enabled = !it.enabled
+                )
+            } else {
+                NextButton(
+                    buttonText = "Submit",
+                    enabled = !it.enabled,
+                    onClick = {}
+                )
             }
         }
     }
@@ -180,32 +186,32 @@ private fun Header() {
 private fun PlayButtons(
     answers: List<String>,
     selectedAnswer: String,
+    correctAnswer: String,
     onAnswerSelected: (String) -> Unit,
+    enabled: Boolean,
 ) {
-    answers.forEachIndexed { _, answer ->
-        val isSelected = answer == selectedAnswer
-        if (isSelected) {
-            OutlinePlayButton(
-                text = answer,
-                onClick = { onAnswerSelected(answer) }
-            )
-        } else {
-            GameButton(
-                text = answer,
-                onClick = { onAnswerSelected(answer) }
-            )
-        }
+    answers.forEach { answer ->
+        GameButton(
+            text = answer,
+            onClick = onAnswerSelected,
+            correctAnswer = correctAnswer,
+            selectedAnswer = selectedAnswer,
+            enabled = enabled
+        )
         SpacerVertical16()
     }
 }
 
 @Composable
-private fun NextButton(buttonText: String, onClick: () -> Unit) {
-    GameButton(
+private fun NextButton(
+    buttonText: String, onClick: () -> Unit,
+    enabled: Boolean,
+) {
+    ButtonItem(
         text = buttonText,
         textColor = Black_60,
-        buttonColor = Secondary,
-        onClick = onClick
+        onClick = onClick,
+        enabled = enabled
     )
 }
 

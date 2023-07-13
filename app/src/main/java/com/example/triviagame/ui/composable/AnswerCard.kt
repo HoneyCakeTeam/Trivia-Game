@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.ui.theme.CardBackgroundColor
-import com.example.triviagame.ui.theme.Error
+import com.example.triviagame.ui.theme.Wrong
 import com.example.triviagame.ui.theme.RoundedShape
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Success
@@ -44,7 +44,7 @@ fun AnswerCard(
                     if (isSuccess) {
                         Success
                     } else {
-                        Error
+                        Wrong
                     }
                 } else CardBackgroundColor,
                 shape = RoundedCornerShape(16.dp)
