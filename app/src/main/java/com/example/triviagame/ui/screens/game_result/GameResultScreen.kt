@@ -56,7 +56,7 @@ fun GameResultScreen() {
         onClickBackToHome = {
             navController.popBackStack(Screen.Categories.rout, false)
         }, onClickBackToGame = {
-            navController.popBackStack(Screen.PlayScreen.rout, false)
+            navController.navigateUp()
         }, onClick = {
             navController.navigate(Screen.AnswerDetails.rout)
         })
@@ -160,7 +160,7 @@ fun GameContent(
                 textColor = White_FF, modifier = Modifier.weight(1f)
             )
             ButtonItem(
-                text = stringResource(R.string.play_again_button), onClick = onClickBackToGame,
+                text = stringResource(R.string.play_again_button), onClick = {},
                 modifier = Modifier.weight(1f)
             )
         }

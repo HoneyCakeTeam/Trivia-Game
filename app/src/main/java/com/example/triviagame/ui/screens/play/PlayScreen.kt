@@ -20,9 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,7 +33,6 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.example.triviagame.R
-import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.ButtonItem
 import com.example.triviagame.ui.composable.GameButton
@@ -80,7 +77,7 @@ fun PlayScreen() {
                 }
             },
             onClickBack = {
-                navController.popBackStack(Screen.Categories.rout, false)
+                navController.navigateUp()
             },
         )
     }
@@ -122,7 +119,8 @@ private fun PlayContent(
                     Timer(
                         state = state,
                         activeBarColor = Secondary,
-                        modifier = Modifier.size(64.dp)
+                        modifier = Modifier.size(64.dp),
+                        onTimeOut = onClickNext
                     )
                     SpacerVertical16()
                     state.questions.getOrNull(state.currentQuestionIndex)?.question?.let {
@@ -199,7 +197,7 @@ private fun PlayContent(
 @Composable
 fun LottieAnimation() {
     val animationSpeed by remember { mutableFloatStateOf(1f) }
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading))
+    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loadinganim))
 
     val lottieAnimation by animateLottieCompositionAsState(
         composition,

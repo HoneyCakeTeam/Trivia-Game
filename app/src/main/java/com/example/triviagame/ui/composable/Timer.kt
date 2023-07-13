@@ -36,6 +36,7 @@ fun Timer(
     inactiveBarColor: Color = Color.Green,
     activeBarColor: Color,
     strokeWidth: Dp = 6.dp,
+    onTimeOut: () -> Unit,
 ) {
 
     var value by remember {
@@ -57,8 +58,8 @@ fun Timer(
                 currentTime -= 100L
                 value = currentTime / COUNTER_COUNT.toFloat()
             }
-        } else {
-            //onClickNext()
+        } else if (currentTime == 0L) {
+            onTimeOut()
         }
     }
 

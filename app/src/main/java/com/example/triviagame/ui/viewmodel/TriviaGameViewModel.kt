@@ -1,5 +1,6 @@
 package com.example.triviagame.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -40,17 +41,20 @@ class TriviaGameViewModel @Inject constructor(
         difficulty: String,
     ) {
         _state.update { it.copy(isLoading = true) }
-
         viewModelScope.launch {
-            _state.update { playUiState ->
-                playUiState.copy(
-                    timer = COUNTER_COUNT,
-                    isLoading = false,
-                    questions = repository.getTriviaQuestions(
-                        category,
-                        difficulty
-                    ).map { it.toQuestionUiState() }
-                )
+            try {
+                _state.update { playUiState ->
+                    playUiState.copy(
+                        timer = COUNTER_COUNT,
+                        isLoading = false,
+                        questions = repository.getTriviaQuestions(
+                            category,
+                            difficulty
+                        ).map { it.toQuestionUiState() }
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("Exception", "getTriviaQuestions: ${e.message}")
             }
         }
     }
@@ -58,7 +62,7 @@ class TriviaGameViewModel @Inject constructor(
     fun onClickAnswer(answer: String) {
         _state.update {
             it.copy(
-                timer = 0L,
+                timer = -1L,
                 questions = _state.value.questions.mapIndexed { index, question ->
                     if (index == state.value.currentQuestionIndex) {
                         question.copy(selectedAnswer = answer, enabled = false)
