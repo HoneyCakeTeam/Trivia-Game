@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -62,6 +63,7 @@ fun GameButton(
         onClick = { onClick(text) },
         modifier = Modifier
             .fillMaxWidth()
+            .padding(vertical = 8.dp)
             .wrapContentHeight()
             .defaultMinSize(minHeight = 54.dp)
             .border(1.dp, buttonBorderColor, shape = RoundedCornerShape(16.dp)),
