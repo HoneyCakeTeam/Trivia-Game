@@ -44,6 +44,15 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    fun emptyState() {
+        _state.update {
+            it.copy(
+                selectedCategoryName = "",
+                categories = it.categories.map { category ->
+                    category.copy(selected = false)
+                })
+        }
+    }
 
     private fun getCategoryDetails() {
         _state.update {

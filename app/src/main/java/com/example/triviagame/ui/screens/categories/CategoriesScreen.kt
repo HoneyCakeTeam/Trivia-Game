@@ -47,6 +47,7 @@ fun CategoriesScreen(
         onClickPlay = { categoryName, level ->
             if (level.isNotEmpty()) {
                 navController.navigateToPlay(categoryName = categoryName, level = level)
+                viewModel.emptyState()
             }
         }
     )
