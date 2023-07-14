@@ -30,16 +30,13 @@ class TriviaGameViewModel @Inject constructor(
     private val _resultState = MutableStateFlow(AnswersUiState())
     val resultState = _resultState.asStateFlow()
 
-    private val args = PlayArgs(savedStateHandle)
+   val args = PlayArgs(savedStateHandle)
 
     init {
-        getTriviaQuestions(args.name, args.level)
+        getTriviaQuestions()
     }
 
-    private fun getTriviaQuestions(
-        category: String,
-        difficulty: String,
-    ) {
+    fun getTriviaQuestions() {
         _state.update { it.copy(isLoading = true) }
         viewModelScope.launch {
             try {
@@ -47,9 +44,10 @@ class TriviaGameViewModel @Inject constructor(
                     playUiState.copy(
                         timer = COUNTER_COUNT,
                         isLoading = false,
+                        currentQuestionIndex = 0,
                         questions = repository.getTriviaQuestions(
-                            category,
-                            difficulty
+                            args.name,
+                            args.level
                         ).map { it.toQuestionUiState() }
                     )
                 }

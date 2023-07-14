@@ -56,6 +56,7 @@ fun GameResultScreen() {
         onClickBackToHome = {
             navController.popBackStack(Screen.Categories.rout, false)
         }, onClickBackToGame = {
+            viewModel.getTriviaQuestions()
             navController.navigateUp()
         }, onClick = {
             navController.navigate(Screen.AnswerDetails.rout)
@@ -160,7 +161,7 @@ fun GameContent(
                 textColor = White_FF, modifier = Modifier.weight(1f)
             )
             ButtonItem(
-                text = stringResource(R.string.play_again_button), onClick = {},
+                text = stringResource(R.string.play_again_button), onClick = onClickBackToGame,
                 modifier = Modifier.weight(1f)
             )
         }
