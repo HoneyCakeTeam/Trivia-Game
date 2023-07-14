@@ -11,8 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.triviagame.R
-import com.example.triviagame.ui.composable.ImageButton
-import com.example.triviagame.ui.theme.CardBackgroundColor
+import com.example.triviagame.ui.composable.ButtonBack
 import com.example.triviagame.ui.theme.White_FF
 
 @Composable
@@ -26,10 +25,7 @@ fun PlayHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        ImageButton(
-            R.drawable.arrow_left,
-            backgroundColor = CardBackgroundColor,
-            modifier = Modifier.clickable { onClickBack() }) {}
+        ButtonBack(onBack = onClickBack)
         Text(
             modifier = modifier.clickable { onClickSkip() },
             text = stringResource(id = R.string.skip),
