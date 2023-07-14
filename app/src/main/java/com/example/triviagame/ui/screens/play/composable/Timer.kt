@@ -73,7 +73,7 @@ fun Timer(
                 size = it
             }
     ) {
-        val barColor = if (currentTime <= 20000) {
+        val barColor = if (currentTime <= 15000) {
             Color.Red
         } else {
             inactiveBarColor
