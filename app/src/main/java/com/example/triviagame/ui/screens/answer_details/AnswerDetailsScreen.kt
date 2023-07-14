@@ -111,8 +111,8 @@ fun AnswerDetailsContent(
                         .background(color = CardBackgroundColor, shape = RoundedShape.large)
                 ) {
                     Column(modifier = Modifier.padding(16.dp)) {
-                        answersUiState.questions.forEach { item ->
-                            QuestionItem(item)
+                        answersUiState.questions.forEachIndexed() { index, item ->
+                            QuestionItem(item, index + 1)
                         }
                     }
                 }

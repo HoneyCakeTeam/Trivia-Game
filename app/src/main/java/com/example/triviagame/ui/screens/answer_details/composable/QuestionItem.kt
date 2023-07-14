@@ -23,14 +23,14 @@ import com.example.triviagame.ui.util.QuestionState
 
 
 @Composable
-fun QuestionItem(question: AnswerUiState) {
+fun QuestionItem(question: AnswerUiState, index: Int) {
     Row(
         verticalAlignment = Alignment.Top,
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 8.dp),
     ) {
-        QuestionCircleLabel(questionNumber = question.id)
+        QuestionCircleLabel(questionNumber = index)
         Column(
             modifier = Modifier
                 .wrapContentWidth()
