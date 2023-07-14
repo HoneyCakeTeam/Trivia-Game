@@ -1,6 +1,5 @@
 package com.example.triviagame.ui.screens.categories
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.triviagame.R
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +25,7 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
                 categories = it.categories.map { category ->
                     if (!category.selected && category == selectedCategory) {
                         category.copy(selected = true).also {
-                            selectedCategoryName = selectedCategory.categoryName
+                            selectedCategoryName = selectedCategory.category.categoryId
                         }
                     } else {
                         category.copy(selected = false)
@@ -35,7 +34,6 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
                 selectedCategoryName = selectedCategoryName
             )
         }
-        Log.e("CategoriesViewModel", "onClickCategory: ${selectedCategoryName}")
     }
 
     fun onClickDifficultyChip(difficulty: String) {
@@ -52,56 +50,72 @@ class CategoriesViewModel @Inject constructor() : ViewModel() {
             it.copy(
                 categories = listOf(
                     CategoryUiState(
-                        categoryName = "food_and_drink",
+                        category = Category(
+                            categoryId = "food_and_drink",
+                            categoryName = "Food & Drink"
+                        ),
                         categoryImage = R.drawable.food_and_drink,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "geography", categoryImage = R.drawable.geo,
+                        category = Category(categoryId = "geography", categoryName = "Geography"),
+                        categoryImage = R.drawable.geo,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "film_and_tv,music",
+                        category = Category(
+                            categoryId = "film_and_tv,music",
+                            categoryName = "Tv & Film "
+                        ),
                         categoryImage = R.drawable.smart_tv,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "history", categoryImage = R.drawable.history,
+                        category = Category(categoryId = "history", categoryName = "History"),
+                        categoryImage = R.drawable.history,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "general_knowledge",
+                        category = Category(
+                            categoryId = "general_knowledge",
+                            categoryName = "General knowledge"
+                        ),
                         categoryImage = R.drawable.knowledge,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "art_and_literature",
+                        category = Category(
+                            categoryId = "art_and_literature",
+                            categoryName = "Art & Literature"
+                        ),
                         categoryImage = R.drawable.literature,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "science", categoryImage = R.drawable.science,
+                        category = Category(categoryId = "science", categoryName = "Science"),
+                        categoryImage = R.drawable.science,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "society", categoryImage = R.drawable.society,
+                        category = Category(categoryId = "society", categoryName = "Society"),
+                        categoryImage = R.drawable.society,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "sport_and_leisure",
+                        category = Category(
+                            categoryId = "sport_and_leisure",
+                            categoryName = "Sport & Leisure"
+                        ),
                         categoryImage = R.drawable.sport,
                         selected = false
                     ),
                     CategoryUiState(
-                        categoryName = "music", categoryImage = R.drawable.music,
+                        category = Category(categoryId = "music", categoryName = "Music"),
+                        categoryImage = R.drawable.music,
                         selected = false
                     ),
                 ),
             )
         }
-    }
-
-    fun onCategorySelected(selectedCategory: CategoryUiState) {
-
     }
 }

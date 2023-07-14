@@ -65,7 +65,7 @@ fun CategoryCard(
             )
         }
         Text(
-            text = category.categoryName,
+            text = category.category.categoryName,
             style = Typography.titleMedium,
             color = White_FF,
             modifier = Modifier.padding(top = 80.dp, start = 8.dp)

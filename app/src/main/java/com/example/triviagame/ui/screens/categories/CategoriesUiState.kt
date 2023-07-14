@@ -13,8 +13,10 @@ data class CategoriesUiState(
 
 
 data class CategoryUiState(
-    val categoryName: String = "",
+    val category: Category = Category(),
     val categoryImage: Int = 0,
     val categoryDifficulty: String = "",
     val selected: Boolean,
 )
+
+data class Category(val categoryId: String = "", val categoryName: String = "")
