@@ -1,11 +1,9 @@
 package com.example.triviagame.ui.screens.play
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import com.example.triviagame.data.repository.TriviaRepository
+import com.example.triviagame.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 /**
@@ -15,11 +13,12 @@ import javax.inject.Inject
 class PlayViewModel @Inject constructor(
     private val repository: TriviaRepository,
     savedStateHandle: SavedStateHandle,
-) : ViewModel() {
-
-    private val _state = MutableStateFlow(PlayUiState())
-    val state = _state.asStateFlow()
+) : BaseViewModel<PlayUiState>(PlayUiState()) {
 
     val args = PlayArgs(savedStateHandle)
+
+    init {
+
+    }
 
 }
