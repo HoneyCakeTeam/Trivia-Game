@@ -9,6 +9,7 @@ import javax.inject.Inject
 class TriviaRepositoryImp @Inject constructor(
     private val triviaService: TriviaService,
     private val datastore: DataStorePref,
+
     ) : TriviaRepository {
     override suspend fun getTriviaQuestions(
         category: String,
