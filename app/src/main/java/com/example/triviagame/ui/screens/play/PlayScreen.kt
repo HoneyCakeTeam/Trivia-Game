@@ -22,7 +22,6 @@ import com.example.triviagame.ui.screens.play.composable.PlayHeader
 import com.example.triviagame.ui.screens.play.composable.QuestionCard
 import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
-import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
 @Composable
@@ -31,7 +30,7 @@ fun PlayScreen() {
     val backStackEntry = remember(navController.currentBackStackEntry) {
         navController.getBackStackEntry("PlayScreen/{name}/{level}")
     }
-    val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
+    val viewModel: PlayViewModel = hiltViewModel(backStackEntry)
     val state by viewModel.state.collectAsState()
     if (state.isLoading) {
         LottieAnimation()
@@ -76,21 +75,19 @@ private fun PlayContent(
             state = state,
             onTimeOut = onClickNext
         )
-        state.questions.getOrNull(state.currentQuestionIndex)?.let { question ->
-            PlayButtons(
-                answers = question.answers,
-                selectedAnswer = question.selectedAnswer,
-                onAnswerSelected = onClickAnswer,
-                correctAnswer = question.correctAnswer,
-                enabled = question.enabled
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            NextButton(
-                buttonText = if (state.currentQuestionIndex < state.questions.size - 1) "Next" else "Submit",
-                enabled = !question.enabled,
-                onClick = onClickNext
-            )
-        }
+        PlayButtons(
+            answers = state.question.answers,
+            selectedAnswer = state.question.selectedAnswer,
+            onAnswerSelected = onClickAnswer,
+            correctAnswer = state.question.correctAnswer,
+            enabled = state.question.enabled
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        NextButton(
+            buttonText = if (state.currentQuestionIndex < 9) "Next" else "Submit",
+            enabled = !state.question.enabled,
+            onClick = onClickNext
+        )
     }
 }
 

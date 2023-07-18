@@ -3,7 +3,7 @@ package com.example.triviagame.ui.screens.play
 import com.example.triviagame.data.source.remote.model.QuestionDto
 
 data class PlayUiState(
-    val questions: List<QuestionUiState> = emptyList(),//TODO NOT USED
+    val question: QuestionUiState = QuestionUiState(),
     val numberOfQuestions: Int = 10,
     val currentQuestionIndex: Int = 0,
     val userScore: Int = 0,

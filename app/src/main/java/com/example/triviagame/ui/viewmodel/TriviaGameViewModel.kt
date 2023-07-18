@@ -5,13 +5,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.triviagame.data.repository.TriviaRepository
-import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.screens.answer_details.AnswersUiState
 import com.example.triviagame.ui.screens.play.PlayArgs
 import com.example.triviagame.ui.screens.play.PlayUiState
-import com.example.triviagame.ui.screens.play.toQuestionUiState
 import com.example.triviagame.ui.util.COUNTER_COUNT
-import com.example.triviagame.ui.util.QuestionState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,7 +27,7 @@ class TriviaGameViewModel @Inject constructor(
     private val _resultState = MutableStateFlow(AnswersUiState())
     val resultState = _resultState.asStateFlow()
 
-   val args = PlayArgs(savedStateHandle)
+    val args = PlayArgs(savedStateHandle)
 
     init {
         getTriviaQuestions()
@@ -45,10 +42,6 @@ class TriviaGameViewModel @Inject constructor(
                         timer = COUNTER_COUNT,
                         isLoading = false,
                         currentQuestionIndex = 0,
-                        questions = repository.getTriviaQuestions(
-                            args.name,
-                            args.level
-                        ).map { it.toQuestionUiState() }
                     )
                 }
             } catch (e: Exception) {
@@ -57,98 +50,12 @@ class TriviaGameViewModel @Inject constructor(
         }
     }
 
-    fun onClickAnswer(answer: String) {
-        _state.update {
-            it.copy(
-                timer = -1L,
-                questions = _state.value.questions.mapIndexed { index, question ->
-                    if (index == state.value.currentQuestionIndex) {
-                        question.copy(selectedAnswer = answer, enabled = false)
-                    } else {
-                        question
-                    }
-                }
-            )
-        }
-    }
 
-    fun onClickNext() {
-        addCurrentQuestionResult()
-        _state.update {
-            it.copy(
-                timer = COUNTER_COUNT,
-                currentQuestionIndex = state.value.currentQuestionIndex + 1
-            )
-        }
-    }
-
-    fun addCurrentQuestionResult() {
-        val question = state.value.questions[state.value.currentQuestionIndex]
-        addQuestion(
-            AnswerUiState(
-                id = 0,
-                state = getQuestionState(question.selectedAnswer, question.correctAnswer),
-                question = question.question,
-                answer = question.selectedAnswer,
-                correctAnswer = question.correctAnswer
-            )
-        )
-    }
-
-    private fun addQuestion(question: AnswerUiState) {
-        val updatedQuestions = _resultState.value.questions.toMutableList()
-        updatedQuestions.add(question)
-        _resultState.value = _resultState.value.copy(questions = updatedQuestions)
-
-        _resultState.update {
-            it.copy(
-                totalQuestions = _resultState.value.questions.size,
-                totalAnswers = resultState.value.questions.count { answer ->
-                    answer.state == QuestionState.CORRECT
-                }
-            )
-        }
-        calculateAnswersState()
-    }
-
-    private fun getQuestionState(answer: String, correctAnswer: String): QuestionState {
-        return when (answer) {
-            "" -> {
-                QuestionState.NOT_ANSWERED
-            }
-
-            correctAnswer -> {
-                QuestionState.CORRECT
-            }
-
-            else -> {
-                QuestionState.WRONG
-            }
-        }
-    }
-
-    private fun calculateAnswersState() {
-        _resultState.update { answersUiState ->
-            answersUiState.copy(
-                correctAnswers = resultState.value.questions.count {
-                    it.state == QuestionState.CORRECT
-                },
-                wrongAnswers = resultState.value.questions.count {
-                    it.state == QuestionState.WRONG
-                },
-                skippedAnswers = resultState.value.questions.count {
-                    it.state == QuestionState.NOT_ANSWERED
-                }
-            )
-        }
-    }
-
-    fun savePoint(points:Int){
-        viewModelScope.launch{
-            if (points>=50){
+    fun savePoint(points: Int) {
+        viewModelScope.launch {
+            if (points >= 50) {
                 repository.savePints(points)
-            }else
-            {
+            } else {
                 repository.getPoints()
             }
         }
