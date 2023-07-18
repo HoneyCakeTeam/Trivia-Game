@@ -21,9 +21,9 @@ class PlayViewModel @Inject constructor(
 
     private val args = PlayArgs(savedStateHandle)
 
-    init {
+    /*init {
         refreshTriviaQuestions()
-    }
+    }*/
 
     fun refreshTriviaQuestions() {
         _state.update { it.copy(isLoading = true, isError = false) }
@@ -85,12 +85,12 @@ class PlayViewModel @Inject constructor(
         _state.update {
             it.copy(
                 timer = COUNTER_COUNT,
-                currentQuestionIndex = state.value.currentQuestionIndex + 1,
-                question = repository.getQuestionByIndex(
-                    state.value.currentQuestionIndex + 1
-                ).toQuestionUiState()
+                currentQuestionIndex = state.value.currentQuestionIndex + 1
             )
         }
+        getQuestionByIndex(
+            state.value.currentQuestionIndex
+        )
     }
 
     fun saveCurrentQuestionResult() {

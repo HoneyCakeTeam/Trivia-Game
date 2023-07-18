@@ -1,9 +1,11 @@
 package com.example.triviagame.ui.screens.game_result
 
+import androidx.lifecycle.viewModelScope
 import com.example.triviagame.data.repository.TriviaRepository
 import com.example.triviagame.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -33,6 +35,13 @@ class GameResultViewModel @Inject constructor(private val repository: TriviaRepo
                 incorrectAnswersCount = repository.getIncorrectAnswersCount(),
                 skippedAnswersCount = repository.getSkippedAnswersCount()
             )
+        }
+        saveHighestScore()
+    }
+
+    private fun saveHighestScore() {
+        viewModelScope.launch {
+            repository.saveHighestScore(state.value.correctAnswersCount * 10)
         }
     }
 }

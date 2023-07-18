@@ -1,13 +1,15 @@
 package com.example.triviagame.ui.screens.categories
 
+import android.util.Log
 import com.example.triviagame.R
+import com.example.triviagame.data.repository.TriviaRepository
 import com.example.triviagame.ui.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoriesViewModel @Inject constructor() :
+class CategoriesViewModel @Inject constructor(private val repository: TriviaRepository) :
     BaseViewModel<CategoriesUiState>(CategoriesUiState()),
     CategoriesInteractionsListener {
 
@@ -123,5 +125,10 @@ class CategoriesViewModel @Inject constructor() :
                 ),
             )
         }
+    }
+
+    fun getHighestScore() {
+        _state.update { it.copy(userScore = repository.getHighestScore()) }
+        Log.e("getHighestScore", "getHighestScore: ${state.value.userScore}" )
     }
 }

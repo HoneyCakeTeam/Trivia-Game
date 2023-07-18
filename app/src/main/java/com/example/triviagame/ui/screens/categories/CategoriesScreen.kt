@@ -3,6 +3,7 @@ package com.example.triviagame.ui.screens.categories
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -20,8 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.ui.LocalNavigationProvider
-import com.example.triviagame.ui.composable.ApplicationScaffold
-import com.example.triviagame.ui.composable.LevelSelectorBottomSheet
+import com.example.triviagame.ui.composable.BottomSheet
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
@@ -34,7 +34,10 @@ fun CategoriesScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val navController = LocalNavigationProvider.current
-
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(lifecycleOwner){
+        viewModel.getHighestScore()
+    }
     CategoriesContent(
         state = state,
         onClick = viewModel::onClickCategory,
@@ -108,5 +111,3 @@ fun CategoriesContent(
         }
     }
 }
-
-

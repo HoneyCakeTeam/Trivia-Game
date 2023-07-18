@@ -15,6 +15,6 @@ interface CacheManager {
 
     fun putQuestionAnswer(key: Int, value: AnswerEntity)
     fun removeQuestionAnswer(key: Int)
-    fun clearAllQuestionAnswer()
-    fun getQuestionAnswer(): List<AnswerEntity>
+    fun clearAllQuestionAnswers()
+    fun getQuestionAnswers(): List<AnswerEntity>
 }

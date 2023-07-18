@@ -33,7 +33,7 @@ class CacheManagerImp @Inject constructor() : CacheManager {
         questionResultsCache.put(key, value)
     }
 
-    override fun getQuestionAnswer(): List<AnswerEntity> {
+    override fun getQuestionAnswers(): List<AnswerEntity> {
         return questionResultsCache.snapshot().values.toList()
     }
 
@@ -41,7 +41,7 @@ class CacheManagerImp @Inject constructor() : CacheManager {
         questionResultsCache.remove(key)
     }
 
-    override fun clearAllQuestionAnswer() {
+    override fun clearAllQuestionAnswers() {
         questionResultsCache.evictAll()
     }
 

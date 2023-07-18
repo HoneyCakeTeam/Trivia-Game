@@ -6,7 +6,7 @@ import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 data class PlayUiState(
     val question: QuestionUiState = QuestionUiState(),
     val numberOfQuestions: Int = NUMBER_OF_QUESTIONS,
-    val currentQuestionIndex: Int = 0,
+    val currentQuestionIndex: Int = -1,
     val userScore: Int = 0,
     var timer: Long = 0L,
     val isLoading: Boolean = false,
