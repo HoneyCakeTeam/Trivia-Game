@@ -23,23 +23,25 @@ class TriviaRepositoryImp @Inject constructor(
     ) {
         try {
             val questions = triviaService.getTriviaQuestions(category, difficulty)
-            clearQuestionsCache()
             cacheQuestions(questions.map { it.toQuestionEntity() })
         } catch (e: Exception) {
             throw Exception(e.message)
         }
     }
 
-    override suspend fun savePints(points: Int) {
-        datastore.savePoints(points)
-        Log.e("Saved Successfully : ", points.toString())
+    override suspend fun saveHighestScore(points: Int) {
+        if (getHighestScore() < points) {
+            datastore.saveHighestScore(points)
+            Log.e("Saved Successfully : ", points.toString())
+        }
     }
 
-    override fun getPoints(): String? {
-        return datastore.getPoints()
+    override fun getHighestScore(): Int {
+        return datastore.getHighestScore() ?: 0
     }
 
     override fun cacheQuestions(questions: List<QuestionEntity>) {
+        clearQuestionsCache()
         questions.forEachIndexed { index, question ->
             cacheManager.putQuestion(index, question)
         }
@@ -54,11 +56,11 @@ class TriviaRepositoryImp @Inject constructor(
     }
 
     override fun clearAllQuestionAnswers() {
-        cacheManager.clearAllQuestionAnswer()
+        cacheManager.clearAllQuestionAnswers()
     }
 
     override fun getQuestionAnswers(): List<AnswerEntity> {
-        return cacheManager.getQuestionAnswer()
+        return cacheManager.getQuestionAnswers()
     }
 
     override fun getQuestionByIndex(index: Int): QuestionEntity {

@@ -31,8 +31,6 @@ fun GameResultScreen(
 ) {
     val navController = LocalNavigationProvider.current
     val state by viewModel.state.collectAsState()
-    val answer = (state.correctAnswersCount / NUMBER_OF_QUESTIONS.toFloat()) * 100
-    //viewModel.savePoint(answer.toInt())
 
     GameContent(
         state = state,

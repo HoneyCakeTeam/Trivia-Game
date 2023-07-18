@@ -39,7 +39,7 @@ fun CategoriesScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val navController = LocalNavigationProvider.current
-
+    viewModel.getHighestScore()
     CategoriesContent(
         state = state,
         onClick = viewModel::onClickCategory,
@@ -58,7 +58,6 @@ fun CategoriesScreen(
 @Composable
 fun CategoriesContent(
     state: CategoriesUiState,
-
     onClick: (CategoryUiState) -> Unit,
     onClickChip: (String) -> Unit,
     onClickPlay: (String, String) -> Unit,
