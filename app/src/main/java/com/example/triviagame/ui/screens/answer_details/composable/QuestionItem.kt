@@ -38,7 +38,7 @@ fun QuestionItem(question: AnswerUiState, index: Int) {
                 .padding(horizontal = 8.dp)
         ) {
             Text(
-                text = question.question,
+                text = question.questionText,
                 style = Typography.bodyMedium,
                 color = White_FF,
                 modifier = Modifier.wrapContentWidth(),
@@ -46,7 +46,7 @@ fun QuestionItem(question: AnswerUiState, index: Int) {
                 maxLines = 2
             )
             Text(
-                text = question.answer,
+                text = question.userAnswer,
                 style = Typography.bodySmall,
                 color = if (question.state == QuestionState.CORRECT) Success else Wrong,
                 modifier = Modifier.fillMaxWidth(),

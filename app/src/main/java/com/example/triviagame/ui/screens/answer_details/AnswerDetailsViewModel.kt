@@ -10,6 +10,6 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class AnswerDetailsViewModel @Inject constructor(private val repository: TriviaRepository) :
-    BaseViewModel<AnswerUiState>(AnswerUiState()),AnswerDetailsInteractionsListener{
+    BaseViewModel<AnswersUiState>(AnswersUiState()),AnswerDetailsInteractionsListener{
 
 }

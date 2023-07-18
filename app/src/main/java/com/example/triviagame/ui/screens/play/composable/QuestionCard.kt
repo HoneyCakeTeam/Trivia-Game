@@ -47,7 +47,7 @@ fun QuestionCard(
                 )
                 Text(
                     modifier = Modifier.padding(top = 16.dp),
-                    text = state.question.question,
+                    text = state.question.questionText,
                     color = White_EC,
                     style = MaterialTheme.typography.bodyLarge,
                     textAlign = TextAlign.Center,

@@ -1,10 +1,10 @@
 package com.example.triviagame.di
 
 import android.content.Context
-import com.example.triviagame.data.source.cash.TriviaCacheManager
-import com.example.triviagame.data.source.cash.TriviaCacheManagerImp
-import com.example.triviagame.data.source.local.DataStorePref
-import com.example.triviagame.data.source.local.DataStorePrefImp
+import com.example.triviagame.data.source.local.cache.CacheManager
+import com.example.triviagame.data.source.local.cache.CacheManagerImp
+import com.example.triviagame.data.source.local.datastore.DataStorePref
+import com.example.triviagame.data.source.local.datastore.DataStorePrefImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +24,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideCacheManager(): TriviaCacheManager {
-        return TriviaCacheManagerImp()
+    fun provideCacheManager(): CacheManager {
+        return CacheManagerImp()
     }
 }

@@ -22,21 +22,21 @@ class PlayViewModel @Inject constructor(
     private val args = PlayArgs(savedStateHandle)
 
     init {
-        getTriviaQuestions()
+        refreshTriviaQuestions()
     }
 
-    private fun getTriviaQuestions() {
+    fun refreshTriviaQuestions() {
         _state.update { it.copy(isLoading = true, isError = false) }
         tryToExecute(
             {
-                repository.getTriviaQuestions(args.name, args.level).map { it.toQuestionUiState() }
+                repository.refreshTriviaQuestions(args.name, args.level)
             },
-            ::onGetQuestionsSuccess,
-            ::onGetQuestionsFail
+            ::onRefreshQuestionsSuccess,
+            ::onRefreshQuestionsFail
         )
     }
 
-    private fun onGetQuestionsSuccess(questions: List<QuestionUiState>) {
+    private fun onRefreshQuestionsSuccess(unit: Unit) {
         _state.update {
             it.copy(
                 isLoading = false,
@@ -44,18 +44,31 @@ class PlayViewModel @Inject constructor(
                 currentQuestionIndex = 0
             )
         }
-        repository.cacheQuestions(questions)
+        getQuestionByIndex(state.value.currentQuestionIndex)
+    }
+
+    private fun onRefreshQuestionsFail(error: Exception) {
+        _state.update { it.copy(isLoading = false) }
+    }
+
+    private fun getQuestionByIndex(index: Int) {
+        tryToExecute(
+            { repository.getQuestionByIndex(index).toQuestionUiState() },
+            ::onGetQuestionSuccess,
+            ::onGetQuestionError
+        )
+    }
+
+    private fun onGetQuestionSuccess(question: QuestionUiState) {
         _state.update {
             it.copy(
-                question = repository.getQuestionByIndex(
-                    state.value.currentQuestionIndex
-                )
+                question = question
             )
         }
     }
 
-    private fun onGetQuestionsFail(error: Exception) {
-        _state.update { it.copy(isLoading = false) }
+    private fun onGetQuestionError(error: Exception) {
+        //todo
     }
 
     fun onClickAnswer(answer: String) {
@@ -68,49 +81,32 @@ class PlayViewModel @Inject constructor(
     }
 
     fun onClickNext() {
-        addCurrentQuestionResult()
+        saveCurrentQuestionResult()
         _state.update {
             it.copy(
                 timer = COUNTER_COUNT,
-                currentQuestionIndex = state.value.currentQuestionIndex + 1
-            )
-        }
-        _state.update {
-            it.copy(
+                currentQuestionIndex = state.value.currentQuestionIndex + 1,
                 question = repository.getQuestionByIndex(
-                    state.value.currentQuestionIndex
-                )
+                    state.value.currentQuestionIndex + 1
+                ).toQuestionUiState()
             )
         }
     }
 
-    fun addCurrentQuestionResult() {
-        /*val question = state.value.questions[state.value.currentQuestionIndex]
-        addQuestion(
+    fun saveCurrentQuestionResult() {
+        val question = state.value.question
+        cacheQuestionAnswer(
             AnswerUiState(
-                id = 0,
                 state = getQuestionState(question.selectedAnswer, question.correctAnswer),
-                question = question.question,
-                answer = question.selectedAnswer,
+                questionText = question.questionText,
+                userAnswer = question.selectedAnswer,
                 correctAnswer = question.correctAnswer
             )
-        )*/
+        )
     }
 
-    private fun addQuestion(question: AnswerUiState) {
-        /*val updatedQuestions = _resultState.value.questions.toMutableList()
-        updatedQuestions.add(question)
-        _resultState.value = _resultState.value.copy(questions = updatedQuestions)
-
-        _resultState.update {
-            it.copy(
-                totalQuestions = _resultState.value.questions.size,
-                totalAnswers = resultState.value.questions.count { answer ->
-                    answer.state == QuestionState.CORRECT
-                }
-            )
-        }
-        calculateAnswersState()*/
+    private fun cacheQuestionAnswer(question: AnswerUiState) {
+        repository.putQuestionAnswer(state.value.currentQuestionIndex, question)
     }
 
     private fun getQuestionState(answer: String, correctAnswer: String): QuestionState {
@@ -129,20 +125,12 @@ class PlayViewModel @Inject constructor(
         }
     }
 
-    private fun calculateAnswersState() {
-        /*_resultState.update { answersUiState ->
-            answersUiState.copy(
-                correctAnswers = resultState.value.questions.count {
-                    it.state == QuestionState.CORRECT
-                },
-                wrongAnswers = resultState.value.questions.count {
-                    it.state == QuestionState.WRONG
-                },
-                skippedAnswers = resultState.value.questions.count {
-                    it.state == QuestionState.NOT_ANSWERED
-                }
+    fun resetQuestionState() {
+        _state.update {
+            it.copy(
+                currentQuestionIndex = -1
             )
-        }*/
+        }
     }
 
 }

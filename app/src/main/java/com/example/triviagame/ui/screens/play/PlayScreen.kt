@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,13 +24,14 @@ import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 
 
 @Composable
-fun PlayScreen() {
+fun PlayScreen(
+    viewModel: PlayViewModel = hiltViewModel(),
+) {
     val navController = LocalNavigationProvider.current
-    val backStackEntry = remember(navController.currentBackStackEntry) {
-        navController.getBackStackEntry("PlayScreen/{name}/{level}")
-    }
-    val viewModel: PlayViewModel = hiltViewModel(backStackEntry)
     val state by viewModel.state.collectAsState()
+    if (state.currentQuestionIndex < 0) {
+        viewModel.refreshTriviaQuestions()
+    }
     if (state.isLoading) {
         LottieAnimation()
     } else {
@@ -42,7 +42,8 @@ fun PlayScreen() {
                 if (state.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
                     viewModel.onClickNext()
                 } else {
-                    viewModel.addCurrentQuestionResult()
+                    viewModel.saveCurrentQuestionResult()
+                    viewModel.resetQuestionState()
                     navController.navigateToGameResult()
                 }
             },

@@ -1,4 +1,4 @@
-package com.example.triviagame.data.source.local
+package com.example.triviagame.data.source.local.datastore
 
 
 interface DataStorePref {

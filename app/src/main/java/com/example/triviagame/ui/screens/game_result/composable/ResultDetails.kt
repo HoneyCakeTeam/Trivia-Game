@@ -1,7 +1,7 @@
 package com.example.triviagame.ui.screens.game_result.composable
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.triviagame.ui.screens.answer_details.AnswersUiState
+import com.example.triviagame.ui.screens.game_result.GameResultUiState
 import com.example.triviagame.ui.theme.Typography
 import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 
@@ -12,7 +12,7 @@ import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 @Composable
  fun ResultDetails(
     textState: String,
-    state: AnswersUiState,
+    state: GameResultUiState,
     imageState: Int,
     onClick: () -> Unit,
     textModifier: Modifier = Modifier
@@ -24,7 +24,7 @@ import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
     )
     AnswerCard(
         "You get " + "%.0f".format(
-            ((state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100)
+            ((state.correctAnswersCount / NUMBER_OF_QUESTIONS.toFloat()) * 100)
         ) + "%" + " Quiz Points",
         imageState,
         onClick = onClick
