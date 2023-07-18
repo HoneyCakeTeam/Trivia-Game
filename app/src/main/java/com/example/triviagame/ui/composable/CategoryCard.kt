@@ -32,6 +32,7 @@ import com.example.triviagame.ui.theme.White_FF
 fun CategoryCard(
     onClickCategory: (CategoryUiState) -> Unit,
     category: CategoryUiState,
+    modifier: Modifier = Modifier
     ) {
     val cardColor by animateColorAsState(
         if (category.selected) Secondary else CardBackgroundColor,

@@ -97,16 +97,11 @@ fun BottomSheet(
 
                 )
             }
-
-            SpacerVertical12()
             ButtonItem(
                 text = "Play",
-                modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 12.dp),
                 onClick = { onClickPlay(state.selectedCategoryName, state.selectedDifficulty) }
             )
-
         }
-
     }
-
 }
