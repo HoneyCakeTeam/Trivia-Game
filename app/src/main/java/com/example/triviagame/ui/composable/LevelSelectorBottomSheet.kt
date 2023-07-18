@@ -22,7 +22,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical12
-import com.example.triviagame.ui.screens.categories.CategoriesUiState
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.White_FF
@@ -32,7 +31,8 @@ fun LevelSelectorBottomSheet(
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit,
     onClickPlay: (String, String) -> Unit,
-    state: CategoriesUiState,
+    selectedCategoryName: String,
+    selectedDifficulty: String,
 ) {
 
     BottomAppBar(
@@ -100,7 +100,7 @@ fun LevelSelectorBottomSheet(
             ButtonItem(
                 text = "Play",
                 modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 12.dp),
-                onClick = { onClickPlay(state.selectedCategoryName, state.selectedDifficulty) }
+                onClick = { onClickPlay(selectedCategoryName, selectedDifficulty) }
             )
         }
     }

@@ -49,8 +49,6 @@ fun CategoriesScreen(
 }
 
 
-
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CategoriesContent(
@@ -68,7 +66,12 @@ fun CategoriesContent(
         sheetPeekHeight = 0.dp,
         scaffoldState = scaffoldState,
         sheetContent = {
-            LevelSelectorBottomSheet(onClick = onClickLevel, onClickPlay = onClickPlay, state = state)
+            LevelSelectorBottomSheet(
+                onClick = onClickLevel,
+                onClickPlay = onClickPlay,
+                selectedCategoryName = state.selectedCategoryName,
+                selectedDifficulty = state.selectedDifficulty
+            )
         },
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
     ) {
