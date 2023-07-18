@@ -6,8 +6,10 @@ import com.example.triviagame.ui.util.QuestionState
 data class AnswersUiState(
     val questions: List<AnswerUiState> = emptyList(),
     val totalQuestions: Int = 10,
-    val totalAnswers: Int = 0,
     val correctAnswersCount: Int = 0,
+    val correctAnswersPercentage: Int = 0,
+    val inCorrectAnswersPercentage: Int = 0,
+    val quizType: String = "Science",
 )
 
 data class AnswerUiState(

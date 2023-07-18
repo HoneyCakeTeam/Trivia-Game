@@ -33,7 +33,6 @@ import com.example.triviagame.ui.screens.answer_details.composable.QuestionItem
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.RoundedShape
-import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
@@ -41,7 +40,7 @@ import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 
 @Composable
 fun AnswerDetailsScreen(
-    viewModel: AnswerDetailsViewModel = hiltViewModel()
+    viewModel: AnswerDetailsViewModel = hiltViewModel(),
 ) {
     var animationPlayed by remember { mutableStateOf(false) }
     val navController = LocalNavigationProvider.current
@@ -90,13 +89,9 @@ fun AnswerDetailsContent(
                     .verticalScroll(rememberScrollState(), reverseScrolling = false)
             ) {
                 AnswerChart(
-                    quizType = "Science",
-                    correctAnswerPrecedent = (
-                            (answersUiState.correctAnswersCount / NUMBER_OF_QUESTIONS.toFloat())
-                                    * 100).toInt(),
-                    inCorrectAnswerPrecedent = 100 - (
-                            (answersUiState.correctAnswersCount / NUMBER_OF_QUESTIONS.toFloat())
-                                    * 100).toInt(),
+                    quizType = answersUiState.quizType,
+                    correctAnswerPrecedent = answersUiState.correctAnswersPercentage,
+                    inCorrectAnswerPrecedent = answersUiState.inCorrectAnswersPercentage,
                     animationPlayed = animationPlayed,
                     answersUiState = answersUiState
                 )
