@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,7 +40,10 @@ fun CategoriesScreen(
 ) {
     val state by viewModel.state.collectAsState()
     val navController = LocalNavigationProvider.current
-    viewModel.getHighestScore()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    LaunchedEffect(lifecycleOwner){
+        viewModel.getHighestScore()
+    }
     CategoriesContent(
         state = state,
         onClick = viewModel::onClickCategory,
