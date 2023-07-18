@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.ApplicationScaffold
-import com.example.triviagame.ui.composable.BottomSheet
+import com.example.triviagame.ui.composable.LevelSelectorBottomSheet
 import com.example.triviagame.ui.composable.CategoryCard
 import com.example.triviagame.ui.composable.spacing.padding_vertical.SpacerVertical16
 import com.example.triviagame.ui.screens.categories.composable.CategoryTitle
@@ -38,7 +38,7 @@ fun CategoriesScreen(
     CategoriesContent(
         state = state,
         onClick = viewModel::onClickCategory,
-        onClickChip = viewModel::onClickDifficultyChip,
+        onClickLevel = viewModel::onClickDifficultyChip,
         onClickPlay = { categoryName, level ->
             if (level.isNotEmpty()) {
                 navController.navigateToPlay(categoryName = categoryName, level = level)
@@ -47,12 +47,17 @@ fun CategoriesScreen(
         }
     )
 }
+
+
+
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CategoriesContent(
     state: CategoriesUiState,
+
     onClick: (CategoryUiState) -> Unit,
-    onClickChip: (String) -> Unit,
+    onClickLevel: (String) -> Unit,
     onClickPlay: (String, String) -> Unit,
 ) {
     val bottomSheetState =
@@ -63,7 +68,7 @@ fun CategoriesContent(
         sheetPeekHeight = 0.dp,
         scaffoldState = scaffoldState,
         sheetContent = {
-            BottomSheet(onClick = onClickChip, onClickPlay = onClickPlay, state = state)
+            LevelSelectorBottomSheet(onClick = onClickLevel, onClickPlay = onClickPlay, state = state)
         },
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
     ) {
@@ -96,6 +101,7 @@ fun CategoriesContent(
                     bottomSheetState.collapse()
                 }
             }
+
         }
     }
 }

@@ -28,7 +28,7 @@ import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.White_FF
 
 @Composable
-fun BottomSheet(
+fun LevelSelectorBottomSheet(
     modifier: Modifier = Modifier,
     onClick: (String) -> Unit,
     onClickPlay: (String, String) -> Unit,
