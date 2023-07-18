@@ -63,7 +63,7 @@ fun AnswerChart(
                     Pair("Incorrect", inCorrectAnswerPrecedent),
                 ),
                 animationPlayed = animationPlayed,
-                totalAnswers = answersUiState.totalAnswers,
+                totalAnswers = answersUiState.correctAnswersCount,
                 totalQuestions = answersUiState.totalQuestions
             )
     }

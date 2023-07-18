@@ -2,7 +2,8 @@ package com.example.triviagame.di
 
 import com.example.triviagame.data.repository.TriviaRepository
 import com.example.triviagame.data.repository.TriviaRepositoryImp
-import com.example.triviagame.data.source.local.DataStorePref
+import com.example.triviagame.data.source.local.cache.CacheManagerImp
+import com.example.triviagame.data.source.local.datastore.DataStorePref
 import com.example.triviagame.data.source.remote.network.TriviaService
 import dagger.Module
 import dagger.Provides
@@ -19,7 +20,11 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun bindTriviaRepository(triviaService: TriviaService, dataStorePrefImp: DataStorePref): TriviaRepository {
-        return TriviaRepositoryImp(triviaService,dataStorePrefImp)
+    fun bindTriviaRepository(
+        triviaService: TriviaService,
+        dataStorePrefImp: DataStorePref,
+        triviaCashManagerImp: CacheManagerImp,
+    ): TriviaRepository {
+        return TriviaRepositoryImp(triviaService, dataStorePrefImp, triviaCashManagerImp)
     }
 }

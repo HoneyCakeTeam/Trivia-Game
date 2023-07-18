@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.Start
 import androidx.compose.ui.Modifier
@@ -20,31 +19,27 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.triviagame.R
 import com.example.triviagame.Screen
 import com.example.triviagame.ui.LocalNavigationProvider
-import com.example.triviagame.ui.screens.answer_details.AnswersUiState
 import com.example.triviagame.ui.screens.game_result.composable.AnswerDetailsSection
 import com.example.triviagame.ui.screens.game_result.composable.Footer
 import com.example.triviagame.ui.screens.game_result.composable.ResultDetails
 import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
-import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
 @Composable
-fun GameResultScreen() {
+fun GameResultScreen(
+    viewModel: GameResultViewModel = hiltViewModel(),
+) {
     val navController = LocalNavigationProvider.current
-    val backStackEntry = remember(navController.currentBackStackEntry) {
-        navController.getBackStackEntry("PlayScreen/{name}/{level}")
-    }
-    val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
-    val state by viewModel.resultState.collectAsState()
-    val answer = (state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100
-    viewModel.savePoint(answer.toInt())
+    val state by viewModel.state.collectAsState()
+    val answer = (state.correctAnswersCount / NUMBER_OF_QUESTIONS.toFloat()) * 100
+    //viewModel.savePoint(answer.toInt())
 
     GameContent(
         state = state,
         onClickBackToHome = {
             navController.popBackStack(Screen.Categories.rout, false)
         }, onClickBackToGame = {
-            viewModel.getTriviaQuestions()
+            //viewModel.getTriviaQuestions()
             navController.navigateUp()
         }, onClick = {
             navController.navigate(Screen.AnswerDetails.rout)
@@ -54,13 +49,13 @@ fun GameResultScreen() {
 
 @Composable
 fun GameContent(
-    state: AnswersUiState,
+    state: GameResultUiState,
     modifier: Modifier = Modifier,
     onClickBackToHome: () -> Unit,
     onClickBackToGame: () -> Unit,
     onClick: () -> Unit,
 ) {
-    val answer = (state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100
+    val answer = (state.correctAnswersCount / NUMBER_OF_QUESTIONS.toFloat()) * 100
     val imageState = if (answer >= 50) R.drawable.winning_cup else R.drawable.game_over
     val textState = if (answer >= 50) "Greet Job !!" else "You Lose!"
 
@@ -81,12 +76,14 @@ fun GameContent(
             state,
             imageState,
             onClick,
-            textModifier = modifier.align(Alignment.CenterHorizontally))
+            textModifier = modifier.align(Alignment.CenterHorizontally)
+        )
 
         AnswerDetailsSection(
             state, modifier = modifier
                 .padding(bottom = 8.dp)
-                .align(Start))
+                .align(Start)
+        )
 
         Spacer(modifier = Modifier.weight(1f))
 

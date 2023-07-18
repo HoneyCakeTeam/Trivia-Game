@@ -33,23 +33,18 @@ import com.example.triviagame.ui.screens.answer_details.composable.QuestionItem
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.RoundedShape
-import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
-import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
  */
 
 @Composable
-fun AnswerDetailsScreen() {
+fun AnswerDetailsScreen(
+    viewModel: AnswerDetailsViewModel = hiltViewModel(),
+) {
     var animationPlayed by remember { mutableStateOf(false) }
     val navController = LocalNavigationProvider.current
-
-    val backStackEntry = remember(navController.currentBackStackEntry) {
-        navController.getBackStackEntry("PlayScreen/{name}/{level}")
-    }
-    val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
-    val state by viewModel.resultState.collectAsState()
+    val state by viewModel.state.collectAsState()
 
     AnswerDetailsContent(
         animationPlayed = animationPlayed,
@@ -72,7 +67,7 @@ fun AnswerDetailsContent(
     animationPlayed: Boolean,
     onClickBack: () -> Unit,
     answersUiState: AnswersUiState,
-    onBack: () -> Unit
+    onBack: () -> Unit,
 ) {
     Box {
         AppBarWithIconBack(
@@ -94,13 +89,9 @@ fun AnswerDetailsContent(
                     .verticalScroll(rememberScrollState(), reverseScrolling = false)
             ) {
                 AnswerChart(
-                    quizType = "Science",
-                    correctAnswerPrecedent = (
-                            (answersUiState.correctAnswers / NUMBER_OF_QUESTIONS.toFloat())
-                                    * 100).toInt(),
-                    inCorrectAnswerPrecedent = 100 - (
-                            (answersUiState.correctAnswers / NUMBER_OF_QUESTIONS.toFloat())
-                                    * 100).toInt(),
+                    quizType = answersUiState.quizType,
+                    correctAnswerPrecedent = answersUiState.correctAnswersPercentage,
+                    inCorrectAnswerPrecedent = answersUiState.inCorrectAnswersPercentage,
                     animationPlayed = animationPlayed,
                     answersUiState = answersUiState
                 )

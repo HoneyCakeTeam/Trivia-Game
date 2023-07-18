@@ -1,4 +1,4 @@
-package com.example.triviagame.data.source.local
+package com.example.triviagame.data.source.local.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore

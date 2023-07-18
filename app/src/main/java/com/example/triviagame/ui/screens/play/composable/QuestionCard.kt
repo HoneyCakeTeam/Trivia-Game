@@ -45,15 +45,13 @@ fun QuestionCard(
                     modifier = Modifier.size(64.dp),
                     onTimeOut = onTimeOut
                 )
-                state.questions.getOrNull(state.currentQuestionIndex)?.question?.let {
-                    Text(
-                        modifier = Modifier.padding(top = 16.dp),
-                        text = it,
-                        color = White_EC,
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center,
-                    )
-                }
+                Text(
+                    modifier = Modifier.padding(top = 16.dp),
+                    text = state.question.questionText,
+                    color = White_EC,
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center,
+                )
             }
         }
         QuestionNumberCard(state = state, modifier = Modifier.align(Alignment.TopCenter))

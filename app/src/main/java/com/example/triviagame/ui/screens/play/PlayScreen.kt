@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,17 +21,17 @@ import com.example.triviagame.ui.screens.play.composable.PlayHeader
 import com.example.triviagame.ui.screens.play.composable.QuestionCard
 import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
-import com.example.triviagame.ui.viewmodel.TriviaGameViewModel
 
 
 @Composable
-fun PlayScreen() {
+fun PlayScreen(
+    viewModel: PlayViewModel = hiltViewModel(),
+) {
     val navController = LocalNavigationProvider.current
-    val backStackEntry = remember(navController.currentBackStackEntry) {
-        navController.getBackStackEntry("PlayScreen/{name}/{level}")
-    }
-    val viewModel: TriviaGameViewModel = hiltViewModel(backStackEntry)
     val state by viewModel.state.collectAsState()
+    if (state.currentQuestionIndex < 0) {
+        viewModel.refreshTriviaQuestions()
+    }
     if (state.isLoading) {
         LottieAnimation()
     } else {
@@ -43,7 +42,8 @@ fun PlayScreen() {
                 if (state.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
                     viewModel.onClickNext()
                 } else {
-                    viewModel.addCurrentQuestionResult()
+                    viewModel.saveCurrentQuestionResult()
+                    viewModel.resetQuestionState()
                     navController.navigateToGameResult()
                 }
             },
@@ -76,21 +76,19 @@ private fun PlayContent(
             state = state,
             onTimeOut = onClickNext
         )
-        state.questions.getOrNull(state.currentQuestionIndex)?.let { question ->
-            PlayButtons(
-                answers = question.answers,
-                selectedAnswer = question.selectedAnswer,
-                onAnswerSelected = onClickAnswer,
-                correctAnswer = question.correctAnswer,
-                enabled = question.enabled
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            NextButton(
-                buttonText = if (state.currentQuestionIndex < state.questions.size - 1) "Next" else "Submit",
-                enabled = !question.enabled,
-                onClick = onClickNext
-            )
-        }
+        PlayButtons(
+            answers = state.question.answers,
+            selectedAnswer = state.question.selectedAnswer,
+            onAnswerSelected = onClickAnswer,
+            correctAnswer = state.question.correctAnswer,
+            enabled = state.question.enabled
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        NextButton(
+            buttonText = if (state.currentQuestionIndex < 9) "Next" else "Submit",
+            enabled = !state.question.enabled,
+            onClick = onClickNext
+        )
     }
 }
 

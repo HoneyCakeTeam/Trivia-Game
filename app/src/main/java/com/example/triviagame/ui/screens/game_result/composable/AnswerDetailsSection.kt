@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.triviagame.R
-import com.example.triviagame.ui.screens.answer_details.AnswersUiState
+import com.example.triviagame.ui.screens.game_result.GameResultUiState
 import com.example.triviagame.ui.theme.Secondary
 import com.example.triviagame.ui.theme.Success
 import com.example.triviagame.ui.theme.Typography
@@ -23,7 +23,7 @@ import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
  */
 
 @Composable
-fun AnswerDetailsSection(state: AnswersUiState, modifier: Modifier) {
+fun AnswerDetailsSection(state: GameResultUiState, modifier: Modifier) {
     Text(
         text = "Answer Details", style = Typography.titleMedium, color = White_FF,
         modifier = modifier
@@ -38,7 +38,7 @@ fun AnswerDetailsSection(state: AnswersUiState, modifier: Modifier) {
                 modifier = Modifier.weight(1f),
                 labelText = stringResource(R.string.correct),
                 questionCount = "${
-                    state.correctAnswers
+                    state.correctAnswersCount
                 } Questions",
                 circleColor = Success
             )
@@ -46,7 +46,7 @@ fun AnswerDetailsSection(state: AnswersUiState, modifier: Modifier) {
                 modifier = Modifier.weight(1f),
                 labelText = stringResource(R.string.completion),
                 questionCount = ("%.0f".format(
-                    ((state.correctAnswers / NUMBER_OF_QUESTIONS.toFloat()) * 100)
+                    ((state.correctAnswersCount / NUMBER_OF_QUESTIONS.toFloat()) * 100)
                 ) + "%"),
                 circleColor = Secondary
             )
@@ -58,7 +58,7 @@ fun AnswerDetailsSection(state: AnswersUiState, modifier: Modifier) {
                 modifier = Modifier.weight(1f),
                 labelText = stringResource(R.string.skipped),
                 questionCount = "${
-                    state.skippedAnswers
+                    state.skippedAnswersCount
                 } Question",
                 circleColor = Yellow
 
@@ -67,7 +67,7 @@ fun AnswerDetailsSection(state: AnswersUiState, modifier: Modifier) {
                 modifier = Modifier.weight(1f),
                 labelText = stringResource(R.string.incorrect),
                 questionCount = "${
-                    state.wrongAnswers
+                    state.incorrectAnswersCount
                 } Question",
                 circleColor = Wrong
             )
