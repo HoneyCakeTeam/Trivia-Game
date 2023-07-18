@@ -33,6 +33,7 @@ import com.example.triviagame.ui.screens.answer_details.composable.QuestionItem
 import com.example.triviagame.ui.theme.CardBackgroundColor
 import com.example.triviagame.ui.theme.Primary
 import com.example.triviagame.ui.theme.RoundedShape
+import com.example.triviagame.ui.util.toTitleCase
 
 /**
  * Created by Aziza Helmy on 7/4/2023.
@@ -89,7 +90,7 @@ fun AnswerDetailsContent(
                     .verticalScroll(rememberScrollState(), reverseScrolling = false)
             ) {
                 AnswerChart(
-                    quizType = answersUiState.quizType,
+                    quizType = answersUiState.questions[0].type.toTitleCase(),
                     correctAnswerPrecedent = answersUiState.correctAnswersPercentage,
                     inCorrectAnswerPrecedent = answersUiState.inCorrectAnswersPercentage,
                     animationPlayed = animationPlayed,

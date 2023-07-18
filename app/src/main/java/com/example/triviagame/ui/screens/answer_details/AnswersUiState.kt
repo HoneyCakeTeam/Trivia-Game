@@ -9,7 +9,6 @@ data class AnswersUiState(
     val correctAnswersCount: Int = 0,
     val correctAnswersPercentage: Int = 0,
     val inCorrectAnswersPercentage: Int = 0,
-    val quizType: String = "Science",
 )
 
 data class AnswerUiState(
@@ -17,6 +16,7 @@ data class AnswerUiState(
     val questionText: String = "",
     val userAnswer: String = "",
     val correctAnswer: String = "",
+    val type: String = "Science",
 )
 
 fun AnswerEntity.toAnswerUiState() =
@@ -24,5 +24,6 @@ fun AnswerEntity.toAnswerUiState() =
         state = state,
         questionText = questionText,
         userAnswer = userAnswer,
-        correctAnswer = correctAnswer
+        correctAnswer = correctAnswer,
+        type = type
     )
