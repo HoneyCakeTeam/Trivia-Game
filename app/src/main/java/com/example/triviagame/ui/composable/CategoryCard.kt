@@ -36,7 +36,7 @@ fun CategoryCard(
     ) {
     val cardColor by animateColorAsState(
         if (category.selected) Secondary else CardBackgroundColor,
-        tween(300)
+        tween(300), label = "Chip Color Animation"
     )
     Box(
         modifier = Modifier
