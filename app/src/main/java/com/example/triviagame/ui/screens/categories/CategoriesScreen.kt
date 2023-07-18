@@ -17,15 +17,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.triviagame.R
 import com.example.triviagame.ui.LocalNavigationProvider
 import com.example.triviagame.ui.composable.BottomSheet
 import com.example.triviagame.ui.composable.CategoryCard
@@ -47,7 +41,7 @@ fun CategoriesScreen(
     CategoriesContent(
         state = state,
         onClick = viewModel::onClickCategory,
-        onClickChip = viewModel::onClickDifficultyChip,
+        onClickLevel = viewModel::onClickDifficultyChip,
         onClickPlay = { categoryName, level ->
             if (level.isNotEmpty()) {
                 navController.navigateToPlay(categoryName = categoryName, level = level)
@@ -62,8 +56,9 @@ fun CategoriesScreen(
 @Composable
 fun CategoriesContent(
     state: CategoriesUiState,
+
     onClick: (CategoryUiState) -> Unit,
-    onClickChip: (String) -> Unit,
+    onClickLevel: (String) -> Unit,
     onClickPlay: (String, String) -> Unit,
 ) {
     val bottomSheetState =
@@ -74,26 +69,37 @@ fun CategoriesContent(
         sheetPeekHeight = 0.dp,
         scaffoldState = scaffoldState,
         sheetContent = {
-            BottomSheet(onClick = onClickChip, onClickPlay = onClickPlay, state = state)
+            LevelSelectorBottomSheet(
+                onClick = onClickLevel,
+                onClickPlay = onClickPlay,
+                selectedCategoryName = state.selectedCategoryName,
+                selectedDifficulty = state.selectedDifficulty
+            )
         },
         sheetShape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
-
-        ) {
-        Column(
-            Modifier
-                .paint(
-                    painter = painterResource(id = R.drawable.background),
-                    contentScale = ContentScale.Crop
-                )
-                .fillMaxSize()
-                .padding(top = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+    ) {
+        ApplicationScaffold {
             Header(score = state.userScore, modifier = Modifier.padding(horizontal = 16.dp))
             SpacerVertical16()
             CategoryTitle()
-            SpacerVertical16()
-            LazyGrid(category = state, onClick = onClick)
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(top = 16.dp)
+            ) {
+                items(state.categories.size) { index ->
+                    Column(
+                        modifier = if (index % 2 == 0) Modifier else
+                            Modifier.padding(top = 32.dp)
+                    ) {
+                        CategoryCard(
+                            onClickCategory = onClick,
+                            category = state.categories[index],
+                        )
+                    }
+                }
+            }
             LaunchedEffect(key1 = state.selectedCategoryName) {
                 if (state.selectedCategoryName.isNotEmpty()) {
                     bottomSheetState.expand()
@@ -101,35 +107,7 @@ fun CategoriesContent(
                     bottomSheetState.collapse()
                 }
             }
-        }
-    }
-}
 
-
-@Composable
-private fun LazyGrid(
-    category: CategoriesUiState,
-    onClick: (CategoryUiState) -> Unit,
-) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-    ) {
-        items(category.categories.size) { index ->
-            if (index % 2 == 0) { // Even index, place in the first column
-                CategoryCard(
-                    onClickCategory = onClick,
-                    category = category.categories[index],
-                )
-            } else { // Odd index, place in the second column
-                Column(modifier = Modifier.padding(top = 32.dp)) {
-                    CategoryCard(
-                        category = category.categories[index],
-                        onClickCategory = onClick,
-                    )
-                }
-            }
         }
     }
 }
