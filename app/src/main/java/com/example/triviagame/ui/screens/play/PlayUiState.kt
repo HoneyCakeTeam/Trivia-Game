@@ -11,6 +11,7 @@ data class PlayUiState(
     var timer: Long = 0L,
     val isLoading: Boolean = false,
     val isError: Boolean = false,
+    val buttonText: String = "",
 )
 
 data class QuestionUiState(

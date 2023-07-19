@@ -38,7 +38,6 @@ fun Timer(
     strokeWidth: Dp = 6.dp,
     onTimeOut: () -> Unit,
 ) {
-
     var value by remember {
         mutableFloatStateOf(1f)
     }

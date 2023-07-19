@@ -9,14 +9,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import com.example.triviagame.R
 import com.example.triviagame.ui.composable.ButtonBack
 import com.example.triviagame.ui.theme.White_FF
 
 @Composable
-fun PlayHeader(
+fun TriviaAppBar(
     modifier: Modifier = Modifier,
+    secondaryButtonText:String,
     onClickBack: () -> Unit,
     onClickSkip: () -> Unit,
 ) {
@@ -28,7 +27,7 @@ fun PlayHeader(
         ButtonBack(onBack = onClickBack)
         Text(
             modifier = modifier.clickable { onClickSkip() },
-            text = stringResource(id = R.string.skip),
+            text =secondaryButtonText,
             color = White_FF,
             style = MaterialTheme.typography.bodyMedium
         )

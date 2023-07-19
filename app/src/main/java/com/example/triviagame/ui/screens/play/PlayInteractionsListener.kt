@@ -5,5 +5,6 @@ package com.example.triviagame.ui.screens.play
  */
 
 interface PlayInteractionsListener {
-
+    fun onClickAnswer(answer: String)
+    fun onClickNext()
 }
