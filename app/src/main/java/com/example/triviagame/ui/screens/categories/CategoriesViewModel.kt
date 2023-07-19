@@ -47,6 +47,7 @@ class CategoriesViewModel @Inject constructor(private val repository: TriviaRepo
         _state.update {
             it.copy(
                 selectedCategoryName = "",
+                selectedDifficulty = "",
                 categories = it.categories.map { category ->
                     category.copy(selected = false)
                 })

@@ -48,7 +48,8 @@ class TriviaRepositoryImp @Inject constructor(
     }
 
     override fun putQuestionAnswer(key: Int, value: AnswerUiState) {
-        cacheManager.putQuestionAnswer(key, value.toAnswerEntity())
+        if (key > -1)
+            cacheManager.putQuestionAnswer(key, value.toAnswerEntity())
     }
 
     override fun removeQuestionAnswer(key: Int) {

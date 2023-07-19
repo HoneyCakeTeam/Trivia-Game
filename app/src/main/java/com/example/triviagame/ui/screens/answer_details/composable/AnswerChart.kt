@@ -53,6 +53,7 @@ fun AnswerChart(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp)
+                .padding(bottom = 12.dp)
                 .padding(horizontal = 24.dp),
             textAlign = TextAlign.Start
         )

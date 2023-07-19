@@ -8,6 +8,7 @@ data class AnswerEntity(
     val questionText: String = "",
     val userAnswer: String = "",
     val correctAnswer: String = "",
+    val type:String = ""
 )
 
 fun AnswerUiState.toAnswerEntity() =
@@ -15,5 +16,6 @@ fun AnswerUiState.toAnswerEntity() =
         state = state,
         questionText = questionText,
         userAnswer = userAnswer,
-        correctAnswer = correctAnswer
+        correctAnswer = correctAnswer,
+        type = type
     )

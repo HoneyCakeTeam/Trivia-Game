@@ -1,5 +1,6 @@
 package com.example.triviagame.ui.screens.play
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.example.triviagame.data.repository.TriviaRepository
 import com.example.triviagame.ui.BaseViewModel
@@ -21,10 +22,6 @@ class PlayViewModel @Inject constructor(
 ) : BaseViewModel<PlayUiState>(PlayUiState()), PlayInteractionsListener {
 
     private val args = PlayArgs(savedStateHandle)
-
-    /*init {
-        refreshTriviaQuestions()
-    }*/
 
     fun refreshTriviaQuestions() {
         _state.update { it.copy(isLoading = true, isError = false) }
@@ -103,9 +100,11 @@ class PlayViewModel @Inject constructor(
                 state = getQuestionState(question.selectedAnswer, question.correctAnswer),
                 questionText = question.questionText,
                 userAnswer = question.selectedAnswer,
-                correctAnswer = question.correctAnswer
+                correctAnswer = question.correctAnswer,
+                type = args.name
             )
         )
+        Log.e("saveCurrentQuestionResult", "saveCurrentQuestionResult: ${state.value.currentQuestionIndex}" )
     }
 
     private fun cacheQuestionAnswer(question: AnswerUiState) {

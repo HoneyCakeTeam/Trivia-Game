@@ -28,7 +28,7 @@ fun QuestionItem(question: AnswerUiState, index: Int) {
         verticalAlignment = Alignment.Top,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 8.dp),
+            .padding(vertical = 4.dp),
     ) {
         QuestionCircleLabel(questionNumber = index)
         Column(
