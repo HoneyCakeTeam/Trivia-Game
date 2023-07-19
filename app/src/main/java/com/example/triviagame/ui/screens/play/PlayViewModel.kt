@@ -6,6 +6,7 @@ import com.example.triviagame.data.repository.TriviaRepository
 import com.example.triviagame.ui.BaseViewModel
 import com.example.triviagame.ui.screens.answer_details.AnswerUiState
 import com.example.triviagame.ui.util.COUNTER_COUNT
+import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
 import com.example.triviagame.ui.util.QuestionState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.update
@@ -68,7 +69,7 @@ class PlayViewModel @Inject constructor(
         //todo
     }
 
-    fun onClickAnswer(answer: String) {
+    override fun onClickAnswer(answer: String) {
         _state.update {
             it.copy(
                 timer = -1L,
@@ -77,7 +78,7 @@ class PlayViewModel @Inject constructor(
         }
     }
 
-    fun onClickNext() {
+    override fun onClickNext() {
         saveCurrentQuestionResult()
         _state.update {
             it.copy(
@@ -89,6 +90,8 @@ class PlayViewModel @Inject constructor(
             state.value.currentQuestionIndex
         )
     }
+
+
 
     fun saveCurrentQuestionResult() {
         val question = state.value.question
@@ -128,6 +131,19 @@ class PlayViewModel @Inject constructor(
         _state.update {
             it.copy(
                 currentQuestionIndex = -1
+            )
+        }
+    }
+
+     fun getNextButtonText(){
+        val text= if (state.value.currentQuestionIndex < NUMBER_OF_QUESTIONS - 1) {
+            "Next"
+        } else {
+            "Submit"
+        }
+        _state.update {
+            it.copy(
+                buttonText = text
             )
         }
     }

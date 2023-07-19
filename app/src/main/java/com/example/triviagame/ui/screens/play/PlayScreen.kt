@@ -11,15 +11,17 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.triviagame.R
 import com.example.triviagame.ui.LocalNavigationProvider
+import com.example.triviagame.ui.composable.ButtonItem
+import com.example.triviagame.ui.composable.GameButton
 import com.example.triviagame.ui.screens.game_result.navigateToGameResult
 import com.example.triviagame.ui.screens.play.composable.LottieAnimation
-import com.example.triviagame.ui.screens.play.composable.NextButton
-import com.example.triviagame.ui.screens.play.composable.PlayButtons
-import com.example.triviagame.ui.screens.play.composable.PlayHeader
+import com.example.triviagame.ui.screens.play.composable.TriviaAppBar
 import com.example.triviagame.ui.screens.play.composable.QuestionCard
 import com.example.triviagame.ui.theme.BackGround
 import com.example.triviagame.ui.util.NUMBER_OF_QUESTIONS
@@ -40,6 +42,7 @@ fun PlayScreen(
     if (state.isLoading) {
         LottieAnimation()
     } else {
+        viewModel.getNextButtonText()
         PlayContent(
             state = state,
             onClickAnswer = viewModel::onClickAnswer,
@@ -73,24 +76,27 @@ private fun PlayContent(
             .background(BackGround)
             .padding(16.dp)
     ) {
-        PlayHeader(
+        TriviaAppBar(
             onClickBack = onClickBack,
-            onClickSkip = onClickNext
+            onClickSkip = onClickNext,
+            secondaryButtonText =stringResource(id = R.string.skip)
         )
         QuestionCard(
             state = state,
             onTimeOut = onClickNext
         )
-        PlayButtons(
-            answers = state.question.answers,
-            selectedAnswer = state.question.selectedAnswer,
-            onAnswerSelected = onClickAnswer,
-            correctAnswer = state.question.correctAnswer,
-            enabled = state.question.enabled
-        )
+        state.question.answers.forEach { answer ->
+            GameButton(
+                text = answer,
+                onClick = onClickAnswer,
+                correctAnswer = state.question.correctAnswer,
+                selectedAnswer = state.question.selectedAnswer,
+                enabled = state.question.enabled
+            )
+        }
         Spacer(modifier = Modifier.weight(1f))
-        NextButton(
-            buttonText = if (state.currentQuestionIndex < 9) "Next" else "Submit",
+        ButtonItem(
+            text = state.buttonText,
             enabled = !state.question.enabled,
             onClick = onClickNext
         )
