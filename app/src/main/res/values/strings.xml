@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">Trivia Game</string>
+    <string name="skip">Skip</string>
+    <string name="question">Question</string>
+    <string name="incorrect">INCORRECT</string>
+    <string name="skipped">SKIPPED</string>
+    <string name="completion">COMPLETION</string>
+    <string name="correct">CORRECT</string>
+    <string name="play_again">Play again</string>
+    <string name="home">Home</string>
+    <string name="check_your_answer">Check Your Answer</string>
+    <string name="user_image">User Image</string>
+    <string name="score_icon">Score Icon</string>
+    <string name="categories_title">Choose your game type</string>
+    <string name="app_name">Trivia Crush</string>
+    <string name="review_answer">Review Answer</string>
+    <string name="done">Done</string>
+    <string name="your_answers">Your Answers</string>
+    <string name="quiz_type">Quiz Type</string>
+    <string name="correct_small_case">Correct</string>
+    <string name="incorrect_small_case">Incorrect</string>
+    <string name="result">Result</string>
+    <string name="home_button">Home</string>
+    <string name="play_again_button">Play again</string>
 </resources>
