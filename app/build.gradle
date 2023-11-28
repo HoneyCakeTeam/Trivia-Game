@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    namespace 'com.example.triviagame'
+    namespace 'com.honey.triviagame'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.triviagame"
+        applicationId "com.honey.triviagame"
         minSdk 26
         targetSdk 33
-        versionCode 1
+        versionCode 5
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
